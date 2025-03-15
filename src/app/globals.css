@@ -18,12 +18,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+header{
+  background: var(--background);
+}
 
 .wrapper{
   padding: 
 }
 
-#dashboard{
+/* #dashboard{
   display: grid;
   grid-template-columns: 2fr 10fr;
-}
+} */

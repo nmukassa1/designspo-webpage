@@ -18,9 +18,9 @@ async function Collections({searchParams} : searchParams) {
     const reversedCollections = collections.reverse();
     
     return ( 
-        <div className="h-full px-4 overflow-scroll">
-            <h1 className="text-4xl font-bold">All your design inspirations in one spot</h1>
-            <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6">
+        <div className="h-full px-4 lg:ml-[18%]">
+            <h1 className="text-4xl md:text-6xl font-bold">All your design inspirations in one spot</h1>
+            <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6">
                 {reversedCollections.map((collection: Screenshot) => (
                     <Card key={collection.id} item={collection} />
                 ))}

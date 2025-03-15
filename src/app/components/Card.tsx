@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Screenshot } from "../types/types";
 import CardImage from "./CardImage";
 import CardTitle from "./CardTitle";
+import { Pencil } from "lucide-react";
 
 interface CardProps {
     item: Screenshot;
@@ -10,7 +11,10 @@ interface CardProps {
 function Card({ item }: CardProps) {
     const {img, siteUrl, siteName, tags} = item
     return ( 
-        <li className="overflow-hidden rounded-lg border-2 border-[#f1f1f1]">
+        <li className="overflow-hidden rounded-lg border-2 border-[#f1f1f1] relative">
+            <button className="absolute top-2 right-2">
+                <Pencil size={16} />
+            </button>
             <Link href={siteUrl} target="_blank" rel="noopener noreferrer">
                 <CardImage img={img}/>
                 <div className="p-4">
