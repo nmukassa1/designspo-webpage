@@ -3,8 +3,8 @@ import Navbar from "./Navbar";
 
 function Header() {
     return ( 
-        <header className="flex items-center justify-between container mx-auto py-6">
-            <Link href="/">Designspo</Link>
+        <header className="flex items-center justify-between px-6 py-6">
+            <Link href="/" className="text-2xl font-bold">Designspo</Link>
             <Navbar />
         </header>
      );

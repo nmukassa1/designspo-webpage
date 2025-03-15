@@ -14,7 +14,7 @@ async function SidebarNav() {
                 {tags.map((tag) => (
                     <Link 
                         key={tag.id} 
-                        href={`/${tag.name}`}
+                        href={`/?tag=${tag.name}`}
                         className="block py-2 px-4 hover:bg-white transition linear duration-300"
                     >{tag.name}</Link>
                 ))}

@@ -18,3 +18,7 @@ export interface Screenshot {
     userId: string;
     tags: ScreenshotTag[];
 }
+
+export interface searchParams {
+    searchParams: Promise<{[key: string]: string | string[] | undefined}>
+}
