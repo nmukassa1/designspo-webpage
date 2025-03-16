@@ -24,13 +24,13 @@ function Card({ item }: CardProps) {
                     <CardImage img={img}/>
                     <div className="p-4">
                         <CardTitle title={siteName} />
-                        <hr className="my-2"/>
+                        {/* <hr className="my-2"/>
 
                         <ul className="flex items-center overflow-scroll gap-4 text-sm">
                             {tags.map((tag) => (
                                 <li key={tag.tag.id} className="shrink-0">{tag.tag.name}</li>
                             ))}
-                        </ul>
+                        </ul> */}
                     </div>
                 </button>
             </li>

@@ -47,3 +47,19 @@ export async function addTagToCollection(formData: {tagIds: string[], screenshot
         console.error(error)
     }
 }
+
+export async function deleteTagFromCollection(tagId: number, screenshotId: number, userId: string) {
+    console.log(tagId, screenshotId, userId);
+    
+    try{
+        const result = await api.patch(`/screenshots/removeTag`, {
+            tagId,
+            screenshotId,
+            userId
+        })
+        revalidatePath('/')
+        return result.status
+    } catch (error) {
+        console.error(error)
+    }
+}

@@ -1,7 +1,6 @@
 import { addTagToCollection } from "@/app/mutations";
 import { getTags } from "@/app/queries";
 import { ScreenshotTag, Tag } from "@/app/types/types";
-import { revalidatePath } from "next/cache";
 import { useEffect, useState } from "react";
 
 interface formDataTypes {

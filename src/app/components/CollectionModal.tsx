@@ -1,10 +1,12 @@
 "use client"
 import { Modal } from "@mui/material";
-import { Pencil, X } from "lucide-react";
+import { Pencil, Trash, X } from "lucide-react";
 import Image from "next/image";
 import { Screenshot } from "../types/types";
 import Link from "next/link";
 import AddNewTag from "./collectionModal/AddNewTag";
+import { useState } from "react";
+import { deleteTagFromCollection } from "../mutations";
 
 interface CollectionModalProps {
     item: Screenshot;
@@ -14,6 +16,18 @@ interface CollectionModalProps {
 
 function CollectionModal({item, handleModal, toggleModal} : CollectionModalProps) {
     const {img, siteUrl, siteName, tags} = item
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const userId = '8c43787a-6332-4f73-8ed3-f00a54f801e4';
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>, tagId: number, screenshotId: number) {
+        e.preventDefault();
+        try{
+            console.log(tagId, screenshotId, userId);
+            await deleteTagFromCollection(tagId, screenshotId, userId)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     return ( 
         <Modal open={toggleModal} onClose={() => {toggleModal}} sx={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
@@ -32,7 +46,7 @@ function CollectionModal({item, handleModal, toggleModal} : CollectionModalProps
                             </div>
 
                             <div className="flex gap-4">
-                                <button><Pencil size={20} /></button>
+                                <button onClick={() => setEditMode(!editMode)}><Pencil size={20} /></button>
                                 <button onClick={handleModal}><X /></button>
                             </div>
 
@@ -41,11 +55,17 @@ function CollectionModal({item, handleModal, toggleModal} : CollectionModalProps
                         <div className="flex items-center w-full justify-between">
                             <ul className="flex items-center gap-4 text-sm">
                                 {tags.map((tag) => (
-                                    <li key={tag.tag.id} className="shrink-0 text-lg">{tag.tag.name}</li>
+                                    <li key={tag.tag.id} className="shrink-0 text-lg flex items-center gap-2">
+                                        <span>{tag.tag.name}</span>
+                                        {editMode && (
+                                            <form onSubmit={(e) => handleSubmit(e, tag.tag.id, item.id)}>
+                                                <button  type="submit" className="hover:text-red-500"><Trash size={15} /></button>
+                                            </form>
+                                        )}
+                                    </li>
                                 ))}
                             </ul>
-
-                            <AddNewTag existingTags={tags} screenshotId={item.id} />
+                            {editMode &&  <AddNewTag existingTags={tags} screenshotId={item.id} /> }
                         </div>
                     </div>
                 </div>
