@@ -1,25 +1,14 @@
 "use client"
 import Link from "next/link";
-import { getTags } from "../queries";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { Tag } from "../types/types";
 import { Trash } from "lucide-react";
 import { deleteTag } from "../mutations";
 
-function SidebarNav() {
-    const [tags, setTags] = useState<Tag[]>([]);
-    const [reFetchTag , setReFetchTag] = useState<boolean>(false);
+function SidebarNav({tags}: {tags: Tag[]}) {
     const [hoveredTag, setHoveredTag] = useState<number | null>(null);
     const userId = '8c43787a-6332-4f73-8ed3-f00a54f801e4';
 
-    useEffect(() => {
-        async function fetchData() {
-            const tags = await getTags(userId);
-            setTags(tags);
-            setReFetchTag(false);
-        }
-        fetchData();
-    }, [reFetchTag]);
 
  
 
@@ -36,7 +25,7 @@ function SidebarNav() {
         <nav className="h-full">
             <ul className="text-lg fontColor md:h-initial min-h-[80%] overflow-scroll">
                 <li>
-                    <Link href="/" className="block py-2 px-4 hover:bg-white transition linear duration-300" onClick={toggleMenu}>
+                    <Link href="/" className="block py-2  hover:bg-white transition linear duration-300" onClick={toggleMenu}>
                         All
                     </Link>
                 </li>
@@ -49,7 +38,7 @@ function SidebarNav() {
                     >
                         <Link 
                             href={`/?tag=${tag.name}`}
-                            className="block py-2 px-4 hover:bg-white transition linear duration-300 w-full"
+                            className="block py-2 hover:bg-white transition linear duration-300 w-full"
                             onClick={toggleMenu}
                         >
                             {tag.name}
@@ -57,7 +46,6 @@ function SidebarNav() {
                         {hoveredTag === tag.id && (
                             <button className="text-red-500 bg-red-100 hover:bg-red-300 cursor-pointer rounded-full w-6 h-6 grid place-content-center" onClick={async () => {
                                 const result = await deleteTag(tag.id, userId);
-                                if(result === 200) setReFetchTag(true);
                             }}>
                                 <Trash size={16} />
                             </button>

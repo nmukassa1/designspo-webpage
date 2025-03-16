@@ -26,7 +26,6 @@ header{
   padding: 
 }
 
-/* #dashboard{
-  display: grid;
-  grid-template-columns: 2fr 10fr;
-} */
+button{
+  cursor: pointer;
+}
