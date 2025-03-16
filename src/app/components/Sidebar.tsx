@@ -7,7 +7,7 @@ async function Sidebar() {
     const tags = await getTags(userId);
 
     return ( 
-        <aside className="flex flex-col h-full md:h-[84%] bg-white md:bg-transparent overflow-scroll px-4 fixed lg:w-[18%] lg:translate-x-[0] translate-x-[-100%] w-full text-center lg:text-left transition ease-in duration-300 z-99">
+        <aside className="flex flex-col h-full md:h-[84%] bg-white lg:bg-transparent overflow-scroll px-4 fixed lg:w-[18%] lg:translate-x-[0] translate-x-[-100%] w-full text-center lg:text-left transition ease-in duration-300 z-99">
             <SidebarNav tags={tags} />
             <NewTag />
         </aside>

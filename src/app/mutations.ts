@@ -30,3 +30,20 @@ export async function addTag(name: string, userId: string) {
         console.error(error)
     }
 }
+
+export async function addTagToCollection(formData: {tagIds: string[], screenshotId: number, userId: string}) {
+    const {tagIds, screenshotId, userId} = formData
+    console.log(tagIds, screenshotId, userId);
+    
+    try{
+        const result = await api.patch(`/screenshots/addTag`, {
+            tagIds,
+            screenshotId,
+            userId
+        })
+        revalidatePath('/')
+        return result.status
+    } catch (error) {
+        console.error(error)
+    }
+}
