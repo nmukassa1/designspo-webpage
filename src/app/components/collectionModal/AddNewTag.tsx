@@ -1,74 +1,36 @@
 import { addTagToCollection } from "@/app/mutations";
 import { getTags } from "@/app/queries";
-import { ScreenshotTag, Tag } from "@/app/types/types";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Check } from "lucide-react";
 
-interface formDataTypes {
-    tagIds: string[];
-    screenshotId: number;
-    userId: string;
-}
-
-function AddNewTag({existingTags, screenshotId}: {existingTags: ScreenshotTag[], screenshotId: number}) {
-    const userId = '8c43787a-6332-4f73-8ed3-f00a54f801e4';
-
-    const [tags, setTags] = useState<Tag[]>([]);
-    const [refetchTags, setRefFetchTags] = useState<boolean>(false)
-    const [formData, setFormData] = useState<formDataTypes>({
-        tagIds: [],
-        screenshotId,
-        userId
-    })
-
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const {value} = e.target
-        if (e.target.checked) {
-            setFormData({...formData,  tagIds: [...(formData.tagIds || []), value] });
-          } else {
-            setFormData({...formData, tagIds: formData.tagIds?.filter((id) => id !== value) });
-          }
-    }
-
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        if(formData.tagIds.length === 0) {
-            console.log('No tags selected');
-            
-            return;
-        }
-
-        try{
-            await addTagToCollection(formData)
-            setRefFetchTags(true)
-        } catch (error) {
-            console.error(error)
-        }
-    }
+const userId = "8c43787a-6332-4f73-8ed3-f00a54f801e4";
+function AddNewTag({screenShotId} : {screenShotId: number}) {
+    const {data: tags} = useQuery({
+        queryKey: ["tags", userId], 
+        queryFn: ({ queryKey }) => getTags(queryKey[1] as string), 
+      });
     
-    useEffect(() => {
-        async function fetchTags() {
-            const tags = await getTags(userId);
-
-            // Filter out the tags that already exist in the collection
-            const existingTagIds = existingTags.map((tag) => tag.tag.id)
-            const filteredTags = tags.filter((tag) => !existingTagIds.includes(tag.id))
-            setTags(filteredTags)
-            setRefFetchTags(false)
-        }
-
-         fetchTags()
-    }, [refetchTags])
-
-    return (
-        <form onSubmit={handleSubmit} className="flex gap-6 items-center">
-            {tags.map((tag) => (
-                <div key={tag.id}>
-                    <input type="checkbox" name={'tagId'} value={tag.id} id={tag.name} onChange={handleChange}/>
-                    <label className="ml-2" htmlFor={tag.name}>{tag.name}</label>
-                </div>
-            ))}
-            <button type="submit">Add Tag</button>
-        </form>
+    const existingTagIds = tags?.map((tag) => tag.id)
+    const filteredTags = tags?.filter((tag) => !existingTagIds?.includes(tag.id))
+      
+    return ( 
+        <div className="addTags mt-6">
+            <h2 className="text-xl">Add Tags</h2>
+            <div className="h-[3px] bg-white mt-4 mb-6"></div>
+            <ul className="flex flex-col gap-2">
+                {tags?.map((tag) => (
+                    <li key={tag.id} className="shrink-0 text-lg flex items-center gap-2  justify-between">
+                        <span>{tag.name}</span>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            addTagToCollection(tag.id, screenShotId ,userId)
+                        }}>
+                            <button type="submit" className="text-green-500"><Check /></button>
+                        </form>
+                    </li>
+                ))}
+            </ul>
+        </div>
      );
 }
 

@@ -4,7 +4,6 @@ import { Pencil, Trash, X } from "lucide-react";
 import Image from "next/image";
 import { Screenshot } from "../types/types";
 import Link from "next/link";
-import AddNewTag from "./collectionModal/AddNewTag";
 import { useState } from "react";
 import { deleteTagFromCollection } from "../mutations";
 
@@ -65,7 +64,6 @@ function CollectionModal({item, handleModal, toggleModal} : CollectionModalProps
                                     </li>
                                 ))}
                             </ul>
-                            {editMode &&  <AddNewTag existingTags={tags} screenshotId={item.id} /> }
                         </div>
                     </div>
                 </div>
