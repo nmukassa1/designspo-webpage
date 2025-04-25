@@ -21,7 +21,7 @@ function Card({ item }: CardProps) {
     }
     return ( 
         <>
-            <li className="overflow-hidden relative">
+            <li className="overflow-hidden relative flex flex-col">
                 <div className="rounded-lg border-2 border-[#f1f1f1]">
                     <Link href={siteUrl} target="_blank" className="text-left">
                         <CardImage img={img}/>
@@ -38,7 +38,7 @@ function Card({ item }: CardProps) {
                     </Link>
 
                 </div>
-                <button onClick={handleModal}><Pencil size={14}/></button>
+                <button className="ml-auto mt-2 mr-2" onClick={handleModal}><Pencil size={14}/></button>
             </li>
             <EditModal  screenshot={item} handleModal={handleModal} toggleModal={toggleModal} />
         </>

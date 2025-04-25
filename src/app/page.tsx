@@ -3,10 +3,8 @@ import Dashboard from "./components/Dashboard";
 import { searchParams } from "./types/types";
 
 export default function Home({ searchParams }: searchParams) {
-  
   return (
-    <div className="min-h-screen">
-      <Header />
+    <div className="">
       <Dashboard searchParams={searchParams} />
     </div>
   );
