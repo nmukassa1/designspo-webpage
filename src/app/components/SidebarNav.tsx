@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Tag } from "../types/types";
 import { Trash } from "lucide-react";
 import { deleteTag } from "../mutations";
+import NewTag from "./NewTag";
 
 function SidebarNav({ tags }: { tags: Tag[] }) {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
@@ -17,11 +18,11 @@ function SidebarNav({ tags }: { tags: Tag[] }) {
   }
 
   return (
-    <nav className="h-full flex flex-col">
+    <nav className="h-full flex flex-col -z-20">
       <ul className="text-lg fontColor overflow-scroll">
         <li>
           <Link
-            href="/"
+            href="/dashboard"
             className="block py-2  hover:bg-white transition linear duration-300"
             onClick={toggleMenu}
           >
@@ -36,7 +37,7 @@ function SidebarNav({ tags }: { tags: Tag[] }) {
             onMouseLeave={() => setHoveredTag(null)}
           >
             <Link
-              href={`/?tag=${tag.name}`}
+              href={`/dashboard?tag=${tag.name}`}
               className="block py-2 hover:bg-white transition linear duration-300 w-full"
               onClick={toggleMenu}
             >
@@ -65,7 +66,7 @@ function SidebarNav({ tags }: { tags: Tag[] }) {
       </ul>
 
       <div className="lg:hidden flex gap-4 justify-center grow-1 items-center">
-        <Link href="/profile" onClick={toggleMenu}>
+        <Link href="/dashboard/profile" onClick={toggleMenu}>
           Profile
         </Link>
         <button className="cursor-pointer">Logout</button>

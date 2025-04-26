@@ -1,10 +1,9 @@
-import Sidebar from "../components/Sidebar";
-import PasswordForm from "../features/profilePage/components/PasswordForm";
-import PersonalInfoForm from "../features/profilePage/components/PersonalInfoForm";
-
 // type Props = {
 //   params: { id: string };
 // };
+
+import Sidebar from "@/app/components/Sidebar";
+import PasswordForm from "@/app/features/profilePage/components/PasswordForm";
 
 export default function Profile() {
   return (

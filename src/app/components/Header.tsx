@@ -6,12 +6,12 @@ import NewTag from "./NewTag";
 function Header() {
   return (
     <header className="flex items-center justify-between px-6 py-6 sticky top-0 z-99">
-      <Link href="/" className="text-2xl font-bold">
+      <Link href="/dashboard" className="text-2xl font-bold">
         Designspo
       </Link>
-      <div className="ml-auto mr-6">
+      {/* <div className="ml-auto mr-6">
         <NewTag />
-      </div>
+      </div> */}
       <Navbar />
       <HamburgerMneu />
     </header>
