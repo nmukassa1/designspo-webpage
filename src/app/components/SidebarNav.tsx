@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Tag } from "../types/types";
 import { Trash } from "lucide-react";
 import { deleteTag } from "../mutations";
-import NewTag from "./NewTag";
+import { signOut } from "../authActions/actions";
 
 function SidebarNav({ tags }: { tags: Tag[] }) {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
@@ -69,7 +69,17 @@ function SidebarNav({ tags }: { tags: Tag[] }) {
         <Link href="/dashboard/profile" onClick={toggleMenu}>
           Profile
         </Link>
-        <button className="cursor-pointer">Logout</button>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            signOut();
+          }}
+        >
+          <button type="submit" className="cursor-pointer">
+            Logout
+          </button>
+        </form>
       </div>
     </nav>
   );

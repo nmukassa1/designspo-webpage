@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { createClient } from "./supabase/superbaseServer";
 import { Collections, Screenshot, Tag } from "./types/types";
 
 export const getCollections = async (
@@ -6,6 +7,10 @@ export const getCollections = async (
   tags: string[] | string | number | undefined,
   page: number
 ): Promise<Collections | []> => {
+  // const supabase = await createClient();
+  // const { data, error } = await supabase.auth.getUser();
+  // console.log("get collections", data);
+
   try {
     let formattedTags;
     if (tags === undefined) {
@@ -19,7 +24,9 @@ export const getCollections = async (
 
     const query = `page=${page}&${formattedTags}`;
 
-    const response = await api.get(`/screenshots/${userId}?${query}`);
+    const response = await api.get(`/screenshots/${userId}?${query}`, {
+      withCredentials: true,
+    });
     console.log(response.data);
 
     return response.data; // Return the result directly

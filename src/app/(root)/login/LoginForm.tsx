@@ -1,23 +1,23 @@
 "use client";
+
 import Link from "next/link";
-import { loginAction } from "./actions";
-import { useRouter } from "next/navigation";
+import { login } from "./actions";
+import { useState } from "react";
 
 function LoginForm() {
-  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    const result = await loginAction(formData);
-    console.log(result);
+    const result = await login(formData);
 
-    if (result.success && result.redirect) {
-      router.push("/dashboard"); // Perform client-side redirect
+    if (result.error) {
+      // console.log(result.error);
+      setError(result.error);
     }
-  };
-
+  }
   return (
     <form
       onSubmit={handleSubmit} // Use onSubmit instead of action
@@ -40,6 +40,8 @@ function LoginForm() {
         required
         className="border px-3 py-2 rounded"
       />
+
+      {error && <p className="text-red-500">{error}</p>}
 
       <button
         type="submit"
