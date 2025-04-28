@@ -1,5 +1,5 @@
+"use server";
 import { api } from "./api";
-import { createClient } from "./supabase/superbaseServer";
 import { Collections, Screenshot, Tag } from "./types/types";
 
 export const getCollections = async (
@@ -7,10 +7,6 @@ export const getCollections = async (
   tags: string[] | string | number | undefined,
   page: number
 ): Promise<Collections | []> => {
-  // const supabase = await createClient();
-  // const { data, error } = await supabase.auth.getUser();
-  // console.log("get collections", data);
-
   try {
     let formattedTags;
     if (tags === undefined) {

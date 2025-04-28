@@ -5,13 +5,19 @@ import { Screenshot, searchParams } from "../types/types";
 import Card from "./Card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-async function Collections({ searchParams }: searchParams) {
-  const searchQuery = await searchParams;
+interface CollectionsProps {
+  searchParams: searchParams;
+  userId: string;
+}
+
+async function Collections({ searchParams, userId }: CollectionsProps) {
+  const searchQuery = searchParams;
   const tagQuery = searchQuery.tag;
   const pageQuery = searchQuery.page ? Number(searchQuery.page) : 1;
 
   const collections = await getCollections(
-    "8c43787a-6332-4f73-8ed3-f00a54f801e4",
+    // "8c43787a-6332-4f73-8ed3-f00a54f801e4",
+    userId,
     tagQuery,
     pageQuery
   );

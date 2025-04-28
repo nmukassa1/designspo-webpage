@@ -24,8 +24,12 @@ export interface Collections {
   totalPages: number;
 }
 
+// export interface searchParams {
+//   searchParams: Promise<{
+//     [key: string]: string | string[] | number | undefined;
+//   }>;
+// }
+
 export interface searchParams {
-  searchParams: Promise<{
-    [key: string]: string | string[] | number | undefined;
-  }>;
+  [key: string]: string | string[] | number | undefined;
 }

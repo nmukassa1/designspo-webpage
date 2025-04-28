@@ -2,11 +2,19 @@ import { searchParams } from "../types/types";
 import Collections from "./Collections";
 import Sidebar from "./Sidebar";
 
-function Dashboard({ searchParams }: searchParams) {
+interface DashboardProps {
+  searchParams: searchParams;
+  userId: string;
+}
+
+async function Dashboard({ searchParams, userId }: DashboardProps) {
+  const searchQuery = searchParams;
+  console.log(searchQuery);
+
   return (
     <div id="dashboard" className="">
-      <Sidebar />
-      <Collections searchParams={searchParams} />
+      <Sidebar userId={userId} />
+      <Collections searchParams={searchParams} userId={userId} />
     </div>
   );
 }

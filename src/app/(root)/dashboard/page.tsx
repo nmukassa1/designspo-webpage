@@ -5,18 +5,25 @@ import { searchParams } from "../../types/types";
 import { redirect } from "next/navigation";
 import { UserProvider } from "@/app/provider/UserProvider";
 
-export default async function DashboardPage({ searchParams }: searchParams) {
+interface DashboardPageProps {
+  searchParams: searchParams;
+}
+
+export default async function DashboardPage({
+  searchParams,
+}: DashboardPageProps) {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/login");
   }
-  console.log(data);
+
+  // console.log(await searchParams);
 
   return (
     // <UserProvider userId={data.user.id}>
     <div className="">
-      <Dashboard searchParams={searchParams} />
+      <Dashboard searchParams={searchParams} userId={data.user.id} />
     </div>
     // </UserProvider>
   );

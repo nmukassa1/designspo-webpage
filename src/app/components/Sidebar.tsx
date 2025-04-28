@@ -2,8 +2,8 @@ import { getTags } from "../queries";
 import NewTag from "./NewTag";
 import SidebarNav from "./SidebarNav";
 
-async function Sidebar() {
-  const userId = "8c43787a-6332-4f73-8ed3-f00a54f801e4";
+async function Sidebar({ userId }: { userId: string }) {
+  // const userId = "8c43787a-6332-4f73-8ed3-f00a54f801e4";
   const tags = await getTags(userId);
 
   return (
