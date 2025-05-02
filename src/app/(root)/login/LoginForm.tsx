@@ -50,9 +50,14 @@ function LoginForm() {
         Login
       </button>
 
-      <Link href="/signup" className="w-fit text-blue-500">
-        Signup
-      </Link>
+      <div>
+        <Link href="/signup" className="w-fit text-blue-500">
+          Signup
+        </Link>
+        <Link href="/forgot-password" className="w-fit text-blue-500 ml-6">
+          Forgot Password
+        </Link>
+      </div>
     </form>
   );
 }

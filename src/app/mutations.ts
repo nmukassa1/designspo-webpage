@@ -1,6 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { api } from "./api";
+import { createClient } from "./supabase/superbaseServer";
 // import { supabase } from "./supabase/supabaseClient";
 
 export async function deleteTag(tagId: number, userId: string) {
@@ -84,15 +85,18 @@ export async function deleteScreenshot(screenshotId: number, userId: string) {
   }
 }
 
-// export const updatePassword = async (userId: string, password: string) => {
-//   try {
-//     const { data, error } = await supabase.auth.updateUser({
-//       password: password,
-//     });
-//     if (error) throw new Error(error.message);
-//     return data;
-//   } catch (error) {
-//     console.error(error);
-//     return error;
-//   }
-// };
+export const updatePassword = async (
+  password: string
+): Promise<string | any> => {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.updateUser({
+      password: password,
+    });
+    if (error) throw new Error(error.message);
+    return "Password updated successfully";
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};

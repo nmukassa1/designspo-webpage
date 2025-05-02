@@ -9,6 +9,7 @@ const PasswordForm = () => {
   });
 
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,7 +24,7 @@ const PasswordForm = () => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Save logic here
     console.log("Saved Data:", formData);
     // Check if passwords match
@@ -40,7 +41,12 @@ const PasswordForm = () => {
       return;
     }
     setError("");
-    updatePassword("userId", formData.newPassword);
+    const response = await updatePassword(formData.newPassword);
+    setSuccessMessage(response);
+    setFormData({
+      newPassword: "",
+      confirmNewPassword: "",
+    });
   };
 
   return (
@@ -101,6 +107,7 @@ const PasswordForm = () => {
               Save
             </button>
           </div>
+          {successMessage && <p className="text-green-500">{successMessage}</p>}
           {error && <p className="text-red-500 italic">{error}</p>}
         </div>
       </div>
