@@ -1,10 +1,13 @@
 "use client";
 
+import BrandName from "@/app/components/BrandName";
+import Spinner from "@/app/components/Spinner";
 import { createClient } from "@/app/supabase/supabaseClient";
+import { useState } from "react";
 
 function ForgotPasswordPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="">
       <RequestForgottenPasswordForm />
     </div>
   );
@@ -13,15 +16,23 @@ function ForgotPasswordPage() {
 export default ForgotPasswordPage;
 
 function RequestForgottenPasswordForm() {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Submitting form...");
+    setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
-    console.log(email);
 
-    // Call your API to send the password reset email
+    if (!email) {
+      setError("Email is required");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const supabase = await createClient();
       const { data, error } = await supabase.auth.resetPasswordForEmail(
@@ -30,37 +41,50 @@ function RequestForgottenPasswordForm() {
           redirectTo: `${window.location.origin}/reset-password`,
         }
       );
-      console.log(data);
+      setIsLoading(false);
+      setError(null);
+      setSuccess("Check your email for the password reset link.");
     } catch (error) {
       console.error("Error creating Supabase client:", error);
     }
   };
+
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-4">Request to update password</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white p-6 rounded shadow-md"
-      >
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="mt-1 block w-full border border-gray-300 rounded p-2"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded"
-        >
-          Send
-        </button>
-      </form>
-    </>
+    <div className="p-7">
+      <BrandName href="/" />
+
+      <div className="md:w-3/4 mx-auto">
+        <h1 className="text-2xl text-center font-bold mb-4">
+          Request to reset password
+        </h1>
+        <form onSubmit={handleSubmit} className="mt-10 mx-auto w-3/4">
+          <div className="mb-6">
+            <label className="mb-2">Email</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="example@email.com"
+              className="bg-gray-300 px-3 py-4 text-[1.4rem] rounded-lg w-full outline-white"
+            />
+          </div>
+
+          {error && <p className="text-red-500">{error}</p>}
+          {success && <p className="text-green-500">{success}</p>}
+
+          <button
+            type="submit"
+            className="bg-black text-white px-4 py-4 rounded-2xl my-6 w-full"
+          >
+            Submit
+          </button>
+
+          {isLoading && (
+            <div className="mx-auto">
+              <Spinner />
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
   );
 }

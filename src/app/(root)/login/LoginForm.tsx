@@ -3,58 +3,71 @@
 import Link from "next/link";
 import { login } from "./actions";
 import { useState } from "react";
+import Spinner from "@/app/components/Spinner";
 
 function LoginForm() {
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(event.currentTarget);
-
     const result = await login(formData);
 
     if (result.error) {
       // console.log(result.error);
       setError(result.error);
     }
+    setIsLoading(false);
   }
   return (
     <form
       onSubmit={handleSubmit} // Use onSubmit instead of action
-      className="flex flex-col gap-4 max-w-md mx-auto mt-10"
+      className="flex flex-col mt-10"
     >
-      <h2 className="text-2xl font-semibold">Login</h2>
+      <h2 className="text-2xl font-semibold mb-8 text-center">Login</h2>
 
-      <label>Email</label>
-      <input
-        name="email"
-        type="email"
-        required
-        className="border px-3 py-2 rounded"
-      />
+      <div className="mb-6">
+        <label className="mb-2">Email</label>
+        <input
+          name="email"
+          type="email"
+          placeholder="example@email.com"
+          className="bg-gray-300 px-3 py-4 text-[1.4rem] rounded-lg w-full outline-white"
+        />
+      </div>
 
-      <label>Password</label>
-      <input
-        name="password"
-        type="password"
-        required
-        className="border px-3 py-2 rounded"
-      />
+      <div>
+        <label className="mb-2">Password</label>
+        <input
+          name="password"
+          type="password"
+          placeholder="********"
+          className="bg-gray-300 px-3 py-4 text-[1.4rem] rounded-lg w-full outline-white"
+        />
+      </div>
 
       {error && <p className="text-red-500">{error}</p>}
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-black text-white px-4 py-4 rounded-2xl my-6"
       >
         Login
       </button>
 
+      {isLoading && (
+        <div className="mx-auto">
+          <Spinner />
+        </div>
+      )}
+
       <div>
-        <Link href="/signup" className="w-fit text-blue-500">
+        <Link href="/signup" className="w-fit">
           Signup
         </Link>
-        <Link href="/forgot-password" className="w-fit text-blue-500 ml-6">
+        <Link href="/forgot-password" className="w-fit ml-6">
           Forgot Password
         </Link>
       </div>
