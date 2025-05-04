@@ -6,13 +6,14 @@ import ProblemStatement from "../features/homePage/ProblemStatement";
 import Steps from "../features/homePage/Steps";
 import SignUpButton from "../features/homePage/SignUpButton";
 import ChromeExtensionButton from "../features/homePage/ChromeExtensionButton";
+import HeaderNav from "../features/homePage/HeaderNav";
 
 function page() {
   return (
     <div className="px-6">
       <header className="flex items-center justify-between py-6 sticky top-0 z-99">
         <BrandName href="/" />
-        <Link href="/login">Login</Link>
+        <HeaderNav />
       </header>
 
       {/* Hero */}
