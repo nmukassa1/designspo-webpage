@@ -55,3 +55,15 @@ button {
 .spinner {
   animation: rotate 1s linear infinite;
 }
+
+.radial-blur {
+  filter: blur(10px);
+  background: radial-gradient(circle, #e7e285 0%, white 100%);
+  /* background-color: white; */
+  /* box-shadow: 0 0 50px 50px rgba(0, 0, 0, 0.2); */
+}
+
+.step-number {
+  background: black;
+  color: white;
+}
