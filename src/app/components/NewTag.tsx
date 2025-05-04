@@ -32,6 +32,7 @@ function NewTag({ btnClass }: { btnClass?: string }) {
     <div className="w-full absolute bottom-[80px] left-0 py-[10px] border-t-2 bg-white">
       <div className="h-full relative bg-white">
         <button
+          id="new-tag-btn"
           className="h-full w-full text-center"
           onClick={() => {
             setShowInput(!showInput);
