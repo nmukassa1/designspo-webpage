@@ -1,5 +1,5 @@
 import { Modal } from "@mui/material";
-import { Trash, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
 import AddNewTag from "./collectionModal/AddNewtag";
 import ExistingTags from "./collectionModal/ExisitngTags";
@@ -9,9 +9,14 @@ interface EditModalProps {
   screenshot: Screenshot;
   handleModal: () => void;
   toggleModal: boolean;
+  userId: string;
 }
-const userId = "8c43787a-6332-4f73-8ed3-f00a54f801e4";
-function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
+function EditModal({
+  screenshot,
+  handleModal,
+  toggleModal,
+  userId,
+}: EditModalProps) {
   const { id, siteName, tags } = screenshot;
   return (
     <Modal
@@ -31,8 +36,8 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
           </button>
         </div>
 
-        <ExistingTags tags={tags} screenShotId={id} />
-        <AddNewTag screenShotId={id} existingTags={tags} />
+        <ExistingTags tags={tags} screenShotId={id} userId={userId} />
+        <AddNewTag screenShotId={id} existingTags={tags} userId={userId} />
 
         <form action="" className="text-center mt-6">
           <button

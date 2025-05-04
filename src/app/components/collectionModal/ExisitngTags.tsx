@@ -5,9 +5,11 @@ import { Trash } from "lucide-react";
 function ExistingTags({
   tags,
   screenShotId,
+  userId,
 }: {
   tags: ScreenshotTag[];
   screenShotId: number;
+  userId: string;
 }) {
   return (
     <div className="existingTags mt-6">
@@ -21,11 +23,7 @@ function ExistingTags({
           >
             <button
               onClick={() =>
-                deleteTagFromCollection(
-                  tag.tag.id,
-                  screenShotId,
-                  "8c43787a-6332-4f73-8ed3-f00a54f801e4"
-                )
+                deleteTagFromCollection(tag.tag.id, screenShotId, userId)
               }
               className="w-full flex justify-between px-4 py-2 hover:bg-white/10 transition-colors duration-200 ease-in-out"
             >

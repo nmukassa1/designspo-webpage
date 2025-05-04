@@ -9,13 +9,14 @@ import {
 } from "@tanstack/react-query";
 import { Check } from "lucide-react";
 
-const userId = "8c43787a-6332-4f73-8ed3-f00a54f801e4";
 function AddNewTag({
   screenShotId,
   existingTags,
+  userId,
 }: {
   screenShotId: number;
   existingTags: ScreenshotTag[];
+  userId: string;
 }) {
   const queryClient = useQueryClient();
 
