@@ -33,7 +33,7 @@ function HeaderNav() {
       {isLoggedIn ? (
         <>
           <Link href="/dashboard">Dashboard</Link>
-          <Link href="/profile">Profile</Link>
+          <Link href="/dashboard/profile">Profile</Link>
           <form onSubmit={handleLogout}>
             <button type="submit" className="cursor-pointer">
               Logout
