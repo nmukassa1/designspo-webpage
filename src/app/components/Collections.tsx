@@ -19,12 +19,12 @@ async function Collections({
     if (!screenshots) return;
 
     // Reverse the collections array to render from the last element first
-    const reversedCollections = screenshots.reverse();
+    // const reversedCollections = screenshots.reverse();
 
     return (
       <div>
         <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6">
-          {reversedCollections.map((collection: Screenshot) => (
+          {screenshots.map((collection: Screenshot) => (
             <Card key={collection.id} item={collection} userId={userId} />
           ))}
         </ul>
