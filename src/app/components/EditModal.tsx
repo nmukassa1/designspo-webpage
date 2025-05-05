@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
 import ExistingTags from "./collectionModal/ExisitngTags";
 import { deleteScreenshot } from "../mutations";
-import AddNewTag from "./collectionModal/AddNewtag";
+import AddNewTag from "./collectionModal/AddNewTag";
 
 interface EditModalProps {
   screenshot: Screenshot;
