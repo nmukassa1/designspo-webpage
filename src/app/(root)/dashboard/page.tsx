@@ -6,21 +6,20 @@ import Collections from "@/app/components/Collections";
 import { getCollections } from "@/app/queries";
 import CollectionsPlaceholder from "@/app/components/CollectionsPlaceholder";
 
-interface DashboardPageProps {
-  searchParams: searchParams;
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default async function DashboardPage({
-  searchParams,
-}: DashboardPageProps) {
+export default async function DashboardPage({ searchParams }: PageProps) {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/login");
   }
 
-  const searchQuery = searchParams;
-  const tagQuery = searchQuery.tag;
+  const searchQuery = await searchParams;
+  const resolvedSearchQuery = searchQuery;
+  const tagQuery = resolvedSearchQuery.tag;
   const pageQuery = searchQuery.page ? Number(searchQuery.page) : 1;
 
   const collections = await getCollections(data.user.id, tagQuery, pageQuery);
