@@ -1,9 +1,9 @@
 import { Modal } from "@mui/material";
 import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
-import AddNewTag from "./collectionModal/AddNewtag";
 import ExistingTags from "./collectionModal/ExisitngTags";
 import { deleteScreenshot } from "../mutations";
+import AddNewTag from "./collectionModal/AddNewtag";
 
 interface EditModalProps {
   screenshot: Screenshot;
