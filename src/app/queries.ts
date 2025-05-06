@@ -7,6 +7,7 @@ export const getCollections = async (
   tags: string[] | string | number | undefined,
   page: number
 ): Promise<Collections | []> => {
+  console.log("Fetching collections from the server...");
   try {
     let formattedTags;
     if (tags === undefined) {
