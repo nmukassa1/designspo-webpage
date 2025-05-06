@@ -1,4 +1,4 @@
-function CollectionsPlaceholder() {
+function ExmptyCollectionPlaceholder() {
   return (
     <div
       id="tags-placeholder"
@@ -11,4 +11,4 @@ function CollectionsPlaceholder() {
   );
 }
 
-export default CollectionsPlaceholder;
+export default ExmptyCollectionPlaceholder;
