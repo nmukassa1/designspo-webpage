@@ -1,37 +1,61 @@
-import { Collections as jj, Screenshot, searchParams } from "../types/types";
+import { Collections as CollectionType, Screenshot } from "../types/types";
 import Card from "./Card";
+import SkeletonCard from "./Card/SkeletonCard";
 import Pagination from "./Pagination";
 
 interface CollectionsProps {
-  collections: jj | [];
+  collections: CollectionType | Screenshot[];
   pageQuery?: number;
   userId: string;
+  loading?: boolean;
 }
 
-async function Collections({
+function Collections({
   collections,
   pageQuery = 1,
   userId,
+  loading = false,
 }: CollectionsProps) {
+  const renderCards = (items: Screenshot[]) => (
+    <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6">
+      {items.map((item) => (
+        <Card key={item.id} item={item} userId={userId} />
+      ))}
+    </ul>
+  );
+
+  const renderSkeletons = (count: number) => (
+    <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6">
+      {Array.from({ length: count }).map((_, i) => (
+        <SkeletonCard key={i} />
+      ))}
+    </ul>
+  );
+
+  if (loading) {
+    return (
+      <div>
+        {renderSkeletons(6)}
+        {/* Optional: You could add a fake Pagination skeleton */}
+      </div>
+    );
+  }
+
+  // If using paginated response with screenshots and totalPages
   if (!Array.isArray(collections) && collections.screenshots) {
     const { screenshots, totalPages } = collections;
 
-    if (!screenshots) return;
-
-    // Reverse the collections array to render from the last element first
-    // const reversedCollections = screenshots.reverse();
-
     return (
       <div>
-        <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6">
-          {screenshots.map((collection: Screenshot) => (
-            <Card key={collection.id} item={collection} userId={userId} />
-          ))}
-        </ul>
-
+        {renderCards(screenshots)}
         <Pagination pageQuery={pageQuery} totalPages={totalPages} />
       </div>
     );
+  }
+
+  // If it's just an array of screenshots (e.g. from client-side fetch)
+  if (Array.isArray(collections)) {
+    return <div>{renderCards(collections)}</div>;
   }
 
   return null;

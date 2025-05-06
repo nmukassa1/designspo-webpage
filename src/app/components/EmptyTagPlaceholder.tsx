@@ -1,5 +1,5 @@
 "use client";
-function CreateATagPlaceholder() {
+function EmptyTagPlaceholder() {
   return (
     <button
       id="tags-placeholder"
@@ -14,4 +14,4 @@ function CreateATagPlaceholder() {
   );
 }
 
-export default CreateATagPlaceholder;
+export default EmptyTagPlaceholder;
