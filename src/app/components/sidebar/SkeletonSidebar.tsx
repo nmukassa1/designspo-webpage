@@ -1,4 +1,6 @@
 function SkeletonSidebar() {
+  console.log("SkeletonSidebar");
+
   return (
     <aside className="flex flex-col h-full bg-white lg:bg-transparent px-4 w-full lg:w-[18%] text-center lg:text-left animate-pulse fixed translate-x-[-100%]">
       <div className="my-4 space-y-4">
