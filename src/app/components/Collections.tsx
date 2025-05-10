@@ -1,21 +1,24 @@
-import { Collections as CollectionType, Screenshot } from "../types/types";
+import { useDashboardContext } from "../context/DashboardContext";
+import { CollectionsType, Screenshot } from "../types/types";
 import Card from "./Card";
 import SkeletonCard from "./Card/SkeletonCard";
 import Pagination from "./Pagination";
 
 interface CollectionsProps {
-  collections: CollectionType | Screenshot[];
+  // collections: CollectionsType | Screenshot[];
   pageQuery?: number;
   userId: string;
   loading?: boolean;
 }
 
 function Collections({
-  collections,
+  // collections,
   pageQuery = 1,
   userId,
   loading = false,
 }: CollectionsProps) {
+  const { collections } = useDashboardContext();
+
   const renderCards = (items: Screenshot[]) => (
     <ul className="mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6">
       {items.map((item) => (
@@ -42,7 +45,7 @@ function Collections({
   }
 
   // If using paginated response with screenshots and totalPages
-  if (!Array.isArray(collections) && collections.screenshots) {
+  if (collections) {
     const { screenshots, totalPages } = collections;
 
     return (
