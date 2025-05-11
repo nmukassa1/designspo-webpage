@@ -1,54 +1,77 @@
-// scaffold a context api for the dashboard
-
-import { createContext, useContext, useState } from "react";
-import { Tag, CollectionsType } from "../types/types";
+import { createContext, useContext, useEffect, useState } from "react";
+import { CollectionsType } from "../types/types";
+import { useQuery } from "@tanstack/react-query";
+import { getCollections } from "../queries";
+import { useAuthContext } from "./AuthContext";
 
 const DashboardContext = createContext<{
   collections: CollectionsType | undefined;
-  setCollections: React.Dispatch<
-    React.SetStateAction<CollectionsType | undefined>
-  >;
-  tags: Tag[] | [];
-  setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
-  tagParam?: string;
-  setTagParam?: React.Dispatch<React.SetStateAction<string>>;
-  page?: number;
-  setPage?: React.Dispatch<React.SetStateAction<number>>;
+  tagQuery: string;
+  pageNumber: number;
+  isLoading: boolean;
 }>({
-  collections: { screenshots: [], totalPages: 0 },
-  setCollections: () => ({ screenshots: [], totalPages: 0 }),
-  tags: [],
-  setTags: () => [],
+  collections: undefined,
+  tagQuery: "",
+  pageNumber: 1,
+  isLoading: false,
 });
 
 export const DashboardProvider = ({
   children,
+  tagParam,
+  pageQuery,
 }: {
   children: React.ReactNode;
+  tagParam?: string | null;
+  pageQuery?: number;
 }) => {
+  const { userId } = useAuthContext();
+
   const [collections, setCollections] = useState<CollectionsType | undefined>(
     undefined
   );
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [tagParam, setTagParam] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
+  const [tagQuery, setTagQuery] = useState<string>(tagParam ?? "");
+  const [pageNumber, setPageNumber] = useState<number>(pageQuery ?? 1);
+
+  const { data, isLoading, isError } = useQuery<CollectionsType>({
+    queryKey: ["collections", userId, tagQuery, pageNumber],
+    queryFn: () => getCollections(userId, tagQuery, pageNumber),
+    staleTime: 1000 * 60 * 5, // 5 mins
+    enabled: !!userId,
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log("Data fetched from the server:", data);
+
+      setCollections(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (tagParam !== undefined && tagParam !== null) {
+      console.log("Tag param changed:", tagParam);
+
+      setTagQuery(tagParam);
+    }
+    if (pageQuery !== undefined) {
+      console.log("Page query changed:", pageQuery);
+      setPageNumber(pageQuery);
+    }
+  }, [tagParam, pageQuery]);
+
   return (
     <DashboardContext.Provider
       value={{
         collections,
-        tags,
-        setCollections,
-        setTags,
-        tagParam,
-        setTagParam,
-        page,
-        setPage,
+        tagQuery,
+        pageNumber,
+        isLoading,
       }}
     >
       {children}
     </DashboardContext.Provider>
   );
 };
-export const useDashboardContext = () => {
-  return useContext(DashboardContext);
-};
+
+export const useDashboardContext = () => useContext(DashboardContext);

@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/app/context/AuthContext";
 import { deleteTagFromCollection } from "@/app/mutations";
 import { ScreenshotTag, Tag } from "@/app/types/types";
 import { Trash } from "lucide-react";
@@ -5,12 +6,11 @@ import { Trash } from "lucide-react";
 function ExistingTags({
   tags,
   screenShotId,
-  userId,
 }: {
   tags: ScreenshotTag[];
   screenShotId: number;
-  userId: string;
 }) {
+  const { userId } = useAuthContext();
   return (
     <div className="existingTags mt-6">
       <h2 className="text-xl">Tags</h2>
@@ -23,6 +23,7 @@ function ExistingTags({
           >
             <button
               onClick={() =>
+                userId &&
                 deleteTagFromCollection(tag.tag.id, screenShotId, userId)
               }
               className="w-full flex justify-between px-4 py-2 hover:bg-white/10 transition-colors duration-200 ease-in-out"

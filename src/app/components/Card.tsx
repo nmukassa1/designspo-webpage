@@ -9,10 +9,9 @@ import Link from "next/link";
 
 interface CardProps {
   item: Screenshot;
-  userId: string;
 }
 
-function Card({ item, userId }: CardProps) {
+function Card({ item }: CardProps) {
   const { img, siteName, siteUrl } = item;
 
   const [toggleModal, setToggleModal] = useState<boolean>(false);
@@ -39,7 +38,6 @@ function Card({ item, userId }: CardProps) {
         screenshot={item}
         handleModal={handleModal}
         toggleModal={toggleModal}
-        userId={userId}
       />
     </>
   );

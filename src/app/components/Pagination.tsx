@@ -1,26 +1,23 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useDashboardContext } from "../context/DashboardContext";
 
-function Pagination({
-  pageQuery,
-  totalPages,
-}: {
-  pageQuery: number;
-  totalPages: number;
-}) {
+function Pagination() {
+  const { pageNumber = 1, collections } = useDashboardContext();
+  const totalPages = collections?.totalPages || 1;
   return (
     <div className="mt-8 mx-auto flex items-center flex-col">
       <div className="flex items-center gap-4">
-        {pageQuery > 1 && (
-          <Link href={`/dashboard?page=${pageQuery - 1}`}>
+        {pageNumber > 1 && (
+          <Link href={`/dashboard?page=${pageNumber - 1}`}>
             <button className="bg-[#262626] p-2 rounded-sm text-white">
               <ChevronLeft />
             </button>
           </Link>
         )}
 
-        {pageQuery < totalPages && (
-          <Link href={`/dashboard?page=${pageQuery + 1}`}>
+        {pageNumber < totalPages && (
+          <Link href={`/dashboard?page=${pageNumber + 1}`}>
             <button className="bg-[#262626] p-2 rounded-sm text-white">
               <ChevronRight />
             </button>
@@ -28,7 +25,7 @@ function Pagination({
         )}
       </div>
       <span>
-        Page {pageQuery} of {totalPages}
+        Page {pageNumber} of {totalPages}
       </span>
     </div>
   );

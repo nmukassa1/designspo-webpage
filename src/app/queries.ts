@@ -1,16 +1,16 @@
 "use server";
 import { api } from "./api";
-import { Collections, Screenshot, Tag } from "./types/types";
+import { CollectionsType, Screenshot, Tag } from "./types/types";
 
 export const getCollections = async (
-  userId: string,
-  tags: string[] | string | number | undefined,
-  page: number
-): Promise<Collections | []> => {
+  userId: string | null,
+  tags: string[] | string | number | null,
+  page: number | undefined
+): Promise<CollectionsType> => {
   console.log("Fetching collections from the server...");
   try {
     let formattedTags;
-    if (tags === undefined) {
+    if (tags === null) {
       formattedTags = "";
     } else {
       const tagPairs = Array.isArray(tags)
@@ -29,7 +29,7 @@ export const getCollections = async (
     return response.data; // Return the result directly
   } catch (err) {
     console.log(err);
-    return []; // Return an empty array in case of error
+    return { screenshots: [], totalPages: 0 }; // Return an empty array in case of error
   }
 };
 

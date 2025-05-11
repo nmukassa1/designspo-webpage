@@ -6,9 +6,11 @@ import { Trash } from "lucide-react";
 import { deleteTag } from "../mutations";
 import { signOut } from "../authActions/actions";
 import CreateATagPlaceholder from "./EmptyTagPlaceholder";
+import { useAuthContext } from "../context/AuthContext";
 
-function SidebarNav({ tags, userId }: { tags: Tag[] | []; userId: string }) {
+function SidebarNav({ tags }: { tags: Tag[] | [] }) {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
+  const { userId } = useAuthContext();
 
   function toggleMenu() {
     const menu = document.querySelector("aside");
@@ -50,7 +52,11 @@ function SidebarNav({ tags, userId }: { tags: Tag[] | []; userId: string }) {
                 <button
                   className="text-red-500 bg-red-100 hover:bg-red-300 cursor-pointer rounded-full w-6 h-6 grid place-content-center"
                   onClick={async () => {
-                    const result = await deleteTag(tag.id, userId);
+                    if (userId) {
+                      const result = await deleteTag(tag.id, userId);
+                    } else {
+                      console.error("User ID is null. Cannot delete tag.");
+                    }
                   }}
                 >
                   <Trash size={16} />
@@ -59,7 +65,11 @@ function SidebarNav({ tags, userId }: { tags: Tag[] | []; userId: string }) {
               <button
                 className="text-red-500 bg-red-100 lg:hidden cursor-pointer rounded-full w-6 h-6 grid place-content-center"
                 onClick={async () => {
-                  const result = await deleteTag(tag.id, userId);
+                  if (userId) {
+                    const result = await deleteTag(tag.id, userId);
+                  } else {
+                    console.error("User ID is null. Cannot delete tag.");
+                  }
                 }}
               >
                 <Trash size={16} />
