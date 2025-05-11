@@ -5,6 +5,7 @@ import ExistingTags from "./collectionModal/ExisitngTags";
 import { deleteScreenshot } from "../mutations";
 import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "../context/AuthContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface EditModalProps {
   screenshot: Screenshot;
@@ -14,6 +15,21 @@ interface EditModalProps {
 function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
   const { userId } = useAuthContext();
   const { id, siteName, tags } = screenshot;
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (id: number) => {
+      if (!userId) {
+        throw new Error("User ID is required to add a tag.");
+      }
+      return deleteScreenshot(id, userId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["collections", userId] }); // Refresh tags after adding
+    },
+  });
+
   return (
     <Modal
       open={toggleModal}
@@ -42,7 +58,7 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
             onClick={(e) => {
               e.preventDefault();
               if (userId) {
-                deleteScreenshot(id, userId);
+                mutate(id);
               } else {
                 console.error("User ID is null. Cannot delete screenshot.");
               }
