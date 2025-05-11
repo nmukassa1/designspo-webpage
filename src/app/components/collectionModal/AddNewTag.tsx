@@ -1,24 +1,27 @@
+import { useAuthContext } from "@/app/context/AuthContext";
+import { useTagContext } from "@/app/context/TagContext";
 import { addTagToCollection } from "@/app/mutations";
 import { getTags } from "@/app/queries";
 import { ScreenshotTag } from "@/app/types/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { Check } from "lucide-react";
 
 function AddNewTag({
   screenShotId,
   existingTags,
-  userId,
 }: {
   screenShotId: number;
   existingTags: ScreenshotTag[];
-  userId: string;
 }) {
-  const queryClient = useQueryClient();
+  const { userId } = useAuthContext();
+  const { tags } = useTagContext();
 
-  const { data: tags } = useQuery({
-    queryKey: ["tags", userId],
-    queryFn: ({ queryKey }) => getTags(queryKey[1] as string),
-  });
+  const queryClient = useQueryClient();
 
   // Filter out existing tags
   const filteredTags = tags?.filter(
@@ -27,10 +30,14 @@ function AddNewTag({
 
   // Mutation for adding tags
   const { mutate } = useMutation({
-    mutationFn: (tagId: number) =>
-      addTagToCollection(tagId, screenShotId, userId),
+    mutationFn: (tagId: number) => {
+      if (!userId) {
+        throw new Error("User ID is required to add a tag.");
+      }
+      return addTagToCollection(tagId, screenShotId, userId);
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
+      queryClient.invalidateQueries({ queryKey: ["collections", userId] }); // Refresh tags after adding
     },
   });
 

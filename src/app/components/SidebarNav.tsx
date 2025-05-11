@@ -1,15 +1,18 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Tag } from "../types/types";
 import { Trash } from "lucide-react";
 import { deleteTag } from "../mutations";
 import { signOut } from "../authActions/actions";
 import CreateATagPlaceholder from "./EmptyTagPlaceholder";
+import { useAuthContext } from "../context/AuthContext";
+import { useTagContext } from "../context/TagContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function SidebarNav({ tags }: { tags: Tag[] | [] }) {
+function SidebarNav() {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
-  const userId = "8c43787a-6332-4f73-8ed3-f00a54f801e4";
+  const { userId } = useAuthContext();
+  const { tags } = useTagContext();
 
   function toggleMenu() {
     const menu = document.querySelector("aside");
@@ -17,6 +20,20 @@ function SidebarNav({ tags }: { tags: Tag[] | [] }) {
       menu?.classList.toggle("translate-x-[0]");
     }
   }
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (tagId: number) => {
+      if (!userId) {
+        throw new Error("User ID is required to add a tag.");
+      }
+      return deleteTag(tagId, userId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
+    },
+  });
 
   return (
     <nav className="h-full flex flex-col -z-20">
@@ -51,7 +68,11 @@ function SidebarNav({ tags }: { tags: Tag[] | [] }) {
                 <button
                   className="text-red-500 bg-red-100 hover:bg-red-300 cursor-pointer rounded-full w-6 h-6 grid place-content-center"
                   onClick={async () => {
-                    const result = await deleteTag(tag.id, userId);
+                    if (userId) {
+                      const result = mutate(tag.id);
+                    } else {
+                      console.error("User ID is null. Cannot delete tag.");
+                    }
                   }}
                 >
                   <Trash size={16} />
@@ -60,7 +81,11 @@ function SidebarNav({ tags }: { tags: Tag[] | [] }) {
               <button
                 className="text-red-500 bg-red-100 lg:hidden cursor-pointer rounded-full w-6 h-6 grid place-content-center"
                 onClick={async () => {
-                  const result = await deleteTag(tag.id, userId);
+                  if (userId) {
+                    const result = await deleteTag(tag.id, userId);
+                  } else {
+                    console.error("User ID is null. Cannot delete tag.");
+                  }
                 }}
               >
                 <Trash size={16} />
