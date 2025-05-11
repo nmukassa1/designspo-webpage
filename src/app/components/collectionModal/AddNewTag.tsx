@@ -1,8 +1,14 @@
 import { useAuthContext } from "@/app/context/AuthContext";
+import { useTagContext } from "@/app/context/TagContext";
 import { addTagToCollection } from "@/app/mutations";
 import { getTags } from "@/app/queries";
 import { ScreenshotTag } from "@/app/types/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { Check } from "lucide-react";
 
 function AddNewTag({
@@ -13,12 +19,9 @@ function AddNewTag({
   existingTags: ScreenshotTag[];
 }) {
   const { userId } = useAuthContext();
-  const queryClient = useQueryClient();
+  const { tags } = useTagContext();
 
-  const { data: tags } = useQuery({
-    queryKey: ["tags", userId],
-    queryFn: ({ queryKey }) => getTags(queryKey[1] as string),
-  });
+  const queryClient = useQueryClient();
 
   // Filter out existing tags
   const filteredTags = tags?.filter(
@@ -34,7 +37,7 @@ function AddNewTag({
       return addTagToCollection(tagId, screenShotId, userId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
+      queryClient.invalidateQueries({ queryKey: ["collections", userId] }); // Refresh tags after adding
     },
   });
 

@@ -3,12 +3,29 @@
 import { Check, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { addTag } from "../mutations";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuthContext } from "../context/AuthContext";
 
 function NewTag({ btnClass }: { btnClass?: string }) {
   const [tagName, setTagName] = useState<string>("");
   const [showInput, setShowInput] = useState<boolean>(false);
   const [error, setError] = useState<"border-red-500" | "">("");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const { userId } = useAuthContext();
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (tag: string) => {
+      if (!userId) {
+        throw new Error("User ID is required to add a tag.");
+      }
+      return addTag(tag, userId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
+    },
+  });
 
   const submitTag = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +35,7 @@ function NewTag({ btnClass }: { btnClass?: string }) {
     }
 
     try {
-      await addTag(tagName, "8c43787a-6332-4f73-8ed3-f00a54f801e4");
+      mutate(tagName);
     } catch (error) {
       console.error(error);
     } finally {
