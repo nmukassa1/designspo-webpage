@@ -16,7 +16,7 @@ export default async function Profile() {
   return (
     <div className="flex flex-col gap-4">
       <div className="lg:hidden">
-        <Sidebar userId={data.user.id} />
+        <Sidebar />
       </div>
       <PasswordForm />
     </div>
