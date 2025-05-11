@@ -33,7 +33,7 @@ export const DashboardProvider = ({
   const [tagQuery, setTagQuery] = useState<string>(tagParam ?? "");
   const [pageNumber, setPageNumber] = useState<number>(pageQuery ?? 1);
 
-  const { data, isLoading, isError } = useQuery<CollectionsType>({
+  const { data, isLoading } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber],
     queryFn: () => getCollections(userId, tagQuery, pageNumber),
     staleTime: 1000 * 60 * 5, // 5 mins
@@ -42,21 +42,20 @@ export const DashboardProvider = ({
 
   useEffect(() => {
     if (data) {
-      console.log("Data fetched from the server:", data);
-
       setCollections(data);
     }
   }, [data]);
 
   useEffect(() => {
     if (tagParam !== undefined && tagParam !== null) {
-      console.log("Tag param changed:", tagParam);
-
       setTagQuery(tagParam);
+    } else {
+      setTagQuery("");
     }
     if (pageQuery !== undefined) {
-      console.log("Page query changed:", pageQuery);
       setPageNumber(pageQuery);
+    } else {
+      setPageNumber(1);
     }
   }, [tagParam, pageQuery]);
 

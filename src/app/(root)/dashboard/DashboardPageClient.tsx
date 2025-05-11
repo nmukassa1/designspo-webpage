@@ -4,6 +4,7 @@ import Collections from "@/app/components/Collections";
 import { useSearchParams } from "next/navigation";
 import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
+import { TagProvider } from "@/app/context/TagContext";
 
 interface DashboardPageClientProps {
   userId: string;
@@ -19,15 +20,17 @@ export default function DashboardPageClient({
   return (
     <AuthProvider authId={userId}>
       <DashboardProvider tagParam={tag} pageQuery={page}>
-        <div id="dashboard">
-          <Sidebar />
-          <div className="h-full px-4 lg:ml-[18%]">
-            <h1 className="text-4xl md:text-6xl font-bold mb-8">
-              All your design inspirations in one spot
-            </h1>
-            <Collections />
+        <TagProvider>
+          <div id="dashboard">
+            <Sidebar />
+            <div className="h-full px-4 lg:ml-[18%]">
+              <h1 className="text-4xl md:text-6xl font-bold mb-8">
+                All your design inspirations in one spot
+              </h1>
+              <Collections />
+            </div>
           </div>
-        </div>
+        </TagProvider>
       </DashboardProvider>
     </AuthProvider>
   );

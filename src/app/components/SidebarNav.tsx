@@ -1,16 +1,17 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Tag } from "../types/types";
 import { Trash } from "lucide-react";
 import { deleteTag } from "../mutations";
 import { signOut } from "../authActions/actions";
 import CreateATagPlaceholder from "./EmptyTagPlaceholder";
 import { useAuthContext } from "../context/AuthContext";
+import { useTagContext } from "../context/TagContext";
 
-function SidebarNav({ tags }: { tags: Tag[] | [] }) {
+function SidebarNav() {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
   const { userId } = useAuthContext();
+  const { tags } = useTagContext();
 
   function toggleMenu() {
     const menu = document.querySelector("aside");

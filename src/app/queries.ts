@@ -33,7 +33,7 @@ export const getCollections = async (
   }
 };
 
-export const getTags = async (userId: string): Promise<Tag[]> => {
+export const getTags = async (userId: string | null): Promise<Tag[]> => {
   try {
     const response = await api.get("/tags/" + userId);
     const result: Tag[] = response.data;
