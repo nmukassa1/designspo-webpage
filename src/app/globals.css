@@ -5,6 +5,21 @@
   --textColor: "black";
 }
 
+@layer utilities {
+  @keyframes progress {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+
+  .animate-progress {
+    animation: progress 4s linear infinite;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-textColor: var(--textColor);
@@ -32,7 +47,7 @@ button {
 }
 
 #dashboard {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100dvh - 80px);
 }
 
 .modal-image-gradient {

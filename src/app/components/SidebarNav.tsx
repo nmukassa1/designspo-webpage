@@ -21,6 +21,8 @@ function SidebarNav() {
     }
   }
 
+  const [activeLinkId, setActiveLinkId] = useState<number | null>(null);
+
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -41,11 +43,18 @@ function SidebarNav() {
         <CreateATagPlaceholder />
       ) : (
         <ul className="text-lg fontColor overflow-scroll">
-          <li>
+          <li
+            className={`${activeLinkId === null ? "bg-[#a5b4be]" : ""} px-4 `}
+          >
             <Link
               href="/dashboard"
-              className="block py-2  hover:bg-white transition linear duration-300"
-              onClick={toggleMenu}
+              className={`block py-2  ${
+                activeLinkId === null ? "" : "hover:bg-white"
+              } transition linear duration-300 $`}
+              onClick={() => {
+                setActiveLinkId(null);
+                toggleMenu();
+              }}
             >
               All
             </Link>
@@ -53,14 +62,25 @@ function SidebarNav() {
           {tags.map((tag) => (
             <li
               key={tag.id}
-              className="flex justify-between items-center"
-              onMouseEnter={() => setHoveredTag(tag.id)}
+              className={`flex justify-between items-center px-4  ${
+                activeLinkId === tag.id ? "bg-[#a5b4be]" : ""
+              }`}
+              onMouseEnter={() => {
+                // if (tag.id !== activeLinkId) {
+                setHoveredTag(tag.id);
+                // }
+              }}
               onMouseLeave={() => setHoveredTag(null)}
             >
               <Link
                 href={`/dashboard?tag=${tag.name}`}
-                className="block py-2 hover:bg-white transition linear duration-300 w-full"
-                onClick={toggleMenu}
+                className={`block py-2  ${
+                  tag.id === activeLinkId ? "" : "hover:bg-white"
+                } transition linear duration-300 w-full`}
+                onClick={() => {
+                  setActiveLinkId(tag.id);
+                  toggleMenu();
+                }}
               >
                 {tag.name}
               </Link>
