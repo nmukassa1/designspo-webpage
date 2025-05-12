@@ -102,7 +102,7 @@ function SidebarNav() {
                 className="text-red-500 bg-red-100 lg:hidden cursor-pointer rounded-full w-6 h-6 grid place-content-center"
                 onClick={async () => {
                   if (userId) {
-                    const result = await deleteTag(tag.id, userId);
+                    const result = mutate(tag.id);
                   } else {
                     console.error("User ID is null. Cannot delete tag.");
                   }
