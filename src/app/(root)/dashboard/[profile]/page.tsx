@@ -1,11 +1,9 @@
-// type Props = {
-//   params: { id: string };
-// };
-
 import Sidebar from "@/app/components/Sidebar";
+import { TagProvider } from "@/app/context/TagContext";
 import PasswordForm from "@/app/features/profilePage/components/PasswordForm";
 import { createClient } from "@/app/supabase/superbaseServer";
 import { redirect } from "next/navigation";
+import ProfilePageClient from "./ProfilePageClient";
 
 export default async function Profile() {
   const supabase = await createClient();
@@ -13,12 +11,5 @@ export default async function Profile() {
   if (error || !data?.user) {
     redirect("/login");
   }
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="lg:hidden">
-        <Sidebar />
-      </div>
-      <PasswordForm />
-    </div>
-  );
+  return <ProfilePageClient userId={data.user.id} />;
 }
