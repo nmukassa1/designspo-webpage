@@ -6,6 +6,7 @@ import { deleteScreenshot } from "../mutations";
 import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "../context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 interface EditModalProps {
   screenshot: Screenshot;
@@ -17,16 +18,23 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
   const { id, siteName, tags } = screenshot;
 
   const queryClient = useQueryClient();
+  const [deleteIsLoading, setDeleteIsLoading] = useState(false);
 
   const { mutate } = useMutation({
     mutationFn: (id: number) => {
       if (!userId) {
         throw new Error("User ID is required to add a tag.");
       }
+      setDeleteIsLoading(true);
       return deleteScreenshot(id, userId);
     },
     onSuccess: () => {
+      setDeleteIsLoading(false);
       queryClient.invalidateQueries({ queryKey: ["collections", userId] }); // Refresh tags after adding
+    },
+    onError: (error) => {
+      console.error("Error deleting screenshot:", error);
+      setDeleteIsLoading(false);
     },
   });
 
@@ -54,7 +62,11 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
         <form action="" className="text-center mt-6">
           <button
             type="submit"
-            className="bg-red-600 px-4 py-2 rounded-md"
+            className={`px-4 py-2 rounded-md transition-all duration-300 ${
+              deleteIsLoading
+                ? "bg-red-400 animate-pulse cursor-not-allowed"
+                : "bg-red-600 hover:bg-red-500"
+            }`}
             onClick={(e) => {
               e.preventDefault();
               if (userId) {

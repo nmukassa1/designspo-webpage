@@ -18,6 +18,9 @@
   .animate-progress {
     animation: progress 4s linear infinite;
   }
+  .animate-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
 }
 
 @theme inline {
