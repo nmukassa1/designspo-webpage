@@ -1,11 +1,7 @@
 "use client";
-import { getTags } from "../queries";
 import NewTag from "./NewTag";
 import SidebarNav from "./SidebarNav";
-import { Tag } from "../types/types";
 import SkeletonSidebar from "./sidebar/SkeletonSidebar";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuthContext } from "../context/AuthContext";
 import { useTagContext } from "../context/TagContext";
 
 function Sidebar() {
