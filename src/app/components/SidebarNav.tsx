@@ -86,7 +86,7 @@ function SidebarNav() {
               </Link>
               {hoveredTag === tag.id && (
                 <button
-                  className="text-red-500 bg-red-100 hover:bg-red-300 cursor-pointer rounded-full w-6 h-6 grid place-content-center"
+                  className="text-red-500 lg:grid hidden bg-red-100 hover:bg-red-300 cursor-pointer rounded-full w-6 h-6  place-content-center"
                   onClick={async () => {
                     if (userId) {
                       const result = mutate(tag.id);
