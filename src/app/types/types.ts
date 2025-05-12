@@ -19,7 +19,7 @@ export interface Screenshot {
   tags: ScreenshotTag[];
 }
 
-export interface Collections {
+export interface CollectionsType {
   screenshots: Screenshot[];
   totalPages: number;
 }
