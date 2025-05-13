@@ -8,6 +8,7 @@ import CreateATagPlaceholder from "./EmptyTagPlaceholder";
 import { useAuthContext } from "../context/AuthContext";
 import { useTagContext } from "../context/TagContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import NewTag from "./NewTag";
 
 function SidebarNav() {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
@@ -38,7 +39,7 @@ function SidebarNav() {
   });
 
   return (
-    <nav className="h-full flex flex-col -z-20">
+    <nav className="h-full flex flex-col overflow-scroll -z-20">
       {tags.length === 0 ? (
         <CreateATagPlaceholder />
       ) : (
@@ -115,7 +116,7 @@ function SidebarNav() {
         </ul>
       )}
 
-      <div className="lg:hidden flex gap-4 justify-center grow-1 items-center">
+      {/* <div className="lg:hidden flex gap-4 justify-center grow-1 items-center">
         <Link href="/dashboard/profile" onClick={toggleMenu}>
           Profile
         </Link>
@@ -130,7 +131,7 @@ function SidebarNav() {
             Logout
           </button>
         </form>
-      </div>
+      </div> */}
     </nav>
   );
 }

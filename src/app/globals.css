@@ -87,6 +87,6 @@ button {
   color: white;
 }
 
-nav {
+aside {
   height: calc(100% - var(--headerHeight));
 }
