@@ -3,6 +3,7 @@
 :root {
   --background: #fbfbfb;
   --textColor: "black";
+  --headerHeight: 80px;
 }
 
 @layer utilities {
@@ -50,7 +51,7 @@ button {
 }
 
 #dashboard {
-  min-height: calc(100dvh - 80px);
+  min-height: calc(100dvh - var(--headerHeight));
 }
 
 .modal-image-gradient {
@@ -84,4 +85,8 @@ button {
 .step-number {
   background: black;
   color: white;
+}
+
+nav {
+  height: calc(100% - var(--headerHeight));
 }
