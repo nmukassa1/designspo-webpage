@@ -46,7 +46,8 @@ function NewTag({ btnClass }: { btnClass?: string }) {
   };
 
   return (
-    <div className="w-full absolute bottom-[80px] left-0 py-[10px] border-t-2 bg-white">
+    // <div className="w-full absolute bottom-[80px] left-0 py-[10px] border-t-2 bg-white">
+    <div className="w-full py-[10px] border-t-2 bg-white mt-auto">
       <div className="h-full relative bg-white">
         <button
           id="new-tag-btn"

@@ -3,7 +3,7 @@ import { signOut } from "../authActions/actions";
 
 function Navbar() {
   return (
-    <nav className="hidden items-center gap-8 lg:flex">
+    <nav className=" items-center gap-8 flex ml-auto mr-8 lg:mr-0">
       <Link href="/dashboard/profile">Profile</Link>
 
       <form action={signOut}>
