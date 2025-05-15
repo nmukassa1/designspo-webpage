@@ -32,6 +32,9 @@ function page() {
           <ChromeExtensionButton />
         </div>
       </div>
+      <Link href="/privacy" className="flex justify-center underline">
+        Privacy
+      </Link>
     </div>
   );
 }

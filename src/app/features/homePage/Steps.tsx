@@ -42,7 +42,7 @@ function Steps() {
           3
         </div>
         <p className="step-paragraph text-2xl mt-2">
-          Revisit designs via the dashboad
+          Revisit designs via the dashboard
         </p>
         <div className="mt-8">
           <Image
