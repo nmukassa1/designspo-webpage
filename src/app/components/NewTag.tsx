@@ -54,7 +54,11 @@ function NewTag({ btnClass }: { btnClass?: string }) {
           className="h-full w-full text-center"
           onClick={() => {
             setShowInput(!showInput);
-            inputRef.current?.focus();
+            if (document.activeElement === inputRef.current) {
+              inputRef.current?.blur();
+            } else {
+              inputRef.current?.focus();
+            }
           }}
         >
           + New Tag
