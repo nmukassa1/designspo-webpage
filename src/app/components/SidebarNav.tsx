@@ -33,6 +33,9 @@ function SidebarNav() {
   });
 
   const toggleMenu = () => {
+    if (window.innerWidth > 640) {
+      return;
+    }
     const timeline = gsap.timeline();
     timeline
       .to(".tag-links-container", {
