@@ -45,7 +45,9 @@ function SidebarNav() {
       ) : (
         <ul className="text-lg fontColor overflow-scroll">
           <li
-            className={`${activeLinkId === null ? "bg-[#a5b4be]" : ""} px-4 `}
+            className={`${
+              activeLinkId === null ? "bg-[#262626] text-white" : ""
+            } px-4 `}
           >
             <Link
               href="/dashboard"
@@ -64,7 +66,7 @@ function SidebarNav() {
             <li
               key={tag.id}
               className={`flex justify-between items-center px-4  ${
-                activeLinkId === tag.id ? "bg-[#a5b4be]" : ""
+                activeLinkId === tag.id ? "bg-[#262626] text-white" : ""
               }`}
               onMouseEnter={() => {
                 // if (tag.id !== activeLinkId) {
