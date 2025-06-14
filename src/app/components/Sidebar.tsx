@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import SidebarNav from "./SidebarNav";
 import NewTag from "./NewTag";
 import { gsap } from "gsap";
+import NavButton from "./NavButton";
 
 export default function Sidebar() {
   const { isLoading } = useTagContext();
@@ -64,19 +65,22 @@ export default function Sidebar() {
       {isLoading ? (
         <SkeletonSidebar />
       ) : (
-        <div
-          ref={containerRef}
-          className="tag-links-container flex flex-col sm:flex-row h-0 sm:h-[68px] w-[90%] sm:w-3/4 rounded-[41px] sm:rounded-full   bg-[#262626] text-white overflow-hidden fixed bottom-[40px] left-1/2 -translate-x-1/2 transition-all ease-in duration-300 z-[99999]"
-        >
-          <button
-            ref={buttonRef}
-            className="close-tags-container-button sm:hidden w-fit ml-auto mt-4 mr-6"
+        <>
+          <NavButton />
+          <div
+            ref={containerRef}
+            className="tag-links-container flex flex-col sm:flex-row h-0 sm:h-[68px] w-[90%] sm:w-3/4 rounded-[41px] sm:rounded-full   bg-[#262626] text-white overflow-hidden fixed bottom-[40px] left-1/2 -translate-x-1/2 transition-all ease-in duration-300 z-[99999]"
           >
-            <X />
-          </button>
-          <SidebarNav />
-          <NewTag />
-        </div>
+            <button
+              ref={buttonRef}
+              className="close-tags-container-button sm:hidden w-fit ml-auto mt-4 mr-6"
+            >
+              <X />
+            </button>
+            <SidebarNav />
+            <NewTag />
+          </div>
+        </>
       )}
     </>
   );

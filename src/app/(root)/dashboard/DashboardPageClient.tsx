@@ -24,7 +24,6 @@ export default function DashboardPageClient({
         <TagProvider>
           <div id="dashboard" className="pb-[130px]">
             <Sidebar />
-            <NavButton />
             <div className="h-full px-4">
               <h1 className="text-4xl md:text-6xl font-bold mb-8">
                 All your design inspirations in one spot
