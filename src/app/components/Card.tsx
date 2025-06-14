@@ -23,7 +23,12 @@ function Card({ item }: CardProps) {
     <>
       <li className="overflow-hidden relative flex flex-col">
         <div className="rounded-lg border-2 border-[#f1f1f1]">
-          <Link href={siteUrl} target="_blank" className="text-left">
+          <Link
+            href={siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-left"
+          >
             <CardImage img={img} />
             <div className="p-4">
               <CardTitle title={siteName} />
