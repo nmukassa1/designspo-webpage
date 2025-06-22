@@ -46,51 +46,38 @@ function NewTag({ btnClass }: { btnClass?: string }) {
   };
 
   return (
-    // <div className="w-full absolute bottom-[80px] left-0 py-[10px] border-t-2 bg-white">
-    <div className="w-full py-[10px] border-t-2 bg-white mt-auto">
-      <div className="h-full relative bg-white">
-        <button
-          id="new-tag-btn"
-          className="h-full w-full text-center"
-          onClick={() => {
-            setShowInput(!showInput);
-            if (document.activeElement === inputRef.current) {
-              inputRef.current?.blur();
-            } else {
-              inputRef.current?.focus();
-            }
-          }}
+    <div className="flex items-center grow-1 relative px-5 border-l-1 border-white">
+      {/* Form */}
+      <div className={`flex gap-2 ${showInput ? "w-full" : "w-0"}`}>
+        <form
+          onSubmit={submitTag}
+          className="flex items-center justify-between w-full px-4"
         >
-          + New Tag
-        </button>
-
-        <div
-          className={`flex gap-2 absolute ${
-            showInput ? "-top-[60px]" : "top-0"
-          } left-0 w-full bg-[#262626] rounded-tl-2xl rounded-tr-2xl -z-10 transition-all ease-in duration-100`}
-        >
-          <form
-            onSubmit={submitTag}
-            className="flex items-center justify-between w-full px-4"
-          >
-            <input
-              type="text"
-              className={`${error} outline-none h-[50px] text-white w-full`}
-              value={tagName}
-              placeholder="Tag name"
-              onChange={(e) => setTagName(e.target.value)}
-              ref={inputRef}
-            />
-            <button
-              type="submit"
-              className="text-green-300"
-              onClick={() => setShowInput(false)}
-            >
-              <Check />
-            </button>
-          </form>
-        </div>
+          <input
+            type="text"
+            className={`${error} outline-none h-[50px] text-white w-full`}
+            value={tagName}
+            placeholder="Tag name"
+            onChange={(e) => setTagName(e.target.value)}
+            ref={inputRef}
+          />
+        </form>
       </div>
+
+      <button
+        id="new-tag-btn"
+        className="h-full w-full text-center"
+        onClick={() => {
+          setShowInput(!showInput);
+          if (document.activeElement === inputRef.current) {
+            inputRef.current?.blur();
+          } else {
+            inputRef.current?.focus();
+          }
+        }}
+      >
+        + New Tag
+      </button>
     </div>
   );
 }

@@ -9,18 +9,12 @@ import { useAuthContext } from "../context/AuthContext";
 import { useTagContext } from "../context/TagContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import NewTag from "./NewTag";
+import { gsap } from "gsap";
 
 function SidebarNav() {
   const [hoveredTag, setHoveredTag] = useState<number | null>(null);
   const { userId } = useAuthContext();
   const { tags } = useTagContext();
-
-  function toggleMenu() {
-    const menu = document.querySelector("aside");
-    if (menu?.classList.contains("translate-x-[-100%]")) {
-      menu?.classList.toggle("translate-x-[0]");
-    }
-  }
 
   const [activeLinkId, setActiveLinkId] = useState<number | null>(null);
 
@@ -38,21 +32,43 @@ function SidebarNav() {
     },
   });
 
+  const toggleMenu = () => {
+    if (window.innerWidth > 640) {
+      return;
+    }
+    const timeline = gsap.timeline();
+    timeline
+      .to(".tag-links-container", {
+        duration: 0.2,
+        ease: "power2.inOut",
+        height: "0",
+      })
+      .to(
+        ".mobile-nav-button",
+        {
+          duration: 0.5,
+          ease: "power2.inOut",
+          width: "68px",
+        },
+        "+=.3"
+      );
+  };
+
   return (
-    <nav className="h-full flex flex-col overflow-scroll -z-20">
+    <nav className="overflow-scroll h-full px-5 w-full sm:w-[86%]">
       {tags.length === 0 ? (
         <CreateATagPlaceholder />
       ) : (
-        <ul className="text-lg fontColor overflow-scroll">
+        <ul className="text-lg h-full fontColor overflow-scroll flex flex-col sm:flex-row gap-4 sm:items-center">
           <li
-            className={`${
-              activeLinkId === null ? "bg-[#262626] text-white" : ""
-            } px-4 `}
+            className={`border-b-2 sm:border-0 ${
+              activeLinkId === null ? "underline" : ""
+            }`}
           >
             <Link
               href="/dashboard"
               className={`block py-2  ${
-                activeLinkId === null ? "" : "hover:bg-white"
+                activeLinkId === null ? "" : "hover:underline"
               } transition linear duration-300 $`}
               onClick={() => {
                 setActiveLinkId(null);
@@ -65,8 +81,8 @@ function SidebarNav() {
           {tags.map((tag) => (
             <li
               key={tag.id}
-              className={`flex justify-between items-center px-4  ${
-                activeLinkId === tag.id ? "bg-[#262626] text-white" : ""
+              className={`flex shrink-0 justify-between items-center border-b-2 sm:border-0 ${
+                activeLinkId === tag.id ? "underline" : ""
               }`}
               onMouseEnter={() => {
                 // if (tag.id !== activeLinkId) {
@@ -78,7 +94,7 @@ function SidebarNav() {
               <Link
                 href={`/dashboard?tag=${tag.name}`}
                 className={`block py-2  ${
-                  tag.id === activeLinkId ? "" : "hover:bg-white"
+                  tag.id === activeLinkId ? "" : "hover:underline"
                 } transition linear duration-300 w-full`}
                 onClick={() => {
                   setActiveLinkId(tag.id);
@@ -87,7 +103,8 @@ function SidebarNav() {
               >
                 {tag.name}
               </Link>
-              {hoveredTag === tag.id && (
+              {/* desktop delete button */}
+              {/* {hoveredTag === tag.id && (
                 <button
                   className="text-red-500 lg:grid hidden bg-red-100 hover:bg-red-300 cursor-pointer rounded-full w-6 h-6  place-content-center"
                   onClick={async () => {
@@ -100,9 +117,10 @@ function SidebarNav() {
                 >
                   <Trash size={16} />
                 </button>
-              )}
+              )} */}
+              {/* Mobile delete button */}
               <button
-                className="text-red-500 bg-red-100 lg:hidden cursor-pointer rounded-full w-6 h-6 grid place-content-center"
+                className="text-red-500 bg-red-100 sm:hidden cursor-pointer rounded-full w-6 h-6 grid place-content-center"
                 onClick={async () => {
                   if (userId) {
                     const result = mutate(tag.id);
@@ -117,23 +135,6 @@ function SidebarNav() {
           ))}
         </ul>
       )}
-
-      {/* <div className="lg:hidden flex gap-4 justify-center grow-1 items-center">
-        <Link href="/dashboard/profile" onClick={toggleMenu}>
-          Profile
-        </Link>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            signOut();
-          }}
-        >
-          <button type="submit" className="cursor-pointer">
-            Logout
-          </button>
-        </form>
-      </div> */}
     </nav>
   );
 }
