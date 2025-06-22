@@ -18,7 +18,7 @@ function Collections() {
 
   if (isLoading) {
     return (
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {loadingMessage && (
           <div className="absolute w-full bg-[#262626] text-white text-center py-6 top-[80px] left-0">
             {loadingMessage}
