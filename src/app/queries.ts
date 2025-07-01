@@ -1,13 +1,12 @@
 "use server";
 import { api } from "./api";
-import { CollectionsType, Screenshot, Tag } from "./types/types";
+import { CollectionsType, Tag } from "./types/types";
 
 export const getCollections = async (
   userId: string | null,
   tags: string[] | string | number | null,
   page: number | undefined
 ): Promise<CollectionsType> => {
-  console.log("Fetching collections from the server...");
   try {
     let formattedTags;
     if (tags === null) {

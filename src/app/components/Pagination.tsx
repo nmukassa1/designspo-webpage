@@ -1,15 +1,28 @@
+"use client";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useDashboardContext } from "../context/DashboardContext";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 function Pagination() {
   const { pageNumber = 1, collections } = useDashboardContext();
   const totalPages = collections?.totalPages || 1;
+  const searchParams = useSearchParams();
+
+  const [tagQuery, setTagQuery] = useState("");
+
+  // get the current page query
+  useEffect(() => {
+    setTagQuery(searchParams.get("tag") || "");
+  }, []);
+
   return (
     <div className="mt-8 mx-auto flex items-center flex-col">
       <div className="flex items-center gap-4">
         {pageNumber > 1 && (
-          <Link href={`/dashboard?page=${pageNumber - 1}`}>
+          <Link href={`/dashboard?page=${pageNumber - 1}&tag=${tagQuery}`}>
             <button className="bg-[#262626] p-2 rounded-sm text-white">
               <ChevronLeft />
             </button>
@@ -17,7 +30,7 @@ function Pagination() {
         )}
 
         {pageNumber < totalPages && (
-          <Link href={`/dashboard?page=${pageNumber + 1}`}>
+          <Link href={`/dashboard?page=${pageNumber + 1}&tag=${tagQuery}`}>
             <button className="bg-[#262626] p-2 rounded-sm text-white">
               <ChevronRight />
             </button>
