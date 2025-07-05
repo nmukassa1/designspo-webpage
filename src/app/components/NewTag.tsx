@@ -55,12 +55,12 @@ function NewTag() {
 
     if (showInput === false) {
       tl.to(el, { height: "50px" })
-        .to(el, { width: "200px" })
         .to(
           el,
           { border: "1px solid black", boxShadow: "1px 2px 0px 2px" },
           "<"
-        );
+        )
+        .to(el, { width: "200px" });
       setShowInput(true);
       inputRef.current?.focus();
     } else {
