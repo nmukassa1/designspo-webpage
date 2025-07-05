@@ -90,3 +90,46 @@ button {
 aside {
   height: calc(100% - var(--headerHeight));
 }
+
+.tag-navbar-container {
+  position: sticky;
+  top: var(--headerHeight);
+  left: 0;
+  z-index: 10;
+  background: white;
+  background: var(--background);
+}
+
+.tag-navbar {
+  position: relative;
+}
+/* .tag-navbar:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50px;
+  z-index: 10;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--background),
+    var(--background)
+  );
+  content: "";
+} */
+.tag-navbar-ul-gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50px;
+  z-index: 10;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--background),
+    var(--background)
+  );
+  content: "";
+}

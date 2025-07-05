@@ -1,12 +1,11 @@
 "use client";
 
-import { Check, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { addTag } from "../mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../context/AuthContext";
 
-function NewTag({ btnClass }: { btnClass?: string }) {
+function NewTag() {
   const [tagName, setTagName] = useState<string>("");
   const [showInput, setShowInput] = useState<boolean>(false);
   const [error, setError] = useState<"border-red-500" | "">("");
@@ -46,7 +45,7 @@ function NewTag({ btnClass }: { btnClass?: string }) {
   };
 
   return (
-    <div className="flex items-center grow-1 relative px-5 border-l-1 border-white">
+    <div className="flex items-center grow-1 relative px-5 border-l-1 border-white shrink-0">
       {/* Form */}
       <div className={`flex gap-2 ${showInput ? "w-full" : "w-0"}`}>
         <form
