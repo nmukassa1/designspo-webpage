@@ -40,7 +40,7 @@ body {
 }
 
 header {
-  background: var(--background);
+  background: hsla(var(--background));
 }
 
 .wrapper {

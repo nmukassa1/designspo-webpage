@@ -1,31 +1,12 @@
-import { Trash } from "lucide-react";
 import Link from "next/link";
-import { useAuthContext } from "../../context/AuthContext";
 import { useTagContext } from "../../context/TagContext";
 import { useEffect, useRef, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTag } from "../../mutations";
 
 function TagListItems() {
   const [, setHoveredTag] = useState<number | null>(null);
-  const { userId } = useAuthContext();
   const { tags } = useTagContext();
 
   const [activeLinkId, setActiveLinkId] = useState<number | null>(null);
-
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation({
-    mutationFn: (tagId: number) => {
-      if (!userId) {
-        throw new Error("User ID is required to add a tag.");
-      }
-      return deleteTag(tagId, userId);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
-    },
-  });
 
   const toggleMenu = () => {
     if (window.innerWidth > 640) {
@@ -159,19 +140,6 @@ function TagListItems() {
           >
             {tag.name}
           </Link>
-
-          {/* <button
-            className="text-red-500 bg-red-100 sm:hidden cursor-pointer rounded-full w-6 h-6 grid place-content-center"
-            onClick={async () => {
-              if (userId) {
-                const result = mutate(tag.id);
-              } else {
-                console.error("User ID is null. Cannot delete tag.");
-              }
-            }}
-          >
-            <Trash size={16} />
-          </button> */}
         </li>
       ))}
 

@@ -5,6 +5,7 @@ import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { TagProvider } from "@/app/context/TagContext";
 import TagNavigationPanel from "@/app/components/tag-navbar/TagNavigationPanel";
+import DeleteTag from "@/app/components/tag-navbar/DeleteTag";
 
 interface DashboardPageClientProps {
   userId: string;
@@ -28,6 +29,7 @@ export default function DashboardPageClient({
               </h1>
               <TagNavigationPanel />
               <Collections />
+              {tag && <DeleteTag userId={userId} />}
             </div>
           </div>
         </TagProvider>
