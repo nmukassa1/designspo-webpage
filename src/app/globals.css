@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbfbfb;
+  /* --background: #fbfbfb; */
+  --background: 0, 0%, 98%, 1;
   --textColor: "black";
   --headerHeight: 80px;
 }
@@ -32,14 +33,14 @@
 }
 
 body {
-  background: var(--background);
+  background: hsla(var(--background));
   color: var(--textColor);
   font-family: Arial, Helvetica, sans-serif;
   padding-bottom: 20px;
 }
 
 header {
-  background: var(--background);
+  background: hsla(var(--background));
 }
 
 .wrapper {
@@ -78,8 +79,6 @@ button {
 .radial-blur {
   filter: blur(10px);
   background: radial-gradient(circle, #e7e285 0%, white 100%);
-  /* background-color: white; */
-  /* box-shadow: 0 0 50px 50px rgba(0, 0, 0, 0.2); */
 }
 
 .step-number {
@@ -89,4 +88,32 @@ button {
 
 aside {
   height: calc(100% - var(--headerHeight));
+}
+
+.tag-navbar-container {
+  position: sticky;
+  top: var(--headerHeight);
+  left: 0;
+  z-index: 10;
+  background: white;
+  background: hsla(var(--background));
+}
+
+.tag-navbar {
+  position: relative;
+}
+.tag-navbar-ul-gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 185px;
+  z-index: 10;
+  background: linear-gradient(
+    to right,
+    transparent,
+    hsla(var(--background), 0.4)
+  );
+  content: "";
+  pointer-events: none;
 }
