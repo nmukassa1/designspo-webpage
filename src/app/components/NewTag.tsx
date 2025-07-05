@@ -1,16 +1,18 @@
 "use client";
 
-import { Check, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { addTag } from "../mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../context/AuthContext";
+import { gsap } from "gsap";
 
-function NewTag({ btnClass }: { btnClass?: string }) {
+function NewTag() {
   const [tagName, setTagName] = useState<string>("");
+  // const [showInput, setShowInput] = useState<boolean>(false);
   const [showInput, setShowInput] = useState<boolean>(false);
   const [error, setError] = useState<"border-red-500" | "">("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const formContainer = useRef<HTMLDivElement>(null);
 
   const { userId } = useAuthContext();
   const queryClient = useQueryClient();
@@ -45,17 +47,55 @@ function NewTag({ btnClass }: { btnClass?: string }) {
     }
   };
 
+  function toggleInput() {
+    const el = formContainer.current;
+    if (!el) return;
+
+    const tl = gsap.timeline({ duration: 0.1, ease: "power2.inOut" });
+
+    if (showInput === false) {
+      tl.to(el, { height: "50px" })
+        .to(
+          el,
+          { border: "1px solid black", boxShadow: "1px 2px 0px 2px" },
+          "<"
+        )
+        .to(el, { width: "200px" });
+      setShowInput(true);
+      inputRef.current?.focus();
+    } else {
+      tl.to(el, { width: "5px" })
+        .to(el, {
+          height: "0",
+        })
+        .to(el, { border: "none", boxShadow: "0 0 0 0" }, "<");
+      setShowInput(false);
+      inputRef.current?.blur();
+    }
+  }
+
   return (
-    <div className="flex items-center grow-1 relative px-5 border-l-1 border-white">
+    <div className="relative border-white shrink-0 ml-auto">
+      <button
+        id="new-tag-btn"
+        className="h-full w-full text-center"
+        onClick={toggleInput}
+      >
+        + New Tag
+      </button>
+
       {/* Form */}
-      <div className={`flex gap-2 ${showInput ? "w-full" : "w-0"}`}>
+      <div
+        ref={formContainer}
+        className={`absolute top-[34px] h-0 w-[5px] right-0 flex gap-2 bg-white `}
+      >
         <form
           onSubmit={submitTag}
           className="flex items-center justify-between w-full px-4"
         >
           <input
             type="text"
-            className={`${error} outline-none h-[50px] text-white w-full`}
+            className={`${error} outline-none h-full w-full`}
             value={tagName}
             placeholder="Tag name"
             onChange={(e) => setTagName(e.target.value)}
@@ -63,21 +103,6 @@ function NewTag({ btnClass }: { btnClass?: string }) {
           />
         </form>
       </div>
-
-      <button
-        id="new-tag-btn"
-        className="h-full w-full text-center"
-        onClick={() => {
-          setShowInput(!showInput);
-          if (document.activeElement === inputRef.current) {
-            inputRef.current?.blur();
-          } else {
-            inputRef.current?.focus();
-          }
-        }}
-      >
-        + New Tag
-      </button>
     </div>
   );
 }
