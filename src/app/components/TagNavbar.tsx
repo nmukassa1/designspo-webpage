@@ -1,13 +1,13 @@
 import { useRef, useEffect } from "react";
 import { useTagContext } from "../context/TagContext";
-import SkeletonSidebar from "./sidebar/SkeletonSidebar";
+import TagNavbarSkeleton from "./sidebar/TagNavbarSkeleton";
 import { X } from "lucide-react";
 import SidebarNav from "./SidebarNav";
 import NewTag from "./NewTag";
 import { gsap } from "gsap";
 import NavButton from "./NavButton";
 
-export default function Sidebar() {
+export default function TagNavbar() {
   const { isLoading } = useTagContext();
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -60,10 +60,11 @@ export default function Sidebar() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <>
       {isLoading ? (
-        <SkeletonSidebar />
+        <TagNavbarSkeleton />
       ) : (
         <>
           <NavButton />
