@@ -19,6 +19,21 @@ export async function deleteTag(tagId: number, userId: string) {
   }
 }
 
+export async function deleteTagByName(tagName: string, userId: string) {
+  try {
+    const result = await api.delete(`/tags/delete/`, {
+      data: {
+        tagName,
+        userId,
+      },
+    });
+    revalidatePath("/");
+    return result.status;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function addTag(name: string, userId: string) {
   try {
     const result = await api.post(`/tags/`, {
