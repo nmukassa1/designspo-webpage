@@ -29,7 +29,7 @@ export default function DashboardPageClient({
               </h1>
               <TagNavigationPanel />
               <Collections />
-              {tag && <DeleteTag userId={userId} />}
+              {tag && <DeleteTag userId={userId} tagName={tag} />}
             </div>
           </div>
         </TagProvider>
