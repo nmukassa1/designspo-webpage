@@ -83,10 +83,10 @@ function NewTag() {
     <div className="relative border-white shrink-0 ml-auto">
       <button
         id="new-tag-btn"
-        className="h-full w-full text-center"
+        className="h-[30px] w-[30px] bg-[#393535] text-white rounded-full text-center"
         onClick={toggleInput}
       >
-        + New Tag
+        +
       </button>
 
       {/* Form */}
