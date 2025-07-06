@@ -39,33 +39,41 @@ function AddNewTag({
   });
 
   return (
-    <div className="addTags mt-6">
-      <h2 className="text-xl">Add Tags</h2>
-      <div className="h-[3px] bg-white mt-4 mb-6"></div>
-      <ul className="flex flex-col max-h-[130px] overflow-scroll">
-        {filteredTags?.map((tag) => (
-          <li
-            key={tag.id}
-            className="shrink-0 text-lg flex items-center gap-2 justify-between relative"
+    <>
+      {filteredTags?.map((tag) => (
+        <li
+          key={tag.id}
+          className="shrink-0 text-lg flex items-center gap-2 justify-between relative"
+        >
+          <TagActionAnimation tagId={tag.id} activeTagId={activeTagId} />
+          <button
+            onClick={() => mutate(tag.id)}
+            className="w-full flex items-center px-4 py-4 rounded-md text-black  hover:bg-[#F6F6F6] transition-colors duration-200 ease-in-out relative z-20"
+            disabled={activeTagId !== null} // optional: disable all during loading
           >
-            {activeTagId === tag.id && (
-              <span className="absolute left-0 top-0 h-full w-full animate-progress bg-[linear-gradient(45deg,_rgba(0,255,0,0.3)_25%,_transparent_25%,_transparent_50%,_rgba(0,255,0,0.3)_50%,_rgba(0,255,0,0.3)_75%,_transparent_75%,_transparent)] bg-[length:40px_40px] z-10 rounded-md" />
-            )}
-            <button
-              onClick={() => mutate(tag.id)}
-              className="w-full flex justify-between px-4 py-2 hover:bg-white/10 transition-colors duration-200 ease-in-out relative z-20"
-              disabled={activeTagId !== null} // optional: disable all during loading
-            >
-              <span>{tag.name}</span>
-              <div className="text-green-500">
-                <Check />
-              </div>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+            <div className="checkbox h-4 w-4 border-2 border-black rounded-sm mr-2"></div>
+            <span>{tag.name}</span>
+          </button>
+        </li>
+      ))}
+    </>
   );
 }
 
 export default AddNewTag;
+
+function TagActionAnimation({
+  activeTagId,
+  tagId,
+}: {
+  activeTagId: number | null;
+  tagId: number;
+}) {
+  return (
+    <>
+      {activeTagId === tagId && (
+        <span className="absolute left-0 top-0 h-full w-full animate-progress bg-[linear-gradient(45deg,_rgba(0,255,0,0.3)_25%,_transparent_25%,_transparent_50%,_rgba(0,255,0,0.3)_50%,_rgba(0,255,0,0.3)_75%,_transparent_75%,_transparent)] bg-[length:40px_40px] z-10 rounded-md" />
+      )}
+    </>
+  );
+}
