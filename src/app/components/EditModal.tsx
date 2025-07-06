@@ -46,7 +46,7 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
       }}
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <div className="w-full lg:w-[45%] h-[75%] bg-white  m-4 p-6 rounded-lg font-bold">
+      <div className="w-full lg:w-[45%] h-[75dvh] bg-white  m-4 p-6 rounded-lg font-bold">
         <div className="flex justify-between">
           <h1 className="text-2xl">
             {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
