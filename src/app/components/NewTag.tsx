@@ -51,24 +51,29 @@ function NewTag() {
     const el = formContainer.current;
     if (!el) return;
 
-    const tl = gsap.timeline({ duration: 0.1, ease: "power2.inOut" });
+    const tl = gsap.timeline();
+    const duration = { duration: 0.4, ease: "power2.inOut" };
 
     if (showInput === false) {
-      tl.to(el, { height: "50px" })
-        .to(
-          el,
-          { border: "1px solid black", boxShadow: "1px 2px 0px 2px" },
-          "<"
-        )
-        .to(el, { width: "200px" });
+      tl.to(el, {
+        height: "50px",
+        width: "200px",
+        border: "1px solid black",
+        boxShadow: "1px 2px 0px 2px",
+        ...duration,
+      });
+      // .to(el, { width: "200px", ...duration });
       setShowInput(true);
       inputRef.current?.focus();
     } else {
-      tl.to(el, { width: "5px" })
-        .to(el, {
-          height: "0",
-        })
-        .to(el, { border: "none", boxShadow: "0 0 0 0" }, "<");
+      tl.to(el, {
+        width: "5px",
+        height: "0",
+        border: "none",
+        boxShadow: "0 0 0 0",
+        ...duration,
+      });
+
       setShowInput(false);
       inputRef.current?.blur();
     }
