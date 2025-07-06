@@ -46,7 +46,7 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
       }}
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <div className="w-[80%] lg:w-[45%] h-[75%] bg-[#262626] m-4 p-6 rounded-lg text-white font-bold">
+      <div className="w-full lg:w-[45%] h-[75%] bg-white  m-4 p-6 rounded-lg font-bold">
         <div className="flex justify-between">
           <h1 className="text-2xl">
             {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
@@ -56,16 +56,15 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
           </button>
         </div>
 
-        <ExistingTags tags={tags} screenShotId={id} />
-        <AddNewTag screenShotId={id} existingTags={tags} />
+        <ul className="flex flex-col gap-2 h-[400px] overflow-scroll mt-2">
+          <ExistingTags tags={tags} screenShotId={id} />
+          <AddNewTag screenShotId={id} existingTags={tags} />
+        </ul>
 
-        <form action="" className="text-center mt-6">
+        <div className="flex justify-center mt-[10px]">
           <button
-            type="submit"
-            className={`px-4 py-2 rounded-md transition-all duration-300 ${
-              deleteIsLoading
-                ? "bg-red-400 animate-pulse cursor-not-allowed"
-                : "bg-red-600 hover:bg-red-500"
+            className={`px-4 py-2 rounded-md transition-all duration-300 bg-black text-white hover:bg-transparent hover:text-black border-2 border-black ${
+              deleteIsLoading && "animate-pulse cursor-not-allowed"
             }`}
             onClick={(e) => {
               e.preventDefault();
@@ -78,7 +77,7 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
           >
             Delete Screenshot
           </button>
-        </form>
+        </div>
       </div>
     </Modal>
   );

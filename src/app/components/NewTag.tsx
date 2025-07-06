@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addTag } from "../mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../context/AuthContext";
@@ -47,6 +47,25 @@ function NewTag() {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      if (
+        formContainer.current &&
+        !formContainer.current.contains(target) &&
+        showInput
+      ) {
+        toggleInput(); // Close if clicked outside
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showInput]);
+
   function toggleInput() {
     const el = formContainer.current;
     if (!el) return;
@@ -80,7 +99,7 @@ function NewTag() {
   }
 
   return (
-    <div className="relative border-white shrink-0 ml-auto">
+    <div className="form-wrapper relative border-white shrink-0 ml-auto">
       <button
         id="new-tag-btn"
         className="h-[30px] w-[30px] bg-[#393535] text-white rounded-full text-center"
@@ -99,6 +118,7 @@ function NewTag() {
           className="flex items-center justify-between w-full px-4"
         >
           <input
+            id="new-tag-input"
             type="text"
             className={`${error} outline-none h-full w-full`}
             value={tagName}
