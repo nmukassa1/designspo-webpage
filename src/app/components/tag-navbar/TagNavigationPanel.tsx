@@ -11,7 +11,8 @@ export default function TagNavigationPanel() {
         <TagNavigationSkeleton />
       ) : (
         <>
-          <div className="flex items-center z-[99999]">
+          <h3 className="text-sm text-gray-600">Tags:</h3>
+          <div className="flex items-center z-50 pb-2">
             <TagListPanel />
             <NewTag />
           </div>

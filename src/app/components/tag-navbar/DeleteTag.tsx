@@ -1,18 +1,21 @@
-import { deleteTag } from "@/app/mutations";
+import { deleteTagByName } from "@/app/mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
-function DeleteTag({ userId }: { userId: string }) {
+function DeleteTag({ userId, tagName }: { userId: string; tagName: string }) {
   const queryClient = useQueryClient();
+  const navigate = useRouter();
 
   const { mutate } = useMutation({
-    mutationFn: (tagId: number) => {
+    mutationFn: (tagName: string) => {
       if (!userId) {
         throw new Error("User ID is required to add a tag.");
       }
-      return deleteTag(tagId, userId);
+      return deleteTagByName(tagName, userId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
+      navigate.push("/dashboard"); // Redirect to the home page after deletion
     },
   });
 
@@ -22,7 +25,7 @@ function DeleteTag({ userId }: { userId: string }) {
         className="h-full w-full py-[5px] px-[16px] text-white"
         onClick={() => {
           if (!userId) throw new Error("User ID is required to delete a tag.");
-          console.log("Delete tag clicked");
+          mutate(tagName);
         }}
       >
         Delete Tag
