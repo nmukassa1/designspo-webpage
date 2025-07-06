@@ -41,6 +41,38 @@ body {
 
 header {
   background: hsla(var(--background));
+  height: var(--headerHeight);
+  display: flex;
+  align-items: center;
+  justify-content: between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 16px;
+}
+
+.mobile-nav-menu {
+  padding: 0 16px;
+}
+.mobile-nav-menu-link-wrapper {
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  items: center;
+  gap: 8px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+.mobile-nav-menu .button-wrapper {
+  height: var(--headerHeight);
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .wrapper {

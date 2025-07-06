@@ -1,11 +1,15 @@
-import Navbar from "./Navbar";
+"use client";
 import BrandName from "./BrandName";
 import { signOut } from "../authActions/actions";
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import MobileNavMenu from "./MobileNavMenu";
+import { useState } from "react";
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className="flex items-center justify-between px-6 py-6 sticky top-0 z-99">
+    <header>
       <BrandName href="/dashboard" />
 
       <div className="ml-auto mr-[20px] flex items-center gap-2 pointer-events-none">
@@ -13,7 +17,11 @@ function Header() {
         <div className="h-2.5 w-2.5 bg-amber-600 rounded-full animate-pulse"></div>
       </div>
 
-      <div className="flex items-center gap-8">
+      <button className="sm:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <Menu />
+      </button>
+
+      <div className="hidden sm:flex items-center gap-8">
         <Link href="/dashboard/profile">Profile</Link>
 
         <form action={signOut}>
@@ -22,6 +30,8 @@ function Header() {
           </button>
         </form>
       </div>
+
+      <MobileNavMenu isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>
   );
 }
