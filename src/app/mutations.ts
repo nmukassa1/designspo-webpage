@@ -85,12 +85,17 @@ export async function deleteTagFromCollection(
   }
 }
 
-export async function deleteScreenshot(screenshotId: number, userId: string) {
+export async function deleteScreenshot(
+  screenshotId: number,
+  userId: string,
+  accessToken: string
+) {
   try {
     const result = await api.delete(`/screenshots/`, {
       data: {
         screenshotId,
         userId,
+        accessToken,
       },
     });
     revalidatePath("/");
