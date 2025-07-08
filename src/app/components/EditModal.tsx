@@ -14,7 +14,7 @@ interface EditModalProps {
   toggleModal: boolean;
 }
 function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
-  const { userId } = useAuthContext();
+  const { userId, accessToken } = useAuthContext();
   const { id, siteName, tags } = screenshot;
 
   const queryClient = useQueryClient();
@@ -26,7 +26,10 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
         throw new Error("User ID is required to add a tag.");
       }
       setDeleteIsLoading(true);
-      return deleteScreenshot(id, userId);
+      if (!accessToken) {
+        throw new Error("Access token is required to delete a screenshot.");
+      }
+      return deleteScreenshot(id, userId, accessToken);
     },
     onSuccess: () => {
       setDeleteIsLoading(false);
