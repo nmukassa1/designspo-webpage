@@ -14,7 +14,7 @@ function NewTag() {
   const inputRef = useRef<HTMLInputElement>(null);
   const formContainer = useRef<HTMLDivElement>(null);
 
-  const { userId } = useAuthContext();
+  const { userId, accessToken } = useAuthContext();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -22,7 +22,7 @@ function NewTag() {
       if (!userId) {
         throw new Error("User ID is required to add a tag.");
       }
-      return addTag(tag, userId);
+      return addTag(tag, userId, accessToken || ""); // Ensure accessToken is provided
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding

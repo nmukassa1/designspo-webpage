@@ -7,19 +7,13 @@ import { TagProvider } from "@/app/context/TagContext";
 import TagNavigationPanel from "@/app/components/tag-navbar/TagNavigationPanel";
 import DeleteTag from "@/app/components/tag-navbar/DeleteTag";
 
-interface DashboardPageClientProps {
-  userId: string;
-}
-
-export default function DashboardPageClient({
-  userId,
-}: DashboardPageClientProps) {
+export default function DashboardPageClient() {
   const searchParams = useSearchParams();
   const tag = searchParams.get("tag");
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
 
   return (
-    <AuthProvider authId={userId}>
+    <AuthProvider>
       <DashboardProvider tagParam={tag} pageQuery={page}>
         <TagProvider>
           <div id="dashboard" className="pb-8">
@@ -29,7 +23,7 @@ export default function DashboardPageClient({
               </h1>
               <TagNavigationPanel />
               <Collections />
-              {tag && <DeleteTag userId={userId} tagName={tag} />}
+              {tag && <DeleteTag tagName={tag} />}
             </div>
           </div>
         </TagProvider>

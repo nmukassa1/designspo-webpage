@@ -6,32 +6,25 @@ const AuthContext = createContext({
   accessToken: "" as string | null,
 });
 
-export const AuthProvider = ({
-  children,
-  authId,
-}: {
-  children: React.ReactNode;
-  authId: string | null;
-}) => {
-  const [userId, setUserId] = useState<string | null>(authId);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [userId, setUserId] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    // Resolve the Supabase client
     createClient().then((client) => {
       // Fetch the user data
       client.auth.getUser().then(({ data: { user } }) => {
         console.log("User:", user);
-        setUserId(user?.id || authId); // Update userId if available
+        setUserId(user?.id ?? null); // Update userId if available
       });
 
       // Fetch current session
       client.auth.getSession().then(({ data: { session } }) => {
-        console.log("Session:", session);
-        setAccessToken(session?.access_token || null);
+        const { access_token, expires_in, expires_at } = session || {};
+        setAccessToken(access_token || null);
       });
     });
-  }, [authId]);
+  }, []);
 
   return (
     <AuthContext.Provider

@@ -10,12 +10,12 @@ const TagContext = createContext<{
 }>({ tags: [], isLoading: false });
 
 export const TagProvider = ({ children }: { children: React.ReactNode }) => {
-  const { userId } = useAuthContext();
+  const { userId, accessToken } = useAuthContext();
   const [tags, setTags] = useState<Tag[]>([]);
 
   const { data, isLoading } = useQuery<Tag[]>({
-    queryKey: ["tags", userId],
-    queryFn: () => getTags(userId),
+    queryKey: ["tags", userId, accessToken],
+    queryFn: () => getTags(userId, accessToken),
     staleTime: 1000 * 60 * 5, // 5 mins,
   });
 
