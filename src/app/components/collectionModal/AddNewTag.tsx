@@ -13,7 +13,7 @@ function AddNewTag({
   screenShotId: number;
   existingTags: ScreenshotTag[];
 }) {
-  const { userId } = useAuthContext();
+  const { userId, accessToken } = useAuthContext();
   const { tags } = useTagContext();
   const queryClient = useQueryClient();
 
@@ -27,7 +27,12 @@ function AddNewTag({
     mutationFn: async (tagId: number) => {
       if (!userId) throw new Error("User ID is required to add a tag.");
       setActiveTagId(tagId); // show loading for this tag
-      return await addTagToCollection(tagId, screenShotId, userId);
+      return await addTagToCollection(
+        tagId,
+        screenShotId,
+        userId,
+        accessToken || ""
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["collections", userId] });

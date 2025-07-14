@@ -11,7 +11,7 @@ function ExistingTags({
   tags: ScreenshotTag[];
   screenShotId: number;
 }) {
-  const { userId } = useAuthContext();
+  const { userId, accessToken } = useAuthContext();
   const queryClient = useQueryClient();
 
   const [activeTagId, setActiveTagId] = useState<number | null>(null);
@@ -19,14 +19,21 @@ function ExistingTags({
   const { mutate } = useMutation({
     mutationFn: async (id: number) => {
       if (!userId) throw new Error("User ID is required to delete a tag.");
+
       setActiveTagId(id);
-      return await deleteTagFromCollection(id, screenShotId, userId);
+      return await deleteTagFromCollection(
+        id,
+        screenShotId,
+        userId,
+        accessToken || ""
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["collections", userId] });
       setActiveTagId(null);
     },
     onError: () => {
+      console.error("Error removing tag from collection.");
       setActiveTagId(null);
     },
   });

@@ -27,7 +27,7 @@ export const DashboardProvider = ({
   tagParam?: string | null;
   pageQuery?: number;
 }) => {
-  const { userId } = useAuthContext();
+  const { userId, accessToken } = useAuthContext();
 
   const [collections, setCollections] = useState<CollectionsType | undefined>(
     undefined
@@ -37,8 +37,8 @@ export const DashboardProvider = ({
   const [loadingMessage, setLoadingMessage] = useState<string>("");
 
   const { data, isLoading } = useQuery<CollectionsType>({
-    queryKey: ["collections", userId, tagQuery, pageNumber],
-    queryFn: () => getCollections(userId, tagQuery, pageNumber),
+    queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
+    queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken),
     staleTime: 1000 * 60 * 5, // 5 mins
     enabled: !!userId,
   });

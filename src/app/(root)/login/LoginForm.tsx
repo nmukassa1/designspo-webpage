@@ -16,7 +16,7 @@ function LoginForm() {
     const result = await login(formData);
 
     if (result.error) {
-      // console.log(result.error);
+      console.log(result.error);
       setError(result.error);
     }
     setIsLoading(false);

@@ -2,30 +2,33 @@
 import { revalidatePath } from "next/cache";
 import { api } from "./api";
 import { createClient } from "./supabase/superbaseServer";
+import { headers } from "next/headers";
 // import { supabase } from "./supabase/supabaseClient";
 
-export async function deleteTag(tagId: number, userId: string) {
-  try {
-    const result = await api.delete(`/tags/`, {
-      data: {
-        tagId,
-        userId,
-      },
-    });
-    revalidatePath("/");
-    return result.status;
-  } catch (error) {
-    console.error(error);
-  }
-}
+// export async function deleteTagById(tagId: number, userId: string) {
+//   try {
+//     const result = await api.delete(`/tags/`, {
+//       data: {
+//         tagId,
+//         userId,
+//       },
+//     });
+//     revalidatePath("/");
+//     return result.status;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-export async function deleteTagByName(tagName: string, userId: string) {
+export async function deleteTagByName(
+  tagName: string,
+  userId: string,
+  accessToken: string
+) {
   try {
     const result = await api.delete(`/tags/delete/`, {
-      data: {
-        tagName,
-        userId,
-      },
+      data: { tagName, userId },
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
     revalidatePath("/");
     return result.status;
@@ -34,12 +37,21 @@ export async function deleteTagByName(tagName: string, userId: string) {
   }
 }
 
-export async function addTag(name: string, userId: string) {
+export async function addTag(
+  name: string,
+  userId: string,
+  accessToken: string
+) {
   try {
-    const result = await api.post(`/tags/`, {
-      name,
-      userId,
-    });
+    const result = await api.post(
+      `/tags/`,
+      { name, userId },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
     revalidatePath("/");
     return result.status;
   } catch (error) {
@@ -50,14 +62,16 @@ export async function addTag(name: string, userId: string) {
 export async function addTagToCollection(
   tagId: number,
   screenshotId: number,
-  userId: string
+  userId: string,
+  accessToken: string
 ) {
   try {
-    const result = await api.patch(`/screenshots/addTag`, {
-      tagId,
-      screenshotId,
-      userId,
-    });
+    const result = await api.patch(
+      `/screenshots/addTag`,
+      { tagId, screenshotId, userId },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+
     revalidatePath("/");
     return result.status;
   } catch (error) {
@@ -68,20 +82,25 @@ export async function addTagToCollection(
 export async function deleteTagFromCollection(
   tagId: number,
   screenshotId: number,
-  userId: string
+  userId: string,
+  accessToken: string
 ) {
-  console.log(tagId, screenshotId, userId);
+  console.log("Delete Tag Access Toke: ", accessToken);
 
   try {
-    const result = await api.patch(`/screenshots/removeTag`, {
-      tagId,
-      screenshotId,
-      userId,
-    });
+    const result = await api.patch(
+      `/screenshots/removeTag`,
+      { tagId, screenshotId, userId },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
     revalidatePath("/");
     return result.status;
   } catch (error) {
-    console.error(error);
+    console.error("Error removing tag: ", error);
   }
 }
 
@@ -95,7 +114,9 @@ export async function deleteScreenshot(
       data: {
         screenshotId,
         userId,
-        accessToken,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     revalidatePath("/");
