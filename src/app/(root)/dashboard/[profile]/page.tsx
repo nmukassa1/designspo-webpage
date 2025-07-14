@@ -8,5 +8,5 @@ export default async function Profile() {
   if (error || !data?.user) {
     redirect("/login");
   }
-  return <ProfilePageClient userId={data.user.id} />;
+  return <ProfilePageClient />;
 }
