@@ -13,5 +13,7 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
+  console.log("Session Data:", session);
+
   return <DashboardPageClient />;
 }

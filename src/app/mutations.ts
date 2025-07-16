@@ -141,3 +141,23 @@ export const updatePassword = async (
     return error;
   }
 };
+
+export const deleteAccount = async (
+  userId: string,
+  accessToken: string
+): Promise<string | any> => {
+  try {
+    const supabase = await createClient();
+
+    const { data } = await api.delete(`/auth/delete-account/${userId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    await supabase.auth.signOut();
+
+    revalidatePath("/");
+    return "Account deleted successfully";
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
