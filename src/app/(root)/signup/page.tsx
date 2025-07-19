@@ -46,8 +46,6 @@ export default function SignupPage() {
 
   return (
     <div className="p-7">
-      <BrandName href="/" />
-
       <div className="md:w-3/4 mx-auto">
         <form onSubmit={handleSubmit} className="flex flex-col mt-10 gap-4 ">
           <h2 className="text-2xl font-semibold mb-8 text-center">Sign Up</h2>

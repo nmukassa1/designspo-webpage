@@ -91,7 +91,6 @@ function ResetPasswordPage() {
 
   return (
     <div className="p-7">
-      <BrandName href="/" />
       <div className="md:w-3/4 mx-auto">
         <h1 className="text-2xl font-bold mb-4 text-center">Update Password</h1>
         <form

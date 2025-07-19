@@ -4,9 +4,11 @@ import { signOut } from "@/app/authActions/actions";
 import { createClient } from "@/app/supabase/supabaseClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-function HeaderNav() {
+function AuthState() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const params = useParams();
 
   useEffect(() => {
     async function checkLoginStatus() {
@@ -21,7 +23,7 @@ function HeaderNav() {
       }
     }
     checkLoginStatus();
-  }, []);
+  }, [params]);
 
   const handleLogout = async () => {
     signOut();
@@ -49,4 +51,4 @@ function HeaderNav() {
   );
 }
 
-export default HeaderNav;
+export default AuthState;

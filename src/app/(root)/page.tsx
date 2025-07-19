@@ -6,28 +6,14 @@ import ProblemStatement from "../features/homePage/ProblemStatement";
 import Steps from "../features/homePage/Steps";
 import SignUpButton from "../features/homePage/SignUpButton";
 import ChromeExtensionButton from "../features/homePage/ChromeExtensionButton";
-import HeaderNav from "../features/homePage/HeaderNav";
+import HeaderNav from "../features/homePage/AuthState";
 
 function page() {
   return (
     <div className="px-6">
-      <header className="flex items-center justify-between py-6 sticky top-0 z-99">
-        <BrandName href="/" />
-        <div className="ml-auto mr-[20px] flex items-center gap-2 pointer-events-none">
-          <span>Beta</span>
-          <div className="h-2.5 w-2.5 bg-amber-600 rounded-full animate-pulse"></div>
-        </div>
-
-        <HeaderNav />
-      </header>
-
-      {/* Hero */}
       <Hero />
-      {/* App UI */}
       <DesktopPreview />
-      {/* Problem statement */}
       <ProblemStatement />
-      {/* Steps */}
       <Steps />
 
       <div className="text-center my-20">
