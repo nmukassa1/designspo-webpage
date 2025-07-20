@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     createClient().then((client) => {
       // Fetch the user data
       client.auth.getUser().then(({ data: { user } }) => {
-        console.log("User:", user);
+        // console.log("User:", user);
         setUserId(user?.id ?? null); // Update userId if available
       });
 

@@ -1,16 +1,14 @@
 "use client";
 import BrandName from "./BrandName";
-import { signOut } from "../authActions/actions";
-import Link from "next/link";
 import { Menu } from "lucide-react";
-import MobileNavMenu from "./MobileNavMenu";
 import { useState } from "react";
+import AuthState from "../features/homePage/AuthState";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <header>
-      <BrandName href="/dashboard" />
+    <header className="">
+      <BrandName href="/" />
 
       <div className="ml-auto mr-[20px] flex items-center gap-2 pointer-events-none">
         <span>Beta</span>
@@ -21,17 +19,7 @@ function Header() {
         <Menu />
       </button>
 
-      <div className="hidden sm:flex items-center gap-8">
-        <Link href="/dashboard/profile">Profile</Link>
-
-        <form action={signOut}>
-          <button type="submit" className="cursor-pointer">
-            Logout
-          </button>
-        </form>
-      </div>
-
-      <MobileNavMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AuthState isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>
   );
 }

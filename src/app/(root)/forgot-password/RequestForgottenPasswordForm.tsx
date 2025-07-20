@@ -40,8 +40,6 @@ export default function RequestForgottenPasswordForm() {
 
   return (
     <div className="p-7">
-      <BrandName href="/" />
-
       <div className="md:w-3/4 mx-auto">
         <h1 className="text-2xl text-center font-bold mb-4">
           Request to reset password

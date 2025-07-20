@@ -1,47 +1,23 @@
-import Link from "next/link";
-import BrandName from "../components/BrandName";
-import DesktopPreview from "../features/homePage/DesktopPreview";
-import Hero from "../features/homePage/Hero";
-import ProblemStatement from "../features/homePage/ProblemStatement";
-import Steps from "../features/homePage/Steps";
-import SignUpButton from "../features/homePage/SignUpButton";
-import ChromeExtensionButton from "../features/homePage/ChromeExtensionButton";
-import HeaderNav from "../features/homePage/HeaderNav";
+import Footer from "@/app/components/landing/Footer";
+import GetStartedSection from "@/app/components/landing/GetStartedSection";
+import HeroSection from "@/app/components/landing/HeroSection";
+import PreviewImage from "@/app/components/landing/PreviewImage";
+import ProblemSection from "@/app/components/landing/ProblemSection";
+import StepSection from "@/app/components/landing/StepSection";
 
-function page() {
+function Page() {
   return (
-    <div className="px-6">
-      <header className="flex items-center justify-between py-6 sticky top-0 z-99">
-        <BrandName href="/" />
-        <div className="ml-auto mr-[20px] flex items-center gap-2 pointer-events-none">
-          <span>Beta</span>
-          <div className="h-2.5 w-2.5 bg-amber-600 rounded-full animate-pulse"></div>
-        </div>
-
-        <HeaderNav />
-      </header>
-
-      {/* Hero */}
-      <Hero />
-      {/* App UI */}
-      <DesktopPreview />
-      {/* Problem statement */}
-      <ProblemStatement />
-      {/* Steps */}
-      <Steps />
-
-      <div className="text-center my-20">
-        <h2 className="text-3xl">Lets get you started</h2>
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <SignUpButton />
-          <ChromeExtensionButton />
-        </div>
-      </div>
-      <Link href="/privacy" className="flex justify-center underline">
-        Privacy
-      </Link>
-    </div>
+    <>
+      <main className="flex-1">
+        <HeroSection />
+        <PreviewImage />
+        <ProblemSection />
+        <StepSection />
+        <GetStartedSection />
+      </main>
+      <Footer />
+    </>
   );
 }
 
-export default page;
+export default Page;

@@ -4,7 +4,6 @@ import LoginForm from "./LoginForm";
 function LoginPage() {
   return (
     <div className=" p-7">
-      <BrandName href="/" />
       <div className="md:w-3/4 mx-auto">
         <LoginForm />
       </div>

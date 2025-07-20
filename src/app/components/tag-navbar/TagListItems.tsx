@@ -101,14 +101,16 @@ function TagListItems() {
   return (
     <ul
       ref={navRef}
-      className="text-lg h-full fontColor overflow-scroll flex gap-4 items-center"
+      className="text-lg h-full fontColor overflow-scroll flex gap-2 items-center"
     >
-      <li className={`${activeLinkId === null ? "underline" : ""}`}>
+      <li
+        className={`${
+          activeLinkId === null ? "bg-gray-200" : ""
+        } hover:bg-gray-200 rounded-full`}
+      >
         <Link
           href="/dashboard"
-          className={`block py-2  ${
-            activeLinkId === null ? "" : "hover:underline"
-          } transition linear duration-300 $`}
+          className="block py-2 px-3"
           onClick={() => {
             setActiveLinkId(null);
             toggleMenu();
@@ -120,8 +122,8 @@ function TagListItems() {
       {tags.map((tag) => (
         <li
           key={tag.id}
-          className={`flex shrink-0 justify-between items-center ${
-            activeLinkId === tag.id ? "underline" : ""
+          className={`flex shrink-0 justify-between items-center hover:bg-gray-200 rounded-full  ${
+            activeLinkId === tag.id ? "bg-gray-200" : ""
           }`}
           onMouseEnter={() => {
             setHoveredTag(tag.id);
@@ -130,9 +132,7 @@ function TagListItems() {
         >
           <Link
             href={`/dashboard?tag=${tag.name}`}
-            className={`block py-2  ${
-              tag.id === activeLinkId ? "" : "hover:underline"
-            } transition linear duration-300 w-full`}
+            className={`block py-2 px-3 transition linear duration-300 w-full`}
             onClick={() => {
               setActiveLinkId(tag.id);
               toggleMenu();
