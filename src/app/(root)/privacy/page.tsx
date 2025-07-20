@@ -1,13 +1,8 @@
 import BrandName from "@/app/components/BrandName";
-import HeaderNav from "@/app/features/homePage/HeaderNav";
 
 function page() {
   return (
     <>
-      <header className="flex items-center justify-between py-6 sticky top-0 z-99 px-6">
-        <BrandName href="/" />
-        <HeaderNav />
-      </header>
       <div className="font-sans mx-auto my-8 max-w-3xl leading-relaxed text-gray-800">
         <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
 
