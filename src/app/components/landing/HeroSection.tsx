@@ -3,7 +3,7 @@ import WaitlistForm from "./WaitlistForm";
 
 export default function HeroSection() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-26 flex flex-col items-center justify-center text-center relative overflow-hidden">
+    <section className="w-full py-12 md:pb-24 lg:pb-26 flex flex-col items-center justify-center text-center relative overflow-hidden">
       <div className="container px-4 md:px-6 max-w-4xl space-y-8 z-10">
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">

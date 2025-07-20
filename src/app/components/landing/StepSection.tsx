@@ -1,6 +1,6 @@
 export default function StepSection() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 py-12 md:py-24 lg:py-32 container mx-auto px-4 md:px-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 py-12 md:py-24 lg:py-32 container mx-auto px-4 md:px-6 text-center lg:text-left">
       {/* STEP 1 */}
       <div className="flex flex-col space-y-4">
         <div className="space-y-2">

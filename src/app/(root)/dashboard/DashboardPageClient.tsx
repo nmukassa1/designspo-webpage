@@ -19,7 +19,8 @@ export default function DashboardPageClient() {
           <div id="dashboard" className="pb-8">
             <div className="h-full px-4">
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                All your design inspirations in one spot
+                {/* All your design inspirations in one spot */}
+                Your design library.
               </h1>
               <TagNavigationPanel />
               <Collections />

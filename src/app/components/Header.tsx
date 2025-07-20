@@ -1,7 +1,6 @@
 "use client";
 import BrandName from "./BrandName";
 import { Menu } from "lucide-react";
-import MobileNavMenu from "./MobileNavMenu";
 import { useState } from "react";
 import AuthState from "../features/homePage/AuthState";
 
@@ -20,8 +19,7 @@ function Header() {
         <Menu />
       </button>
 
-      <AuthState />
-      <MobileNavMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AuthState isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>
   );
 }

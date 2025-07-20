@@ -1,33 +1,23 @@
-import Link from "next/link";
-import BrandName from "../components/BrandName";
-import DesktopPreview from "../features/homePage/DesktopPreview";
-import Hero from "../features/homePage/Hero";
-import ProblemStatement from "../features/homePage/ProblemStatement";
-import Steps from "../features/homePage/Steps";
-import SignUpButton from "../features/homePage/SignUpButton";
-import ChromeExtensionButton from "../features/homePage/ChromeExtensionButton";
-import HeaderNav from "../features/homePage/AuthState";
+import Footer from "@/app/components/landing/Footer";
+import GetStartedSection from "@/app/components/landing/GetStartedSection";
+import HeroSection from "@/app/components/landing/HeroSection";
+import PreviewImage from "@/app/components/landing/PreviewImage";
+import ProblemSection from "@/app/components/landing/ProblemSection";
+import StepSection from "@/app/components/landing/StepSection";
 
-function page() {
+function Page() {
   return (
-    <div className="px-6">
-      <Hero />
-      <DesktopPreview />
-      <ProblemStatement />
-      <Steps />
-
-      <div className="text-center my-20">
-        <h2 className="text-3xl">Lets get you started</h2>
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <SignUpButton />
-          <ChromeExtensionButton />
-        </div>
-      </div>
-      <Link href="/privacy" className="flex justify-center underline">
-        Privacy
-      </Link>
-    </div>
+    <>
+      <main className="flex-1">
+        <HeroSection />
+        <PreviewImage />
+        <ProblemSection />
+        <StepSection />
+        <GetStartedSection />
+      </main>
+      <Footer />
+    </>
   );
 }
 
-export default page;
+export default Page;

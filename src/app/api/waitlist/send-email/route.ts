@@ -1,5 +1,5 @@
 import { createClient } from "@/app/supabase/superbaseServer";
-import type { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
@@ -13,7 +13,23 @@ export async function POST(req: NextRequest) {
 
     if (!email || typeof email !== "string" || !email.includes("@")) {
       console.error("Invalid email:", email);
-      return new Response(JSON.stringify({ message: "Missing email" }), {
+      return NextResponse.json({
+        message: "Missing email",
+        status: 400,
+      });
+    }
+
+    // Check if email already exists in the waiting list
+    const { data: existingEmail, error: checkError } = await supabase
+      .from("Waiting-list")
+      .select("email")
+      .eq("email", email)
+      .single();
+
+    if (existingEmail) {
+      console.log("Email already exists in the waiting list:", email);
+      return NextResponse.json({
+        message: "Email already exists",
         status: 400,
       });
     }
@@ -25,9 +41,7 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("Database error:", error);
-      return new Response(JSON.stringify({ message: "Database error" }), {
-        status: 500,
-      });
+      return NextResponse.json({ message: "Error storing email", status: 500 });
     }
 
     const transporter = nodemailer.createTransport({
@@ -51,7 +65,8 @@ export async function POST(req: NextRequest) {
         "Failed to send confirmation email:",
         sendingConfirmationEmail.rejected
       );
-      return new Response(JSON.stringify({ message: "Email failed to send" }), {
+      return NextResponse.json({
+        message: "Email failed to send",
         status: 500,
       });
     }
@@ -65,13 +80,9 @@ export async function POST(req: NextRequest) {
       text: `You've received a new waitlist sign-up: ${email}`,
     });
 
-    return new Response(JSON.stringify({ message: "Email sent!" }), {
-      status: 200,
-    });
+    return NextResponse.json({ message: "Email sent!", status: 200 });
   } catch (error) {
     console.error("Email error:", error);
-    return new Response(JSON.stringify({ message: "Email failed to send" }), {
-      status: 500,
-    });
+    return NextResponse.json({ message: "Email failed to send", status: 500 });
   }
 }

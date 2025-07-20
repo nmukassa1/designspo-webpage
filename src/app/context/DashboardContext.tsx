@@ -46,13 +46,13 @@ export const DashboardProvider = ({
   });
 
   // Effect to handle protected route
-  useEffect(() => {
-    if (!userId) {
-      // Redirect to login or show an error
-      console.error("User is not authenticated.");
-      router.push("/login");
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (!userId) {
+  //     // Redirect to login or show an error
+  //     console.error("User is not authenticated.");
+  //     router.push("/login");
+  //   }
+  // }, [userId]);
 
   // Effect to update collections when data changes
   useEffect(() => {

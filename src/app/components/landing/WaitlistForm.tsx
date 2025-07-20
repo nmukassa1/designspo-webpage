@@ -15,6 +15,7 @@ function WaitlistForm() {
 
     if (!email) {
       alert("Please enter a valid email address.");
+      setIsLoading(false);
       return;
     }
 
@@ -26,15 +27,18 @@ function WaitlistForm() {
       body: JSON.stringify({ email }),
     })
       .then((response) => {
-        if (response.ok) {
-          alert("Thank you for joining the waitlist!");
-        } else {
-          alert("Failed to join the waitlist. Please try again later.");
+        if (!response.ok) {
+          throw new Error();
         }
+        response.json().then((data) => {
+          console.log(response);
+
+          alert(data.message);
+        });
       })
       .catch((error) => {
         console.error("Error sending email:", error);
-        alert("An error occurred. Please try again later.");
+        alert(error);
       })
       .finally(() => {
         setIsLoading(false);
