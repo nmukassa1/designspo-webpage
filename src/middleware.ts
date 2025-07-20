@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
   );
 
   // 🔒 Block access to /login if no valid OTP token
-  if (isLoginPage && sessionValue !== "6949") {
+  if (isLoginPage && sessionValue !== process.env.NEXT_PUBLIC_ADMIN_KEY) {
     console.error("No valid OTP token, blocking /login");
     return NextResponse.redirect(new URL("/", request.url));
   }
