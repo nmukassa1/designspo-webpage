@@ -15,6 +15,7 @@ function AuthState({
   setIsOpen: (isOpen: boolean) => void;
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [adminCookieExist, setAdminCookieExist] = useState<boolean>(false);
   const params = useParams();
 
   useEffect(() => {
@@ -32,6 +33,17 @@ function AuthState({
       }
     }
     checkLoginStatus();
+    const cookies = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("otp_token"));
+
+    console.log("Cookies:", cookies);
+
+    if (cookies) {
+      setAdminCookieExist(true);
+    } else {
+      setAdminCookieExist(false);
+    }
   }, [params]);
 
   const handleLogout = async () => {
@@ -53,9 +65,7 @@ function AuthState({
             </form>
           </>
         ) : (
-          <>
-            <Link href="/login">Login</Link>
-          </>
+          <>{adminCookieExist && <Link href="/login">Login</Link>}</>
         )}
       </div>
       {isLoggedIn && <MobileNavMenu isOpen={isOpen} setIsOpen={setIsOpen} />}
