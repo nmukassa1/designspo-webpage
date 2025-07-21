@@ -1,6 +1,6 @@
 "use client";
 import BrandName from "./BrandName";
-import { Menu } from "lucide-react";
+// import { Menu } from "lucide-react";
 import { useState } from "react";
 import AuthState from "../features/homePage/AuthState";
 
@@ -15,9 +15,9 @@ function Header() {
         <div className="h-2.5 w-2.5 bg-amber-600 rounded-full animate-pulse"></div>
       </div>
 
-      <button className="sm:hidden" onClick={() => setIsOpen(!isOpen)}>
+      {/* <button className="sm:hidden" onClick={() => setIsOpen(!isOpen)}>
         <Menu />
-      </button>
+      </button> */}
 
       <AuthState isOpen={isOpen} setIsOpen={setIsOpen} />
     </header>

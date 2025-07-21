@@ -1,4 +1,4 @@
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -12,6 +12,13 @@ export default function Footer() {
         </Link>
         <Link href="#" className="text-xs hover:underline underline-offset-4">
           Privacy Policy
+        </Link>
+
+        <Link
+          href="/admin"
+          className="text-xs hover:underline underline-offset-4"
+        >
+          Admin
         </Link>
       </nav>
     </footer>
