@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import MobileNavMenu from "@/app/components/MobileNavMenu";
+import { Menu } from "lucide-react";
 
 function AuthState({
   isOpen,
@@ -68,7 +69,14 @@ function AuthState({
           <>{adminCookieExist && <Link href="/login">Login</Link>}</>
         )}
       </div>
-      {isLoggedIn && <MobileNavMenu isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isLoggedIn && (
+        <>
+          <MobileNavMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+          <button className="sm:hidden" onClick={() => setIsOpen(!isOpen)}>
+            <Menu />
+          </button>
+        </>
+      )}
     </>
   );
 }
