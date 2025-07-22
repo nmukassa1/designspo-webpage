@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
       from: '"Designspo" <no-reply@designspo.com>',
       subject: "You're on the waitlist!",
       to: email,
-      text: `Thank you for joining the waitlist! We will notify you when we launch.`,
+      text: `Thank you for joining the waitlist! Once everything is ready, we'll notify you at ${email} for a first inital access.`,
     });
 
     if (sendingConfirmationEmail.rejected.length > 0) {
