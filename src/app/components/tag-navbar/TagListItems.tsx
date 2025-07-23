@@ -105,8 +105,8 @@ function TagListItems() {
     >
       <li
         className={`${
-          activeLinkId === null ? "bg-gray-200" : ""
-        } hover:bg-gray-200 rounded-full`}
+          activeLinkId === null ? "bg-black text-white" : ""
+        } hover:bg-black hover:text-white text-black border-1 border-black rounded-full`}
       >
         <Link
           href="/dashboard"
@@ -122,8 +122,8 @@ function TagListItems() {
       {tags.map((tag) => (
         <li
           key={tag.id}
-          className={`flex shrink-0 justify-between items-center hover:bg-gray-200 rounded-full  ${
-            activeLinkId === tag.id ? "bg-gray-200" : ""
+          className={`flex shrink-0 justify-between items-center hover:bg-black  hover:text-white rounded-full text-black border-1 border-black  ${
+            activeLinkId === tag.id ? "bg-black text-white" : ""
           }`}
           onMouseEnter={() => {
             setHoveredTag(tag.id);
