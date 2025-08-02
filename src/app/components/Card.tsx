@@ -6,12 +6,14 @@ import CardTitle from "./CardTitle";
 import { Pencil } from "lucide-react";
 import EditModal from "./EditModal";
 import Link from "next/link";
+import { useEditDrawerContext } from "./EditDrawer/EditDrawerContext";
 
 interface CardProps {
   item: Screenshot;
 }
 
 function Card({ item }: CardProps) {
+  const { handleIsOpen } = useEditDrawerContext();
   const { img, siteName, siteUrl } = item;
 
   const [toggleModal, setToggleModal] = useState<boolean>(false);
@@ -35,15 +37,21 @@ function Card({ item }: CardProps) {
             </div>
           </Link>
         </div>
-        <button className="ml-auto mt-2 mr-2" onClick={handleModal}>
+        <button
+          className="ml-auto mt-2 mr-2"
+          onClick={() => handleIsOpen(item)}
+        >
           <Pencil size={14} />
         </button>
+        {/* <button className="ml-auto mt-2 mr-2" onClick={handleModal}>
+          <Pencil size={14} />
+        </button> */}
       </li>
-      <EditModal
+      {/* <EditModal
         screenshot={item}
         handleModal={handleModal}
         toggleModal={toggleModal}
-      />
+      /> */}
     </>
   );
 }

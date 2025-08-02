@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { data, error } = await supabase
-      .from("Waiting-list")
+      .from("WaitingList")
       .insert([{ email }])
       .select();
 

@@ -17,6 +17,7 @@ export interface Screenshot {
   siteUrl: string;
   userId: string;
   tags: ScreenshotTag[];
+  description?: { id: number; content: string; screenshotId: number };
 }
 
 export interface CollectionsType {

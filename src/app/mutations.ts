@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { api } from "./api";
 import { createClient } from "./supabase/superbaseServer";
 import { headers } from "next/headers";
+import { UpdateDescriptionResponse } from "./types/api";
 // import { supabase } from "./supabase/supabaseClient";
 
 // export async function deleteTagById(tagId: number, userId: string) {
@@ -61,7 +62,7 @@ export async function addTag(
 
 export async function addTagToCollection(
   tagId: number,
-  screenshotId: number,
+  screenshotId: number | undefined,
   userId: string,
   accessToken: string
 ) {
@@ -81,7 +82,7 @@ export async function addTagToCollection(
 
 export async function deleteTagFromCollection(
   tagId: number,
-  screenshotId: number,
+  screenshotId: number | undefined,
   userId: string,
   accessToken: string
 ) {
@@ -105,7 +106,7 @@ export async function deleteTagFromCollection(
 }
 
 export async function deleteScreenshot(
-  screenshotId: number,
+  screenshotId: number | undefined,
   userId: string,
   accessToken: string
 ) {
@@ -158,6 +159,35 @@ export const deleteAccount = async (
     return "Account deleted successfully";
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+};
+
+export const updateDescription = async (
+  screenShotId: number,
+  description: string,
+  userId: string,
+  accessToken: string
+): Promise<UpdateDescriptionResponse> => {
+  try {
+    const res = await api.patch(
+      "/screenshots/update-description",
+      {
+        id: screenShotId,
+        description: description.trim(),
+        userId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    // console.log(res);
+
+    return res.data;
+  } catch (error) {
+    console.error("Error updating description:", error);
     throw error;
   }
 };
