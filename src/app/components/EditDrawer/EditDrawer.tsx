@@ -22,7 +22,10 @@ function EditDrawer() {
             md: "30vw", // For medium screens and above
           },
           height: "100vh",
-          borderRadius: "15px 0 0 15px",
+          borderRadius: {
+            xs: "0",
+            sm: "15px 0 0 15px",
+          },
           padding: "20px",
         },
       }}
