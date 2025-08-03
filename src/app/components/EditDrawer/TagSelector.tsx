@@ -36,7 +36,15 @@ export default function TagSelector() {
             } px-3 py-1 rounded-full text-sm grow-0 shrink-1`}
             onClick={() => {
               const inList = tagsAssociated.includes(tag.id);
-              inList ? removeTag(tag.id) : addTag(tag.id);
+              inList
+                ? removeTag({
+                    tagId: tag.id,
+                    screenshotId: itemSelected?.id || 0,
+                  })
+                : addTag({
+                    tagId: tag.id,
+                    screenshotId: itemSelected?.id || 0,
+                  });
               setTagsAssociated((prev) =>
                 inList ? prev.filter((t) => t !== tag.id) : [...prev, tag.id]
               );

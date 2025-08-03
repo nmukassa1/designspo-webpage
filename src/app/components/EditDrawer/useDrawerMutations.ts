@@ -16,20 +16,43 @@ export const useDrawerMutations = () => {
   };
 
   const { mutate: addTag } = useMutation({
-    mutationFn: (tagId: number) =>
-      addTagToCollection(tagId, undefined, userId || "", accessToken || ""),
-    onSuccess: invalidate,
+    mutationFn: async ({
+      tagId,
+      screenshotId,
+    }: {
+      tagId: number;
+      screenshotId: number;
+    }) => {
+      return await addTagToCollection(
+        tagId,
+        screenshotId,
+        userId || "",
+        accessToken || ""
+      );
+    },
+    onSuccess: () => {
+      invalidate(); // Refresh query cache
+    },
   });
 
   const { mutate: removeTag } = useMutation({
-    mutationFn: (tagId: number) =>
-      deleteTagFromCollection(
+    mutationFn: async ({
+      tagId,
+      screenshotId,
+    }: {
+      tagId: number;
+      screenshotId: number;
+    }): Promise<any> => {
+      return await deleteTagFromCollection(
         tagId,
-        undefined,
+        screenshotId,
         userId || "",
         accessToken || ""
-      ),
-    onSuccess: invalidate,
+      );
+    },
+    onSuccess: () => {
+      invalidate(); // Refresh query cache
+    },
   });
 
   const { mutate: updateDescriptionMutation } = useMutation({
