@@ -62,7 +62,7 @@ export async function addTag(
 
 export async function addTagToCollection(
   tagId: number,
-  screenshotId: number | undefined,
+  screenshotId: number,
   userId: string,
   accessToken: string
 ) {
