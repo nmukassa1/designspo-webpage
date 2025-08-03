@@ -43,15 +43,7 @@ function Card({ item }: CardProps) {
         >
           <Pencil size={14} />
         </button>
-        {/* <button className="ml-auto mt-2 mr-2" onClick={handleModal}>
-          <Pencil size={14} />
-        </button> */}
       </li>
-      {/* <EditModal
-        screenshot={item}
-        handleModal={handleModal}
-        toggleModal={toggleModal}
-      /> */}
     </>
   );
 }
