@@ -3,7 +3,6 @@ import { CollectionsType } from "../types/types";
 import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "../queries";
 import { useAuthContext } from "./AuthContext";
-import { useRouter } from "next/navigation";
 
 const DashboardContext = createContext<{
   collections: CollectionsType | undefined;
@@ -29,7 +28,6 @@ export const DashboardProvider = ({
   pageQuery?: number;
 }) => {
   const { userId, accessToken } = useAuthContext();
-  const router = useRouter();
 
   const [collections, setCollections] = useState<CollectionsType | undefined>(
     undefined
@@ -45,19 +43,11 @@ export const DashboardProvider = ({
     enabled: !!userId,
   });
 
-  // Effect to handle protected route
-  // useEffect(() => {
-  //   if (!userId) {
-  //     // Redirect to login or show an error
-  //     console.error("User is not authenticated.");
-  //     router.push("/login");
-  //   }
-  // }, [userId]);
-
   // Effect to update collections when data changes
   useEffect(() => {
     if (data) {
       setCollections(data);
+      console.log("Collections updated:", data);
     }
   }, [data]);
 
