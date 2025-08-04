@@ -43,7 +43,9 @@ export default function AdminPage() {
 
     // ✅ Set cookie in client
     Cookies.set("otp_token", otp, {
-      expires: 0.0104, // ≈15 minutes
+      expires: 0.2083, // ≈5 hours
+
+      // expires: 0.0104, // ≈15 minutes
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
     });
