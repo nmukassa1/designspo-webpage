@@ -1,5 +1,6 @@
 import { Button } from "../../components/shadcn/button";
 import { Input } from "../../components/shadcn/input";
+import CallToActionLinks from "./CallToActionLinks";
 import WaitlistForm from "./WaitlistForm";
 
 export default function GetStartedSection() {
@@ -10,7 +11,8 @@ export default function GetStartedSection() {
           Lets get you started
         </h2>
         <div className="w-full max-w-md mx-auto space-y-4">
-          <WaitlistForm />
+          {/* <WaitlistForm /> */}
+          <CallToActionLinks />
         </div>
       </div>
     </section>
