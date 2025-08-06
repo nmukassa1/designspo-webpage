@@ -10,7 +10,8 @@ function CallToActionLinks() {
         Sign Up
       </Link>
       <Link
-        href="/signup"
+        href="https://chromewebstore.google.com/detail/curatemap-extension/cgfifloilikfidnhgdldmnmoooclefgi"
+        target="_blank"
         className="border-2 border-black rounded-md py-4 px-6"
       >
         Download Chrome Extension
