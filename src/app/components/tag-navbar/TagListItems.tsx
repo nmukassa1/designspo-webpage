@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { useTagContext } from "../../context/TagContext";
 import { useEffect, useRef, useState } from "react";
+import { useDashboardContext } from "@/app/context/DashboardContext";
 
 function TagListItems() {
   const [, setHoveredTag] = useState<number | null>(null);
   const { tags } = useTagContext();
+  const { tagQuery } = useDashboardContext();
 
-  const [activeLinkId, setActiveLinkId] = useState<number | null>(null);
+  const [activeLinkName, setActiveLinkName] = useState<string | null>(null);
 
   const toggleMenu = () => {
     if (window.innerWidth > 640) {
@@ -98,6 +100,10 @@ function TagListItems() {
     }
   }, [tags]);
 
+  useEffect(() => {
+    setActiveLinkName(tagQuery);
+  }, [tagQuery]);
+
   return (
     <ul
       ref={navRef}
@@ -105,14 +111,13 @@ function TagListItems() {
     >
       <li
         className={`${
-          activeLinkId === null ? "bg-black text-white" : ""
+          activeLinkName === "" ? "bg-black text-white" : ""
         } hover:bg-black hover:text-white text-black border-1 border-black rounded-full`}
       >
         <Link
           href="/dashboard"
           className="block py-2 px-3"
           onClick={() => {
-            setActiveLinkId(null);
             toggleMenu();
           }}
         >
@@ -123,18 +128,13 @@ function TagListItems() {
         <li
           key={tag.id}
           className={`flex shrink-0 justify-between items-center hover:bg-black  hover:text-white rounded-full text-black border-1 border-black  ${
-            activeLinkId === tag.id ? "bg-black text-white" : ""
+            activeLinkName === tag.name ? "bg-black text-white" : ""
           }`}
-          onMouseEnter={() => {
-            setHoveredTag(tag.id);
-          }}
-          onMouseLeave={() => setHoveredTag(null)}
         >
           <Link
             href={`/dashboard?tag=${tag.name}`}
             className={`block py-2 px-3 transition linear duration-300 w-full`}
             onClick={() => {
-              setActiveLinkId(tag.id);
               toggleMenu();
             }}
           >
