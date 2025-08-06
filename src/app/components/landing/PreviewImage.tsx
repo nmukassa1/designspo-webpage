@@ -17,9 +17,14 @@ export default function PreviewImage() {
           <img src="/desktop-preview.png" alt="" className="w-full" />
           <button
             onClick={handlePlay}
-            className="absolute top-1/2 left-1/2 -translate-1/2 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-full w-30 h-30 z-40"
+            className="absolute top-1/2 left-1/2 -translate-1/2 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-full sm:w-30 sm:h-30 w-20 h-20 z-40"
           >
-            <PlayIcon size={72} />
+            <div className="hidden sm:block">
+              <PlayIcon size={72} />
+            </div>
+            <div className="sm:hidden">
+              <PlayIcon size={42} />
+            </div>
           </button>
           <div className="absolute top-0 left-0 w-full h-full bg-black/10 z-10"></div>
         </>
