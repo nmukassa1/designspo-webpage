@@ -1,5 +1,3 @@
-import BrandName from "@/app/components/BrandName";
-
 function page() {
   return (
     <>
@@ -7,7 +5,7 @@ function page() {
         <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
 
         <p>
-          At <strong>Designspo</strong>, we respect your privacy and are
+          At <strong>Curatemap</strong>, we respect your privacy and are
           committed to protecting your personal information. This policy
           explains what data we collect, why we collect it, and how it's
           handled.
