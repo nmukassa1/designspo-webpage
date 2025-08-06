@@ -9,13 +9,13 @@ const DashboardContext = createContext<{
   tagQuery: string;
   pageNumber: number;
   isLoading: boolean;
-  loadingMessage: string;
+  // loadingMessage: string;
 }>({
   collections: undefined,
   tagQuery: "",
   pageNumber: 1,
   isLoading: false,
-  loadingMessage: "",
+  // loadingMessage: "",
 });
 
 export const DashboardProvider = ({
@@ -34,7 +34,7 @@ export const DashboardProvider = ({
   );
   const [tagQuery, setTagQuery] = useState<string>(tagParam ?? "");
   const [pageNumber, setPageNumber] = useState<number>(pageQuery ?? 1);
-  const [loadingMessage, setLoadingMessage] = useState<string>("");
+  // const [loadingMessage, setLoadingMessage] = useState<string>("");
 
   const { data, isLoading } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
@@ -66,29 +66,29 @@ export const DashboardProvider = ({
   }, [tagParam, pageQuery]);
 
   // Effect to handle loading message
-  useEffect(() => {
-    let timeout: NodeJS.Timeout | null = null;
+  // useEffect(() => {
+  //   let timeout: NodeJS.Timeout | null = null;
 
-    if (isLoading) {
-      // Start a timeout to show the loading message after 5 seconds
-      timeout = setTimeout(() => {
-        setLoadingMessage("Fetching data is taking longer than usual...");
-      }, 5000);
-    } else {
-      // Clear the loading message and timeout when loading is complete
-      setLoadingMessage("");
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    }
+  //   if (isLoading) {
+  //     // Start a timeout to show the loading message after 5 seconds
+  //     timeout = setTimeout(() => {
+  //       setLoadingMessage("Fetching data is taking longer than usual...");
+  //     }, 5000);
+  //   } else {
+  //     // Clear the loading message and timeout when loading is complete
+  //     setLoadingMessage("");
+  //     if (timeout) {
+  //       clearTimeout(timeout);
+  //     }
+  //   }
 
-    // Cleanup timeout on unmount or when isLoading changes
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  }, [isLoading]);
+  //   // Cleanup timeout on unmount or when isLoading changes
+  //   return () => {
+  //     if (timeout) {
+  //       clearTimeout(timeout);
+  //     }
+  //   };
+  // }, [isLoading]);
 
   return (
     <DashboardContext.Provider
@@ -97,7 +97,7 @@ export const DashboardProvider = ({
         tagQuery,
         pageNumber,
         isLoading,
-        loadingMessage,
+        // loadingMessage,
       }}
     >
       {children}

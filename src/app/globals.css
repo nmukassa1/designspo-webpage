@@ -207,7 +207,7 @@ aside {
   height: 100%;
   width: 185px;
   z-index: 10;
-  background: linear-gradient(to right, transparent, hsla(var(--background)));
+  background: linear-gradient(to right, transparent, var(--background));
   content: "";
   pointer-events: none;
 }

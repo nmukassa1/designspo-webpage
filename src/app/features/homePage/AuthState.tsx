@@ -1,10 +1,10 @@
 "use client";
 
 import { signOut } from "@/app/authActions/actions";
-// import { createClient } from "@/app/supabase/supabaseClient";
+import { createClient } from "@/app/supabase/supabaseClient";
 import Link from "next/link";
-import { useState } from "react";
-// import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import MobileNavMenu from "@/app/components/MobileNavMenu";
 import { Menu } from "lucide-react";
 
@@ -17,37 +17,36 @@ function AuthState({
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [adminCookieExist, setAdminCookieExist] = useState<boolean>(false);
-  // const params = useParams();
+  const params = useParams();
 
   // For ADMIN USE!!!
 
-  // useEffect(() => {
-  //   async function checkLoginStatus() {
-  //     const supabase = await createClient();
-  //     const {
-  //       data: { session },
-  //     } = await supabase.auth.getSession();
-  //     console.log("Session Data:", session);
+  useEffect(() => {
+    async function checkLoginStatus() {
+      const supabase = await createClient();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      console.log("Session Data:", session);
 
-  //     if (session) {
-  //       setIsLoggedIn(true);
-  //     } else {
-  //       setIsLoggedIn(false);
-  //     }
-  //   }
-  //   checkLoginStatus();
-  //   const cookies = document.cookie
-  //     .split("; ")
-  //     .find((row) => row.startsWith("otp_token"));
+      if (session) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    }
+    checkLoginStatus();
 
-  //   console.log("Cookies:", cookies);
+    // const cookies = document.cookie
+    //   .split("; ")
+    //   .find((row) => row.startsWith("otp_token"));
 
-  //   if (cookies) {
-  //     setAdminCookieExist(true);
-  //   } else {
-  //     setAdminCookieExist(false);
-  //   }
-  // }, [params]);
+    // if (cookies) {
+    //   setAdminCookieExist(true);
+    // } else {
+    //   setAdminCookieExist(false);
+    // }
+  }, [params]);
 
   const handleLogout = async () => {
     signOut();
