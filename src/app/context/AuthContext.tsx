@@ -6,25 +6,34 @@ const AuthContext = createContext({
   accessToken: "" as string | null,
 });
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+export const AuthProvider = ({
+  children,
+  initialUserId = null,
+  initialAccessToken = null,
+}: {
+  children: React.ReactNode;
+  initialUserId?: string | null;
+  initialAccessToken?: string | null;
+}) => {
+  const [userId, setUserId] = useState<string | null>(initialUserId);
+  const [accessToken, setAccessToken] =
+    useState<string | null>(initialAccessToken);
 
   useEffect(() => {
+    // If we already have server-provided auth, no need to refetch on the client
+    if (userId && accessToken) return;
+
     createClient().then((client) => {
-      // Fetch the user data
       client.auth.getUser().then(({ data: { user } }) => {
-        // console.log("User:", user);
-        setUserId(user?.id ?? null); // Update userId if available
+        setUserId(user?.id ?? null);
       });
 
-      // Fetch current session
       client.auth.getSession().then(({ data: { session } }) => {
-        const { access_token, expires_in, expires_at } = session || {};
+        const { access_token } = session || {};
         setAccessToken(access_token || null);
       });
     });
-  }, []);
+  }, [userId, accessToken]);
 
   return (
     <AuthContext.Provider
