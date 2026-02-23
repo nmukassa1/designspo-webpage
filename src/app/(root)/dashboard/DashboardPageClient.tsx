@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Collections from "@/app/components/Collections";
+import type { CollectionsType, Tag } from "@/app/types/types";
 import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { TagProvider } from "@/app/context/TagContext";
@@ -14,19 +15,27 @@ export default function DashboardPageClient({
   page,
   initialUserId,
   initialAccessToken,
+  initialCollections,
+  initialTags,
 }: {
   tag: string | null;
   page: number;
   initialUserId: string | null;
   initialAccessToken: string | null;
+  initialCollections?: CollectionsType;
+  initialTags?: Tag[];
 }) {
   return (
     <AuthProvider
       initialUserId={initialUserId}
       initialAccessToken={initialAccessToken}
     >
-      <DashboardProvider tagParam={tag} pageQuery={page}>
-        <TagProvider>
+      <DashboardProvider
+        tagParam={tag}
+        pageQuery={page}
+        initialCollections={initialCollections}
+      >
+        <TagProvider initialTags={initialTags}>
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">
               <div className="h-full px-4">

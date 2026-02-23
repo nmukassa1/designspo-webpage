@@ -22,10 +22,12 @@ export const DashboardProvider = ({
   children,
   tagParam,
   pageQuery,
+  initialCollections,
 }: {
   children: React.ReactNode;
   tagParam?: string | null;
   pageQuery?: number;
+  initialCollections?: CollectionsType;
 }) => {
   const { userId, accessToken } = useAuthContext();
   const [tagQuery, setTagQuery] = useState<string>(tagParam ?? "");
@@ -34,6 +36,7 @@ export const DashboardProvider = ({
   const { data, isLoading } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken),
+    initialData: initialCollections,
     staleTime: 1000 * 60 * 5, // 5 mins
     enabled: !!userId,
   });

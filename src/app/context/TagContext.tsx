@@ -9,24 +9,25 @@ const TagContext = createContext<{
   isLoading: boolean;
 }>({ tags: [], isLoading: false });
 
-export const TagProvider = ({ children }: { children: React.ReactNode }) => {
+export const TagProvider = ({
+  children,
+  initialTags = [],
+}: {
+  children: React.ReactNode;
+  initialTags?: Tag[];
+}) => {
   const { userId, accessToken } = useAuthContext();
-  const [tags, setTags] = useState<Tag[]>([]);
 
   const { data, isLoading } = useQuery<Tag[]>({
     queryKey: ["tags", userId, accessToken],
     queryFn: () => getTags(userId, accessToken),
+    initialData: initialTags,
     staleTime: 1000 * 60 * 5, // 5 mins,
+    enabled: !!userId,
   });
 
-  useEffect(() => {
-    if (data) {
-      setTags(data);
-    }
-  }, [data]);
-
   return (
-    <TagContext.Provider value={{ tags, isLoading }}>
+    <TagContext.Provider value={{ tags: data ?? initialTags, isLoading }}>
       {children}
     </TagContext.Provider>
   );

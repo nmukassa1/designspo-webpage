@@ -1,5 +1,6 @@
 import DashboardPageClient from "./DashboardPageClient";
 import { createClient as createServerSupabaseClient } from "@/app/supabase/superbaseServer";
+import { getCollections, getTags } from "@/app/queries";
 
 export default async function DashboardPage({
   searchParams,
@@ -25,12 +26,26 @@ export default async function DashboardPage({
   const initialUserId = user?.id ?? null;
   const initialAccessToken = session?.access_token ?? null;
 
+  let initialCollections = undefined;
+  let initialTags = undefined;
+
+  if (initialUserId && initialAccessToken) {
+    const [collections, tags] = await Promise.all([
+      getCollections(initialUserId, tag, page, initialAccessToken),
+      getTags(initialUserId, initialAccessToken),
+    ]);
+    initialCollections = collections;
+    initialTags = tags;
+  }
+
   return (
     <DashboardPageClient
       tag={tag}
       page={page}
       initialUserId={initialUserId}
       initialAccessToken={initialAccessToken}
+      initialCollections={initialCollections}
+      initialTags={initialTags}
     />
   );
 }
