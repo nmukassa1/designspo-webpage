@@ -7,7 +7,8 @@ import { getTags } from "../queries";
 const TagContext = createContext<{
   tags: Tag[];
   isLoading: boolean;
-}>({ tags: [], isLoading: false });
+  isFetching: boolean;
+}>({ tags: [], isLoading: false, isFetching: false });
 
 export const TagProvider = ({
   children,
@@ -18,7 +19,7 @@ export const TagProvider = ({
 }) => {
   const { userId, accessToken } = useAuthContext();
 
-  const { data, isLoading } = useQuery<Tag[]>({
+  const { data, isLoading, isFetching } = useQuery<Tag[]>({
     queryKey: ["tags", userId, accessToken],
     queryFn: () => getTags(userId, accessToken),
     initialData: initialTags,
@@ -27,7 +28,9 @@ export const TagProvider = ({
   });
 
   return (
-    <TagContext.Provider value={{ tags: data ?? initialTags, isLoading }}>
+    <TagContext.Provider
+      value={{ tags: data ?? initialTags, isLoading, isFetching }}
+    >
       {children}
     </TagContext.Provider>
   );

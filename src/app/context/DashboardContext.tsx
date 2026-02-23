@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { CollectionsType } from "../types/types";
 import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "../queries";
@@ -9,12 +9,14 @@ const DashboardContext = createContext<{
   tagQuery: string;
   pageNumber: number;
   isLoading: boolean;
+  isFetching: boolean;
   // loadingMessage: string;
 }>({
   collections: undefined,
   tagQuery: "",
   pageNumber: 1,
   isLoading: false,
+  isFetching: false,
   // loadingMessage: "",
 });
 
@@ -32,14 +34,21 @@ export const DashboardProvider = ({
   const { userId, accessToken } = useAuthContext();
   const [tagQuery, setTagQuery] = useState<string>(tagParam ?? "");
   const [pageNumber, setPageNumber] = useState<number>(pageQuery ?? 1);
+  // Only use server initialData on first mount; after that rely on cache so
+  // client-side back/forward doesn't get overwritten by fresh server data each time
+  const isInitialMount = useRef(true);
 
-  const { data, isLoading } = useQuery<CollectionsType>({
+  const { data, isLoading, isFetching } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken),
-    initialData: initialCollections,
+    initialData: isInitialMount.current ? initialCollections : undefined,
     staleTime: 1000 * 60 * 5, // 5 mins
     enabled: !!userId,
   });
+
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
 
   // Effect to handle tag and page query parameters
   useEffect(() => {
@@ -63,6 +72,7 @@ export const DashboardProvider = ({
         tagQuery,
         pageNumber,
         isLoading,
+        isFetching,
         // loadingMessage,
       }}
     >
