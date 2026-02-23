@@ -28,13 +28,8 @@ export const DashboardProvider = ({
   pageQuery?: number;
 }) => {
   const { userId, accessToken } = useAuthContext();
-
-  const [collections, setCollections] = useState<CollectionsType | undefined>(
-    undefined
-  );
   const [tagQuery, setTagQuery] = useState<string>(tagParam ?? "");
   const [pageNumber, setPageNumber] = useState<number>(pageQuery ?? 1);
-  // const [loadingMessage, setLoadingMessage] = useState<string>("");
 
   const { data, isLoading } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
@@ -42,14 +37,6 @@ export const DashboardProvider = ({
     staleTime: 1000 * 60 * 5, // 5 mins
     enabled: !!userId,
   });
-
-  // Effect to update collections when data changes
-  useEffect(() => {
-    if (data) {
-      setCollections(data);
-      console.log("Collections updated:", data);
-    }
-  }, [data]);
 
   // Effect to handle tag and page query parameters
   useEffect(() => {
@@ -65,35 +52,11 @@ export const DashboardProvider = ({
     }
   }, [tagParam, pageQuery]);
 
-  // Effect to handle loading message
-  // useEffect(() => {
-  //   let timeout: NodeJS.Timeout | null = null;
-
-  //   if (isLoading) {
-  //     // Start a timeout to show the loading message after 5 seconds
-  //     timeout = setTimeout(() => {
-  //       setLoadingMessage("Fetching data is taking longer than usual...");
-  //     }, 5000);
-  //   } else {
-  //     // Clear the loading message and timeout when loading is complete
-  //     setLoadingMessage("");
-  //     if (timeout) {
-  //       clearTimeout(timeout);
-  //     }
-  //   }
-
-  //   // Cleanup timeout on unmount or when isLoading changes
-  //   return () => {
-  //     if (timeout) {
-  //       clearTimeout(timeout);
-  //     }
-  //   };
-  // }, [isLoading]);
 
   return (
     <DashboardContext.Provider
       value={{
-        collections,
+        collections: data,
         tagQuery,
         pageNumber,
         isLoading,
