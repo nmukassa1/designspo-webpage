@@ -1,11 +1,5 @@
-/* 
-FETCH USER & SESSION
-FETCH COLLECTIONS AND TAGS IF USER IS LOGGED IN
-PASS ALL DATA TO CLIENT COMPONENT
-*/
-
 import DashboardPageClient from "./DashboardPageClient";
-import { createClient as createServerSupabaseClient } from "@/app/supabase/superbaseServer";
+import { cookies } from "next/headers";
 import { getCollections, getTags } from "@/app/queries";
 
 export default async function DashboardPage({
@@ -16,26 +10,20 @@ export default async function DashboardPage({
   const tag = (searchParams.tag ?? null) as string | null;
   const page = searchParams.page ? Number(searchParams.page) : 1;
 
-  const supabase = await createServerSupabaseClient();
-  const [
-    {
-      data: { user },
-    },
-    {
-      data: { session },
-    },
-  ] = await Promise.all([supabase.auth.getUser(), supabase.auth.getSession()]);
+  // Read user_id and access_token from cookies
+  const userId = (await cookies()).get("user_id")?.value ?? null;
+  const accessToken = (await cookies()).get("access_token")?.value ?? null;
 
-  const initialUserId = user?.id ?? null;
-  const initialAccessToken = session?.access_token ?? null;
+  console.log("user_id:", userId);
+  console.log("access_token:", accessToken);
 
   let initialCollections = undefined;
   let initialTags = undefined;
 
-  if (initialUserId && initialAccessToken) {
+  if (userId && accessToken) {
     const [collections, tags] = await Promise.all([
-      getCollections(initialUserId, tag, page, initialAccessToken),
-      getTags(initialUserId, initialAccessToken),
+      getCollections(userId, tag, page, accessToken),
+      getTags(userId, accessToken),
     ]);
     initialCollections = collections;
     initialTags = tags;
@@ -43,12 +31,12 @@ export default async function DashboardPage({
 
   return (
     <DashboardPageClient
-      tag={tag}
-      page={page}
-      initialUserId={initialUserId}
-      initialAccessToken={initialAccessToken}
       initialCollections={initialCollections}
       initialTags={initialTags}
+      tag={tag}
+      page={0}
+      initialUserId={userId}
+      initialAccessToken={accessToken}
     />
   );
 }
