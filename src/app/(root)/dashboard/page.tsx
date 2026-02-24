@@ -14,9 +14,6 @@ export default async function DashboardPage({
   const userId = (await cookies()).get("user_id")?.value ?? null;
   const accessToken = (await cookies()).get("access_token")?.value ?? null;
 
-  console.log("user_id:", userId);
-  console.log("access_token:", accessToken);
-
   let initialCollections = undefined;
   let initialTags = undefined;
 
