@@ -1,3 +1,9 @@
+/* 
+FETCH USER & SESSION
+FETCH COLLECTIONS AND TAGS IF USER IS LOGGED IN
+PASS ALL DATA TO CLIENT COMPONENT
+*/
+
 import DashboardPageClient from "./DashboardPageClient";
 import { createClient as createServerSupabaseClient } from "@/app/supabase/superbaseServer";
 import { getCollections, getTags } from "@/app/queries";
@@ -18,10 +24,7 @@ export default async function DashboardPage({
     {
       data: { session },
     },
-  ] = await Promise.all([
-    supabase.auth.getUser(),
-    supabase.auth.getSession(),
-  ]);
+  ] = await Promise.all([supabase.auth.getUser(), supabase.auth.getSession()]);
 
   const initialUserId = user?.id ?? null;
   const initialAccessToken = session?.access_token ?? null;
