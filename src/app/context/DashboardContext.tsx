@@ -8,14 +8,14 @@ const DashboardContext = createContext<{
   collections: CollectionsType | undefined;
   tagQuery: string;
   pageNumber: number;
-  isLoading: boolean;
+  isPending: boolean;
   isFetching: boolean;
   // loadingMessage: string;
 }>({
   collections: undefined,
   tagQuery: "",
   pageNumber: 1,
-  isLoading: false,
+  isPending: false,
   isFetching: false,
   // loadingMessage: "",
 });
@@ -38,7 +38,7 @@ export const DashboardProvider = ({
   // client-side back/forward doesn't get overwritten by fresh server data each time
   const isInitialMount = useRef(true);
 
-  const { data, isLoading, isFetching } = useQuery<CollectionsType>({
+  const { data, isPending, isFetching } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken),
     initialData: isInitialMount.current ? initialCollections : undefined,
@@ -64,14 +64,13 @@ export const DashboardProvider = ({
     }
   }, [tagParam, pageQuery]);
 
-
   return (
     <DashboardContext.Provider
       value={{
         collections: data,
         tagQuery,
         pageNumber,
-        isLoading,
+        isPending,
         isFetching,
         // loadingMessage,
       }}
