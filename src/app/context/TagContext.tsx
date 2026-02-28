@@ -20,7 +20,7 @@ export const TagProvider = ({
   const { userId, accessToken } = useAuthContext();
 
   const { data, isLoading, isFetching } = useQuery<Tag[]>({
-    queryKey: ["tags", userId, accessToken],
+    queryKey: ["tags", userId],
     queryFn: () => getTags(userId, accessToken),
     initialData: initialTags,
     staleTime: 1000 * 60 * 5, // 5 mins,

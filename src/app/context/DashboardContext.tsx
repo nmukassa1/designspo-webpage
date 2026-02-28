@@ -35,7 +35,7 @@ export const DashboardProvider = ({
   const pageNumber = pageQuery ?? 1;
 
   const { data, isPending, isFetching } = useQuery<CollectionsType>({
-    queryKey: ["collections", userId, tagQuery, pageNumber],
+    queryKey: ["collections", tagQuery, pageNumber],
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken),
     staleTime: 1000 * 60 * 5,
     enabled: !!userId,
