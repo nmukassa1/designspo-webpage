@@ -1,39 +1,51 @@
 import DashboardPageClient from "./DashboardPageClient";
 import { cookies } from "next/headers";
 import { getCollections, getTags } from "@/app/queries";
+import {
+  QueryClient,
+  dehydrate,
+  HydrationBoundary,
+} from "@tanstack/react-query";
 
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: { tag?: string; page?: string };
+  searchParams: Promise<{ tag?: string; page?: string }>;
 }) {
-  const tag = (searchParams.tag ?? null) as string | null;
-  const page = searchParams.page ? Number(searchParams.page) : 1;
+  const { tag: rawTag, page: rawPage } = await searchParams;
 
-  // Read user_id and access_token from cookies
-  const userId = (await cookies()).get("user_id")?.value ?? null;
-  const accessToken = (await cookies()).get("access_token")?.value ?? null;
+  const tag = rawTag ?? null;
+  const page = rawPage ? Math.max(1, Number(rawPage)) : 1;
 
-  let initialCollections = undefined;
-  let initialTags = undefined;
+  const cookieStore = await cookies();
+  const userId = cookieStore.get("user_id")?.value ?? null;
+  const accessToken = cookieStore.get("access_token")?.value ?? null;
+
+  const queryClient = new QueryClient();
 
   if (userId && accessToken) {
-    const [collections, tags] = await Promise.all([
-      getCollections(userId, tag, page, accessToken),
-      getTags(userId, accessToken),
+    await Promise.all([
+      queryClient.prefetchQuery({
+        queryKey: ["collections", tag, page],
+        queryFn: () => getCollections(userId, tag, page, accessToken),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ["tags", userId],
+        queryFn: () => getTags(userId, accessToken),
+      }),
     ]);
-    initialCollections = collections;
-    initialTags = tags;
   }
 
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <DashboardPageClient
-      initialCollections={initialCollections}
-      initialTags={initialTags}
-      tag={tag}
-      page={0}
-      initialUserId={userId}
-      initialAccessToken={accessToken}
-    />
+    <HydrationBoundary state={dehydratedState}>
+      <DashboardPageClient
+        tag={tag}
+        page={page}
+        initialUserId={userId}
+        initialAccessToken={accessToken}
+      />
+    </HydrationBoundary>
   );
 }

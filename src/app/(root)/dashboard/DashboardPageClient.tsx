@@ -15,7 +15,6 @@ export default function DashboardPageClient({
   page,
   initialUserId,
   initialAccessToken,
-  initialCollections,
   initialTags,
 }: {
   tag: string | null;
@@ -30,11 +29,7 @@ export default function DashboardPageClient({
       initialUserId={initialUserId}
       initialAccessToken={initialAccessToken}
     >
-      <DashboardProvider
-        tagParam={tag}
-        pageQuery={page}
-        initialCollections={initialCollections}
-      >
+      <DashboardProvider tagParam={tag} pageQuery={page}>
         <TagProvider initialTags={initialTags}>
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">

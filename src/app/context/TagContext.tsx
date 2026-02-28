@@ -8,8 +8,7 @@ const TagContext = createContext<{
   tags: Tag[];
   isLoading: boolean;
   isFetching: boolean;
-  refetch: () => Promise<any>;
-}>({ tags: [], isLoading: false, isFetching: false, refetch: async () => {} });
+}>({ tags: [], isLoading: false, isFetching: false });
 
 export const TagProvider = ({
   children,
@@ -20,7 +19,7 @@ export const TagProvider = ({
 }) => {
   const { userId, accessToken } = useAuthContext();
 
-  const { data, isLoading, isFetching, refetch } = useQuery<Tag[]>({
+  const { data, isLoading, isFetching } = useQuery<Tag[]>({
     queryKey: ["tags", userId, accessToken],
     queryFn: () => getTags(userId, accessToken),
     initialData: initialTags,
@@ -30,7 +29,7 @@ export const TagProvider = ({
 
   return (
     <TagContext.Provider
-      value={{ tags: data ?? initialTags, isLoading, isFetching, refetch }}
+      value={{ tags: data ?? initialTags, isLoading, isFetching }}
     >
       {children}
     </TagContext.Provider>
