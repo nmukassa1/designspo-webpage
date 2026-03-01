@@ -6,7 +6,7 @@ import SkeletonCard from "./Card/SkeletonCard";
 import ExmptyCollectionPlaceholder from "./EmptyCollectionPlaceholder";
 
 function Collections() {
-  const { collections, isLoading, isFetching } = useDashboardContext();
+  const { collections, isPending, isFetching } = useDashboardContext();
 
   const renderCards = (items: Screenshot[]) => (
     <div className="relative">
@@ -18,7 +18,9 @@ function Collections() {
           </div>
         </div>
       )}
-      <ul className={`mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6 ${isFetching && !isLoading ? 'opacity-60' : ''}`}>
+      <ul
+        className={`mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6 ${isFetching && !isPending ? "opacity-60" : ""}`}
+      >
         {items.map((item: Screenshot) => (
           <Card key={item.id} item={item} />
         ))}
@@ -26,7 +28,7 @@ function Collections() {
     </div>
   );
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (

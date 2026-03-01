@@ -13,11 +13,13 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { useDashboardContext } from "@/app/context/DashboardContext";
 
-function DeleteTag({ tagName }: { tagName: string }) {
+function DeleteTag() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { userId, accessToken } = useAuthContext();
+  const { tagQuery } = useDashboardContext();
 
   const [open, setOpen] = useState(false);
 
@@ -25,9 +27,9 @@ function DeleteTag({ tagName }: { tagName: string }) {
   const handleCloseModal = () => setOpen(false);
 
   const { mutate } = useMutation({
-    mutationFn: (tagName: string) => {
+    mutationFn: (tagQuery: string) => {
       if (!userId) throw new Error("User ID is required to delete a tag.");
-      return deleteTagByName(tagName, userId, accessToken || "");
+      return deleteTagByName(tagQuery, userId, accessToken || "");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tags", userId] });
@@ -36,9 +38,11 @@ function DeleteTag({ tagName }: { tagName: string }) {
   });
 
   const handleConfirmDelete = () => {
-    mutate(tagName);
+    mutate(tagQuery);
     handleCloseModal();
   };
+
+  if (!tagQuery) return null;
 
   return (
     <>
@@ -55,7 +59,7 @@ function DeleteTag({ tagName }: { tagName: string }) {
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete the tag <strong>{tagName}</strong>?
+            Are you sure you want to delete the tag <strong>{tagQuery}</strong>?
             This action cannot be undone.
           </DialogContentText>
         </DialogContent>

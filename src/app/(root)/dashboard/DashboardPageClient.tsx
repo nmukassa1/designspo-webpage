@@ -11,14 +11,10 @@ import { EditDrawerProvider } from "@/app/components/EditDrawer/EditDrawerContex
 import EditDrawer from "@/app/components/EditDrawer/EditDrawer";
 
 export default function DashboardPageClient({
-  tag,
-  page,
   initialUserId,
   initialAccessToken,
   initialTags,
 }: {
-  tag: string | null;
-  page: number;
   initialUserId: string | null;
   initialAccessToken: string | null;
   initialCollections?: CollectionsType;
@@ -29,7 +25,7 @@ export default function DashboardPageClient({
       initialUserId={initialUserId}
       initialAccessToken={initialAccessToken}
     >
-      <DashboardProvider tagParam={tag} pageQuery={page}>
+      <DashboardProvider>
         <TagProvider initialTags={initialTags}>
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">
@@ -40,7 +36,7 @@ export default function DashboardPageClient({
                 <TagNavigationPanel />
                 <Collections />
                 <EditDrawer />
-                {tag && <DeleteTag tagName={tag} />}
+                <DeleteTag />
               </div>
             </div>
           </EditDrawerProvider>

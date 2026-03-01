@@ -14,7 +14,7 @@ export default async function DashboardPage({
 }) {
   const { tag: rawTag, page: rawPage } = await searchParams;
 
-  const tag = rawTag ?? null;
+  const tag = rawTag ?? "";
   const page = rawPage ? Math.max(1, Number(rawPage)) : 1;
 
   const cookieStore = await cookies();
@@ -26,7 +26,7 @@ export default async function DashboardPage({
   if (userId && accessToken) {
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ["collections", tag, page],
+        queryKey: ["collections", userId, tag, page],
         queryFn: () => getCollections(userId, tag, page, accessToken),
       }),
       queryClient.prefetchQuery({
@@ -41,8 +41,6 @@ export default async function DashboardPage({
   return (
     <HydrationBoundary state={dehydratedState}>
       <DashboardPageClient
-        tag={tag}
-        page={page}
         initialUserId={userId}
         initialAccessToken={accessToken}
       />

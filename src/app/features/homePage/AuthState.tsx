@@ -27,7 +27,6 @@ function AuthState({
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      console.log("Session Data:", session);
 
       if (session) {
         setIsLoggedIn(true);
@@ -36,16 +35,6 @@ function AuthState({
       }
     }
     checkLoginStatus();
-
-    // const cookies = document.cookie
-    //   .split("; ")
-    //   .find((row) => row.startsWith("otp_token"));
-
-    // if (cookies) {
-    //   setAdminCookieExist(true);
-    // } else {
-    //   setAdminCookieExist(false);
-    // }
   }, [params]);
 
   const handleLogout = async () => {

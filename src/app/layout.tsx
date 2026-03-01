@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import QueryProvider from "./Providers/QueryClientProvider";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "./components/Header";
 
@@ -31,11 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
-        <QueryProvider>
-          <Header />
-          {children}
-          <Analytics />
-        </QueryProvider>
+        <Header />
+        {children}
+        <Analytics />
       </body>
     </html>
   );
