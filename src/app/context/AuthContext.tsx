@@ -16,8 +16,9 @@ export const AuthProvider = ({
   initialAccessToken?: string | null;
 }) => {
   const [userId, setUserId] = useState<string | null>(initialUserId);
-  const [accessToken, setAccessToken] =
-    useState<string | null>(initialAccessToken);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    initialAccessToken,
+  );
 
   useEffect(() => {
     // If we already have server-provided auth, no need to refetch on the client
@@ -34,6 +35,16 @@ export const AuthProvider = ({
       });
     });
   }, [userId, accessToken]);
+
+  // useEffect(() => {
+  //   if (initialUserId && initialAccessToken) return; // already have server props
+  //   createClient().then((client) => {
+  //     client.auth.getSession().then(({ data: { session } }) => {
+  //       setUserId(session?.user?.id ?? null);
+  //       setAccessToken(session?.access_token ?? null);
+  //     });
+  //   });
+  // }, [initialUserId, initialAccessToken]);
 
   return (
     <AuthContext.Provider
