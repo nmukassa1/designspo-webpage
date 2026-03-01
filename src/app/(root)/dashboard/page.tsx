@@ -43,6 +43,8 @@ export default async function DashboardPage({
       <DashboardPageClient
         initialUserId={userId}
         initialAccessToken={accessToken}
+        initialTag={tag}
+        initialPage={page}
       />
     </HydrationBoundary>
   );

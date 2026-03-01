@@ -1,4 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+"use client";
+
+import { createContext, useContext } from "react";
 import { Tag } from "../types/types";
 import { useAuthContext } from "./AuthContext";
 import { useQuery } from "@tanstack/react-query";
@@ -6,30 +8,39 @@ import { getTags } from "../queries";
 
 const TagContext = createContext<{
   tags: Tag[];
-  isLoading: boolean;
   isFetching: boolean;
-}>({ tags: [], isLoading: false, isFetching: false });
+}>({
+  tags: [],
+  isFetching: false,
+});
 
 export const TagProvider = ({
   children,
-  initialTags = [],
+  initialUserId,
+  initialAccessToken,
 }: {
   children: React.ReactNode;
-  initialTags?: Tag[];
+  initialUserId: string | null;
+  initialAccessToken: string | null;
 }) => {
-  const { userId, accessToken } = useAuthContext();
+  const { userId: authUserId, accessToken: authAccessToken } = useAuthContext();
 
-  const { data, isLoading, isFetching } = useQuery<Tag[]>({
+  // Prefer server values to avoid timing mismatch on first render
+  const userId = initialUserId ?? authUserId;
+  const accessToken = initialAccessToken ?? authAccessToken;
+
+  const { data, isFetching } = useQuery<Tag[]>({
     queryKey: ["tags", userId],
-    queryFn: () => getTags(userId, accessToken),
-    initialData: initialTags,
-    staleTime: 1000 * 60 * 5, // 5 mins,
-    enabled: !!userId,
+    queryFn: () => getTags(userId, accessToken!),
+    enabled: !!userId && !!accessToken,
   });
 
   return (
     <TagContext.Provider
-      value={{ tags: data ?? initialTags, isLoading, isFetching }}
+      value={{
+        tags: data ?? [],
+        isFetching,
+      }}
     >
       {children}
     </TagContext.Provider>

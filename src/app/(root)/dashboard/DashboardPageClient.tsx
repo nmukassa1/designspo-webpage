@@ -13,20 +13,29 @@ import EditDrawer from "@/app/components/EditDrawer/EditDrawer";
 export default function DashboardPageClient({
   initialUserId,
   initialAccessToken,
-  initialTags,
+  initialTag,
+  initialPage,
 }: {
   initialUserId: string | null;
   initialAccessToken: string | null;
-  initialCollections?: CollectionsType;
-  initialTags?: Tag[];
+  initialTag: string;
+  initialPage: number;
 }) {
   return (
     <AuthProvider
       initialUserId={initialUserId}
       initialAccessToken={initialAccessToken}
     >
-      <DashboardProvider>
-        <TagProvider initialTags={initialTags}>
+      <DashboardProvider
+        initialUserId={initialUserId}
+        initialAccessToken={initialAccessToken}
+        tagParam={initialTag}
+        pageQuery={initialPage}
+      >
+        <TagProvider
+          initialUserId={initialUserId}
+          initialAccessToken={initialAccessToken}
+        >
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">
               <div className="h-full px-4">

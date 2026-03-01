@@ -28,7 +28,7 @@ function TagListItems() {
           ease: "power2.inOut",
           width: "68px",
         },
-        "+=.3"
+        "+=.3",
       );
   };
 
@@ -133,6 +133,7 @@ function TagListItems() {
         >
           <Link
             href={`/dashboard?tag=${tag.name}`}
+            prefetch
             className={`block py-2 px-3 transition linear duration-300 w-full`}
             onClick={() => {
               toggleMenu();

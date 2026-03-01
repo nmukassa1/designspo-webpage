@@ -1,58 +1,51 @@
 "use client";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { CollectionsType } from "../types/types";
+
+import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCollections } from "../queries";
-import { useAuthContext } from "./AuthContext";
-import { useSearchParams } from "next/navigation";
+import { CollectionsType } from "../types/types";
 
 const DashboardContext = createContext<{
   collections: CollectionsType | undefined;
   tagQuery: string;
   pageNumber: number;
-  isPending: boolean;
   isFetching: boolean;
-  // loadingMessage: string;
 }>({
   collections: undefined,
   tagQuery: "",
   pageNumber: 1,
-  isPending: false,
   isFetching: false,
-  // loadingMessage: "",
 });
 
 export const DashboardProvider = ({
   children,
-  tagParam,
-  pageQuery,
+  initialUserId,
+  initialAccessToken,
+  tagParam = "",
+  pageQuery = 1,
 }: {
   children: React.ReactNode;
-  tagParam?: string | null;
+  initialUserId: string | null;
+  initialAccessToken: string | null;
+  tagParam?: string;
   pageQuery?: number;
 }) => {
-  const { userId, accessToken } = useAuthContext();
+  const userId = initialUserId;
+  const accessToken = initialAccessToken;
 
-  const searchParams = useSearchParams();
-  const tagQuery = searchParams.get("tag") ?? "";
-  const pageNumber = searchParams.get("page")
-    ? Math.max(1, Number(searchParams.get("page")))
-    : 1;
-
-  const { data, isPending, isFetching } = useQuery<CollectionsType>({
-    queryKey: ["collections", userId, tagQuery, pageNumber],
-    queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken!),
-    // enabled: !!userId && !!accessToken,
+  const { data, isFetching } = useQuery<CollectionsType>({
+    queryKey: ["collections", userId, tagParam, pageQuery],
+    queryFn: () => getCollections(userId, tagParam, pageQuery, accessToken!),
+    enabled: !!userId && !!accessToken,
   });
+
   return (
     <DashboardContext.Provider
       value={{
         collections: data,
-        tagQuery,
-        pageNumber,
-        isPending,
+        tagQuery: tagParam,
+        pageNumber: pageQuery,
         isFetching,
-        // loadingMessage,
       }}
     >
       {children}
