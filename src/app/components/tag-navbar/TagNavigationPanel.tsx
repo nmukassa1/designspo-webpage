@@ -4,15 +4,15 @@ import TagNavigationSkeleton from "./TagNavigationSkeleton";
 import TagListPanel from "./TagListPanel";
 
 export default function TagNavigationPanel() {
-  const { isLoading, isFetching } = useTagContext();
+  const { isFetching } = useTagContext();
   return (
     <div className="tag-navbar-container relative">
-      {isFetching && !isLoading && (
+      {isFetching && !isFetching && (
         <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg">
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
         </div>
       )}
-      {isLoading ? (
+      {isFetching ? (
         <TagNavigationSkeleton />
       ) : (
         <>
