@@ -5,18 +5,31 @@ import Link from "next/link";
 import { useDashboardContext } from "../context/DashboardContext";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { getCollections } from "../queries";
+import { useAuthContext } from "../context/AuthContext";
 
 function Pagination() {
+  const queryClient = useQueryClient();
+  const { userId, accessToken } = useAuthContext();
+
   const { pageNumber = 1, collections } = useDashboardContext();
   const totalPages = collections?.totalPages || 1;
   const searchParams = useSearchParams();
 
   const [tagQuery, setTagQuery] = useState("");
 
-  // get the current page query
   useEffect(() => {
     setTagQuery(searchParams.get("tag") || "");
   }, [searchParams.toString()]);
+
+  const prefetchPage = (page: number) => {
+    queryClient.prefetchQuery({
+      queryKey: ["collections", userId, tagQuery, page],
+      queryFn: () => getCollections(userId, tagQuery, page, accessToken!),
+      staleTime: 1000 * 60 * 5,
+    });
+  };
 
   return (
     <div className="mt-8 mx-auto flex items-center flex-col">
@@ -26,6 +39,8 @@ function Pagination() {
             href={`/dashboard?${tagQuery ? `tag=${tagQuery}&` : ""}page=${
               pageNumber - 1
             }`}
+            onMouseEnter={() => prefetchPage(pageNumber - 1)}
+            onFocus={() => prefetchPage(pageNumber - 1)}
           >
             <button className="bg-[#262626] p-2 rounded-sm text-white">
               <ChevronLeft />
@@ -38,6 +53,8 @@ function Pagination() {
             href={`/dashboard?${tagQuery ? `tag=${tagQuery}&` : ""}page=${
               pageNumber + 1
             }`}
+            onMouseEnter={() => prefetchPage(pageNumber + 1)}
+            onFocus={() => prefetchPage(pageNumber + 1)}
           >
             <button className="bg-[#262626] p-2 rounded-sm text-white">
               <ChevronRight />
