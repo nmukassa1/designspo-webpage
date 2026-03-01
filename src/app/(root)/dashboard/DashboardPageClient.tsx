@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
-import Collections from "@/app/components/Collections";
-import type { CollectionsType, Tag } from "@/app/types/types";
+
 import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { TagProvider } from "@/app/context/TagContext";
+import Collections from "@/app/components/Collections";
 import TagNavigationPanel from "@/app/components/tag-navbar/TagNavigationPanel";
 import DeleteTag from "@/app/components/tag-navbar/DeleteTag";
 import { EditDrawerProvider } from "@/app/components/EditDrawer/EditDrawerContext";
@@ -29,8 +28,8 @@ export default function DashboardPageClient({
       <DashboardProvider
         initialUserId={initialUserId}
         initialAccessToken={initialAccessToken}
-        tagParam={initialTag}
-        pageQuery={initialPage}
+        initialTag={initialTag}
+        initialPage={initialPage}
       >
         <TagProvider
           initialUserId={initialUserId}

@@ -1,11 +1,5 @@
 import DashboardPageClient from "./DashboardPageClient";
 import { cookies } from "next/headers";
-import { getCollections, getTags } from "@/app/queries";
-import {
-  QueryClient,
-  dehydrate,
-  HydrationBoundary,
-} from "@tanstack/react-query";
 
 export default async function DashboardPage({
   searchParams,
@@ -21,31 +15,12 @@ export default async function DashboardPage({
   const userId = cookieStore.get("user_id")?.value ?? null;
   const accessToken = cookieStore.get("access_token")?.value ?? null;
 
-  const queryClient = new QueryClient();
-
-  if (userId && accessToken) {
-    await Promise.all([
-      queryClient.prefetchQuery({
-        queryKey: ["collections", userId, tag, page],
-        queryFn: () => getCollections(userId, tag, page, accessToken),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["tags", userId],
-        queryFn: () => getTags(userId, accessToken),
-      }),
-    ]);
-  }
-
-  const dehydratedState = dehydrate(queryClient);
-
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <DashboardPageClient
-        initialUserId={userId}
-        initialAccessToken={accessToken}
-        initialTag={tag}
-        initialPage={page}
-      />
-    </HydrationBoundary>
+    <DashboardPageClient
+      initialUserId={userId}
+      initialAccessToken={accessToken}
+      initialTag={tag}
+      initialPage={page}
+    />
   );
 }
