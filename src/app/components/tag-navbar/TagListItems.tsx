@@ -124,7 +124,7 @@ function TagListItems() {
   return (
     <ul
       ref={navRef}
-      className="text-lg h-full fontColor overflow-scroll flex gap-2 items-center"
+      className="text-lg h-full text-muted-foreground overflow-scroll flex gap-2 items-center"
     >
       {/* ALL */}
       <li
