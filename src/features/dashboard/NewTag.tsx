@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { addTag } from "../mutations";
+import { addTag } from "@/app/mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "@/app/context/AuthContext";
 import { loadGsap } from "@/lib/gsap-loader";
 
 function NewTag() {

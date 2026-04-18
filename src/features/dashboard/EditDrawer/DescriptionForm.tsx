@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useEditDrawerContext } from "./EditDrawerContext";
 import { loadGsap } from "@/lib/gsap-loader";
-import Spinner from "../Spinner";
+import Spinner from "@/components/Spinner";
 
 export default function DescriptionForm() {
   const { itemSelected, handleIsOpen } = useEditDrawerContext();

@@ -3,11 +3,11 @@
 import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { TagProvider } from "@/app/context/TagContext";
-import Collections from "@/app/components/Collections";
-import TagNavigationPanel from "@/app/components/tag-navbar/TagNavigationPanel";
-import DeleteTag from "@/app/components/tag-navbar/DeleteTag";
-import { EditDrawerProvider } from "@/app/components/EditDrawer/EditDrawerContext";
-import EditDrawer from "@/app/components/EditDrawer/EditDrawer";
+import Collections from "@/features/dashboard/Collections";
+import TagNavigationPanel from "@/features/dashboard/tag-navbar/TagNavigationPanel";
+import DeleteTag from "@/features/dashboard/tag-navbar/DeleteTag";
+import { EditDrawerProvider } from "@/features/dashboard/EditDrawer/EditDrawerContext";
+import EditDrawer from "@/features/dashboard/EditDrawer/EditDrawer";
 
 export default function DashboardPageClient({
   initialUserId,

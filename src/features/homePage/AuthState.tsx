@@ -5,7 +5,7 @@ import { signOutAndRedirectToLogin } from "@/lib/auth/sign-out-client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import MobileNavMenu from "@/app/components/MobileNavMenu";
+import MobileNavMenu from "@/components/layout/MobileNavMenu";
 import { Menu } from "lucide-react";
 
 function AuthState({

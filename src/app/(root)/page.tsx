@@ -1,9 +1,9 @@
-import Footer from "@/app/components/landing/Footer";
-import GetStartedSection from "@/app/components/landing/GetStartedSection";
-import HeroSection from "@/app/components/landing/HeroSection";
-import PreviewImage from "@/app/components/landing/PreviewImage";
-import ProblemSection from "@/app/components/landing/ProblemSection";
-import StepSection from "@/app/components/landing/StepSection";
+import Footer from "@/features/landing/components/Footer";
+import GetStartedSection from "@/features/landing/components/GetStartedSection";
+import HeroSection from "@/features/landing/components/HeroSection";
+import PreviewImage from "@/features/landing/components/PreviewImage";
+import ProblemSection from "@/features/landing/components/ProblemSection";
+import StepSection from "@/features/landing/components/StepSection";
 
 function Page() {
   return (

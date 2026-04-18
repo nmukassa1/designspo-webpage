@@ -6,11 +6,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { X } from "lucide-react";
-import { Screenshot } from "../types/types";
+import { Screenshot } from "@/app/types/types";
 import ExistingTags from "./collectionModal/ExistingTags";
-import { deleteScreenshot } from "../mutations";
+import { deleteScreenshot } from "@/app/mutations";
 import AddNewTag from "./collectionModal/AddNewTag";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "@/app/context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 

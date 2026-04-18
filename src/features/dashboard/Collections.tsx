@@ -1,5 +1,5 @@
-import { useDashboardContext } from "../context/DashboardContext";
-import { Screenshot } from "../types/types";
+import { useDashboardContext } from "@/app/context/DashboardContext";
+import { Screenshot } from "@/app/types/types";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import SkeletonCard from "./Card/SkeletonCard";

@@ -1,4 +1,4 @@
-import { useTagContext } from "../../context/TagContext";
+import { useTagContext } from "@/app/context/TagContext";
 import NewTag from "../NewTag";
 import TagNavigationSkeleton from "./TagNavigationSkeleton";
 import TagListPanel from "./TagListPanel";

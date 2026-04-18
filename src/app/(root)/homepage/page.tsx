@@ -1,9 +1,9 @@
-import ChromeExtensionButton from "@/app/features/homePage/ChromeExtensionButton";
-import DesktopPreview from "@/app/features/homePage/DesktopPreview";
-import Hero from "@/app/features/homePage/Hero";
-import ProblemStatement from "@/app/features/homePage/ProblemStatement";
-import SignUpButton from "@/app/features/homePage/SignUpButton";
-import Steps from "@/app/features/homePage/Steps";
+import ChromeExtensionButton from "@/features/homePage/ChromeExtensionButton";
+import DesktopPreview from "@/features/homePage/DesktopPreview";
+import Hero from "@/features/homePage/Hero";
+import ProblemStatement from "@/features/homePage/ProblemStatement";
+import SignUpButton from "@/features/homePage/SignUpButton";
+import Steps from "@/features/homePage/Steps";
 import Link from "next/link";
 
 function page() {

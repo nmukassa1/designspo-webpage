@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { login } from "./actions";
 import { useState } from "react";
-import Spinner from "@/app/components/Spinner";
+import Spinner from "@/components/Spinner";
 import { Eye } from "lucide-react";
 
 function LoginForm() {

@@ -1,5 +1,5 @@
 "use client";
-import { Screenshot } from "../types/types";
+import { Screenshot } from "@/app/types/types";
 import CardImage from "./CardImage";
 import CardTitle from "./CardTitle";
 import { Pencil } from "lucide-react";

@@ -1,5 +1,5 @@
 "use client";
-import BrandName from "@/app/components/BrandName";
+import BrandName from "@/components/BrandName";
 import { createClient } from "@/app/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";

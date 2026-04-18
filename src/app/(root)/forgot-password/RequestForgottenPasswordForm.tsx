@@ -1,6 +1,6 @@
 "use client";
-import BrandName from "@/app/components/BrandName";
-import Spinner from "@/app/components/Spinner";
+import BrandName from "@/components/BrandName";
+import Spinner from "@/components/Spinner";
 import { createClient } from "@/app/supabase/supabaseClient";
 import { useState } from "react";
 

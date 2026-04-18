@@ -1,8 +1,8 @@
 "use client";
 
-import DeleteAccountButton from "@/app/components/profilePage/DeleteAccountButton";
+import DeleteAccountButton from "@/features/profilePage/components/DeleteAccountButton";
 import { AuthProvider } from "@/app/context/AuthContext";
-import PasswordForm from "@/app/features/profilePage/components/PasswordForm";
+import PasswordForm from "@/features/profilePage/components/PasswordForm";
 
 function ProfilePageClient() {
   return (
