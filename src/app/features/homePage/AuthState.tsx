@@ -1,9 +1,10 @@
 "use client";
 
-import { signOut } from "@/app/authActions/actions";
 import { createClient } from "@/app/supabase/supabaseClient";
+import { signOutAndRedirectToLogin } from "@/lib/auth/sign-out-client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import MobileNavMenu from "@/app/components/MobileNavMenu";
 import { Menu } from "lucide-react";
 
@@ -15,13 +16,18 @@ function AuthState({
   setIsOpen: (isOpen: boolean) => void;
 }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // For ADMIN USE!!!
+  const pathname = usePathname();
 
+  // Header stays mounted across App Router navigations — re-read session on route change.
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getSession().then(({ data: { session } }) => {
       setIsLoggedIn(!!session);
     });
+  }, [pathname]);
+
+  useEffect(() => {
+    const supabase = createClient();
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -30,9 +36,9 @@ function AuthState({
     return () => subscription.unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    signOut();
-    setIsLoggedIn(false);
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await signOutAndRedirectToLogin();
   };
 
   return (
