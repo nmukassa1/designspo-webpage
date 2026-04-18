@@ -1,6 +1,5 @@
 "use client";
 import CallToActionLinks from "./CallToActionLinks";
-import WaitlistForm from "./WaitlistForm";
 
 export default function HeroSection() {
   return (
@@ -16,7 +15,6 @@ export default function HeroSection() {
           </p>
         </div>
         <div className="w-full max-w-md mx-auto space-y-4">
-          {/* <WaitlistForm /> */}
           <CallToActionLinks />
         </div>
       </div>

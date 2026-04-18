@@ -12,11 +12,13 @@ const DashboardContext = createContext<{
   tagQuery: string;
   pageNumber: number;
   isFetching: boolean;
+  isLoading: boolean;
 }>({
   collections: undefined,
   tagQuery: "",
   pageNumber: 1,
   isFetching: false,
+  isLoading: false,
 });
 
 export const DashboardProvider = ({
@@ -42,7 +44,7 @@ export const DashboardProvider = ({
   const userId = initialUserId;
   const accessToken = initialAccessToken;
 
-  const { data, isFetching } = useQuery<CollectionsType>({
+  const { data, isFetching, isLoading } = useQuery<CollectionsType>({
     queryKey: ["collections", userId, tagQuery, pageNumber],
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken!),
     enabled: !!userId && !!accessToken,
@@ -58,6 +60,7 @@ export const DashboardProvider = ({
         tagQuery,
         pageNumber,
         isFetching,
+        isLoading,
       }}
     >
       {children}
