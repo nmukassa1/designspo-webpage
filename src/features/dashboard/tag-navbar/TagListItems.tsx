@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDashboardContext } from "@/app/context/DashboardContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "@/app/context/AuthContext";
-import { getCollections } from "@/lib/api/collections";
+import { getCollections } from "@/lib/api/screenshots";
 import { loadGsap } from "@/lib/gsap-loader";
 
 function TagListItems() {

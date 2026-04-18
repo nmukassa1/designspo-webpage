@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getCollections } from "@/lib/api/collections";
+import { getCollections } from "@/lib/api/screenshots";
 import { CollectionsType } from "../types/types";
 import { useSearchParams } from "next/navigation";
 import { keepPreviousData } from "@tanstack/react-query";

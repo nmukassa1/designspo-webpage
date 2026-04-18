@@ -1,25 +1,17 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { api } from "@/lib/api/client";
 import { createClient } from "./supabase/supabaseServer";
-import { headers } from "next/headers";
-import { UpdateDescriptionResponse } from "./types/api";
-// import { supabase } from "./supabase/supabaseClient";
-
-// export async function deleteTagById(tagId: number, userId: string) {
-//   try {
-//     const result = await api.delete(`/tags/`, {
-//       data: {
-//         tagId,
-//         userId,
-//       },
-//     });
-//     revalidatePath("/");
-//     return result.status;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+import { deleteAccountRequest } from "@/lib/api/account";
+import {
+  deleteScreenshotRequest,
+  patchAddTagToCollection,
+  patchRemoveTagFromCollection,
+  patchScreenshotDescription,
+} from "@/lib/api/screenshots";
+import {
+  deleteTagByNameRequest,
+  postTag,
+} from "@/lib/api/tags";
 
 export async function deleteTagByName(
   tagName: string,
@@ -27,10 +19,7 @@ export async function deleteTagByName(
   accessToken: string
 ) {
   try {
-    const result = await api.delete(`/tags/delete/`, {
-      data: { tagName, userId },
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const result = await deleteTagByNameRequest(tagName, userId, accessToken);
     revalidatePath("/");
     return result.status;
   } catch (error) {
@@ -44,15 +33,7 @@ export async function addTag(
   accessToken: string
 ) {
   try {
-    const result = await api.post(
-      `/tags/`,
-      { name, userId },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const result = await postTag(name, userId, accessToken);
     revalidatePath("/");
     return result.status;
   } catch (error) {
@@ -67,10 +48,11 @@ export async function addTagToCollection(
   accessToken: string
 ) {
   try {
-    const result = await api.patch(
-      `/screenshots/addTag`,
-      { tagId, screenshotId, userId },
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+    const result = await patchAddTagToCollection(
+      tagId,
+      screenshotId,
+      userId,
+      accessToken
     );
 
     revalidatePath("/");
@@ -86,17 +68,12 @@ export async function deleteTagFromCollection(
   userId: string,
   accessToken: string
 ) {
-  console.log("Delete Tag Access Toke: ", accessToken);
-
   try {
-    const result = await api.patch(
-      `/screenshots/removeTag`,
-      { tagId, screenshotId, userId },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+    const result = await patchRemoveTagFromCollection(
+      tagId,
+      screenshotId,
+      userId,
+      accessToken
     );
     revalidatePath("/");
     return result.status;
@@ -111,15 +88,11 @@ export async function deleteScreenshot(
   accessToken: string
 ) {
   try {
-    const result = await api.delete(`/screenshots/`, {
-      data: {
-        screenshotId,
-        userId,
-      },
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const result = await deleteScreenshotRequest(
+      screenshotId,
+      userId,
+      accessToken
+    );
     revalidatePath("/");
     return result.status;
   } catch (error) {
@@ -150,9 +123,7 @@ export const deleteAccount = async (
   try {
     const supabase = await createClient();
 
-    const { data } = await api.delete(`/auth/delete-account/${userId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    await deleteAccountRequest(userId, accessToken);
     await supabase.auth.signOut();
 
     revalidatePath("/");
@@ -168,24 +139,14 @@ export const updateDescription = async (
   description: string,
   userId: string,
   accessToken: string
-): Promise<UpdateDescriptionResponse> => {
+) => {
   try {
-    const res = await api.patch(
-      "/screenshots/update-description",
-      {
-        id: screenShotId,
-        description: description.trim(),
-        userId,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+    return await patchScreenshotDescription(
+      screenShotId,
+      description,
+      userId,
+      accessToken
     );
-    // console.log(res);
-
-    return res.data;
   } catch (error) {
     console.error("Error updating description:", error);
     throw error;
