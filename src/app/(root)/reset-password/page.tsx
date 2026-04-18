@@ -98,7 +98,7 @@ function ResetPasswordPage() {
           onSubmit={handlePasswordReset}
         >
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700">
+            <label htmlFor="password" className="block text-foreground">
               New Password
             </label>
             <input
@@ -109,7 +109,7 @@ function ResetPasswordPage() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-gray-700">
+            <label htmlFor="confirmPassword" className="block text-foreground">
               Confirm New Password
             </label>
             <input

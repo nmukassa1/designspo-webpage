@@ -30,14 +30,16 @@ const PersonalInfoForm = () => {
   };
 
   return (
-    <div className="mx-6 p-6 bg-white shadow rounded-xl flex gap-20">
+    <div className="mx-6 flex gap-20 rounded-xl border border-border bg-card p-6 shadow-sm">
       <div>
         <h2 className="text-xl font-semibold mb-1">Personal Information</h2>
-        <p className="text-gray-500 mb-6">Update your personal details here.</p>
+        <p className="mb-6 text-sm text-muted-foreground">
+          Update your personal details here.
+        </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 grow-1">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             First Name
           </label>
           <input
@@ -45,11 +47,11 @@ const PersonalInfoForm = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+            className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             Last Name
           </label>
           <input
@@ -57,11 +59,11 @@ const PersonalInfoForm = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+            className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
           />
         </div>
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             Email
           </label>
           <input
@@ -69,11 +71,11 @@ const PersonalInfoForm = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+            className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
           />
         </div>
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="mb-1 block text-sm font-medium text-foreground">
             Phone Number
           </label>
           <input
@@ -81,18 +83,20 @@ const PersonalInfoForm = () => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+            className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
           />
         </div>
         <button
+          type="button"
           onClick={handleCancel}
-          className="text-gray-600 hover:underline"
+          className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Cancel
         </button>
         <button
+          type="button"
           onClick={handleSave}
-          className="text-blue-500 font-semibold hover:underline"
+          className="rounded-sm font-semibold text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Save
         </button>

@@ -47,11 +47,13 @@ function DeleteTag() {
 
   return (
     <>
-      <div className="fixed right-[-37px] top-1/2 z-10 -translate-y-1/2 -rotate-[90deg] overflow-hidden rounded-t-[5px] bg-[#393535]">
+      <div className="fixed right-[-37px] top-1/2 z-10 -translate-y-1/2 -rotate-[90deg] overflow-hidden rounded-t-md border border-border bg-foreground text-background shadow-sm">
         <button
           type="button"
-          className="h-full w-full px-[16px] py-[5px] text-white"
+          className="h-full w-full px-4 py-1.5 text-sm font-medium transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           onClick={handleOpenModal}
+          aria-expanded={open}
+          aria-haspopup="dialog"
         >
           Delete Tag
         </button>

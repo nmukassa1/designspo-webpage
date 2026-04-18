@@ -16,7 +16,7 @@ export default function TagNavigationPanel() {
         <TagNavigationSkeleton />
       ) : (
         <>
-          <h3 className="text-sm text-gray-600">Tags:</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Tags</h3>
           <div className="flex items-center z-50 pb-2 mt-2">
             <TagListPanel />
             <NewTag />

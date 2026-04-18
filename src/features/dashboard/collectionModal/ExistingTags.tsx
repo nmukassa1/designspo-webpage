@@ -45,11 +45,15 @@ function ExistingTags({
         <li key={tag.tag.id} className=" text-lg relative">
           <TagActionAnimation activeTagId={activeTagId} tagId={tag.tag.id} />
           <button
+            type="button"
             onClick={() => userId && mutate(tag.tag.id)}
-            className="w-full flex items-center px-4 py-4 rounded-md text-black bg-[#F6F6F6] hover:bg-white/10 transition-colors duration-200 ease-in-out relative z-20"
+            className="relative z-20 flex w-full items-center rounded-md bg-muted px-4 py-4 text-foreground transition-colors duration-200 hover:bg-accent hover:text-accent-foreground disabled:opacity-60"
             disabled={activeTagId !== null}
           >
-            <div className="checkbox h-4 w-4 bg-black rounded-sm mr-2"></div>
+            <div
+              className="checkbox mr-2 size-4 rounded-sm bg-primary"
+              aria-hidden
+            />
             <span>{tag.tag.name}</span>
           </button>
         </li>

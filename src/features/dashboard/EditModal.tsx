@@ -3,8 +3,10 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { Screenshot } from "@/app/types/types";
 import ExistingTags from "./collectionModal/ExistingTags";
@@ -58,13 +60,26 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
         showClose={false}
         className="flex max-h-[85dvh] w-full flex-col overflow-hidden lg:w-[45%]"
       >
-        <div className="flex justify-between">
-          <DialogTitle className="text-2xl font-bold">
-            {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
-          </DialogTitle>
-          <button type="button" onClick={handleModal} aria-label="Close">
-            <X />
-          </button>
+        <div className="flex justify-between gap-4">
+          <div className="min-w-0 space-y-1">
+            <DialogTitle className="text-2xl font-bold">
+              {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
+            </DialogTitle>
+            <DialogDescription>
+              Add or remove tags for this screenshot, or delete it from your
+              library.
+            </DialogDescription>
+          </div>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={handleModal}
+            aria-label="Close dialog"
+            className="shrink-0"
+          >
+            <X className="size-6" />
+          </Button>
         </div>
 
         <ul className="mt-2 flex h-[400px] flex-col gap-2 overflow-y-auto">
@@ -72,12 +87,12 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
           <AddNewTag screenShotId={id} existingTags={tags} />
         </ul>
 
-        <div className="mt-[10px] flex justify-center">
-          <button
+        <div className="mt-3 flex justify-center border-t border-border pt-3">
+          <Button
             type="button"
-            className={`rounded-md border-2 border-black bg-black px-4 py-2 text-white transition-all duration-300 hover:bg-transparent hover:text-black ${
-              deleteIsLoading ? "animate-pulse cursor-not-allowed" : ""
-            }`}
+            variant="destructive"
+            disabled={deleteIsLoading}
+            className={deleteIsLoading ? "animate-pulse" : ""}
             onClick={(e) => {
               e.preventDefault();
               if (userId) {
@@ -88,7 +103,7 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
             }}
           >
             Delete Screenshot
-          </button>
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

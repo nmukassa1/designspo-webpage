@@ -52,11 +52,15 @@ function AddNewTag({
         >
           <TagActionAnimation tagId={tag.id} activeTagId={activeTagId} />
           <button
+            type="button"
             onClick={() => mutate(tag.id)}
-            className="w-full flex items-center px-4 py-4 rounded-md text-black  hover:bg-[#F6F6F6] transition-colors duration-200 ease-in-out relative z-20"
+            className="relative z-20 flex w-full items-center rounded-md px-4 py-4 text-foreground transition-colors duration-200 hover:bg-muted disabled:opacity-60"
             disabled={activeTagId !== null} // optional: disable all during loading
           >
-            <div className="checkbox h-4 w-4 border-2 border-black rounded-sm mr-2"></div>
+            <div
+              className="checkbox mr-2 size-4 rounded-sm border-2 border-border"
+              aria-hidden
+            />
             <span>{tag.name}</span>
           </button>
         </li>

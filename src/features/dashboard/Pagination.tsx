@@ -41,10 +41,10 @@ function Pagination() {
             }`}
             onMouseEnter={() => prefetchPage(pageNumber - 1)}
             onFocus={() => prefetchPage(pageNumber - 1)}
+            className="inline-flex items-center justify-center rounded-sm bg-foreground p-2 text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Previous page"
           >
-            <button className="bg-[#262626] p-2 rounded-sm text-white">
-              <ChevronLeft />
-            </button>
+            <ChevronLeft className="size-5" aria-hidden />
           </Link>
         )}
 
@@ -55,10 +55,10 @@ function Pagination() {
             }`}
             onMouseEnter={() => prefetchPage(pageNumber + 1)}
             onFocus={() => prefetchPage(pageNumber + 1)}
+            className="inline-flex items-center justify-center rounded-sm bg-foreground p-2 text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="Next page"
           >
-            <button className="bg-[#262626] p-2 rounded-sm text-white">
-              <ChevronRight />
-            </button>
+            <ChevronRight className="size-5" aria-hidden />
           </Link>
         )}
       </div>

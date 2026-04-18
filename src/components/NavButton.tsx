@@ -36,7 +36,10 @@ function NavButton() {
   }, []);
 
   return (
-    <button className="mobile-nav-button sm:hidden h-[68px] w-[68px] bg-[#262626] text-white overflow-hidden fixed bottom-[40px] left-1/2 -translate-x-1/2 transition ease-in duration-300 z-99 rounded-full text-center">
+    <button
+      type="button"
+      className="mobile-nav-button fixed bottom-10 left-1/2 z-[99] h-[68px] w-[68px] -translate-x-1/2 overflow-hidden rounded-full bg-foreground text-center text-background transition duration-300 ease-in sm:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    >
       Tags
     </button>
   );

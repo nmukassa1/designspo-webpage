@@ -102,8 +102,11 @@ function NewTag() {
     <div className="form-wrapper relative border-white shrink-0 ml-auto">
       <button
         id="new-tag-btn"
-        className="h-[30px] w-[30px] bg-[#393535] text-white rounded-full text-center"
+        type="button"
+        className="flex size-[30px] items-center justify-center rounded-full bg-foreground text-center text-lg font-medium leading-none text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         onClick={toggleInput}
+        aria-expanded={showInput}
+        aria-label="Add new tag"
       >
         +
       </button>

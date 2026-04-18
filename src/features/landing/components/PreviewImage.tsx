@@ -1,35 +1,54 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { PlayIcon } from "lucide-react";
 
 export default function PreviewImage() {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const handlePlay = () => {
-    setIsPlaying(true);
-  };
-
   return (
-    <section className="mx-auto w-[90vw] rounded-2xl border-8 border-black overflow-hidden relative">
+    <section
+      className="relative mx-auto w-[min(90vw,72rem)] overflow-hidden rounded-2xl border-8 border-foreground"
+      aria-label="Product preview"
+    >
       {!isPlaying ? (
         <>
-          <img src="/desktop-preview.png" alt="" className="w-full" />
+          <Image
+            src="/desktop-preview.png"
+            alt="Designspo dashboard showing saved design screenshots"
+            width={1600}
+            height={900}
+            className="h-auto w-full"
+            sizes="(max-width: 768px) 90vw, 1152px"
+            priority
+          />
           <button
-            onClick={handlePlay}
-            className="absolute top-1/2 left-1/2 -translate-1/2 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-full sm:w-30 sm:h-30 w-20 h-20 z-40"
+            type="button"
+            onClick={() => setIsPlaying(true)}
+            aria-label="Play product demo video"
+            className="absolute top-1/2 left-1/2 z-40 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-28 sm:w-28"
           >
-            <div className="hidden sm:block">
+            <span className="hidden sm:block" aria-hidden>
               <PlayIcon size={72} />
-            </div>
-            <div className="sm:hidden">
+            </span>
+            <span className="sm:hidden" aria-hidden>
               <PlayIcon size={42} />
-            </div>
+            </span>
           </button>
-          <div className="absolute top-0 left-0 w-full h-full bg-black/10 z-10"></div>
+          <div
+            className="pointer-events-none absolute inset-0 z-10 bg-black/10"
+            aria-hidden
+          />
         </>
       ) : (
-        <video src="/app_tutorial.mov" autoPlay controls className="w-full" />
+        <video
+          src="/app_tutorial.mov"
+          autoPlay
+          controls
+          className="w-full"
+          title="Designspo app tutorial"
+        />
       )}
     </section>
   );

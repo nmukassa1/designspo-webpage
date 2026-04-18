@@ -1,21 +1,16 @@
 import Image from "next/image";
-import PreviewImg from "/desktop-preview.png";
 
 function DesktopPreview() {
   return (
-    <div className="relative my-20 md:w-3/4 md:mx-auto">
+    <div className="relative my-16 md:mx-auto md:my-20 md:w-3/4">
       <Image
         src="/desktop-preview.png"
-        width={377}
-        height={100}
-        alt="Desktop App Preview"
-        layout="responsive"
-        className="border-4 border-gray-500 rounded-2xl"
+        width={1200}
+        height={675}
+        alt="Designspo dashboard on desktop"
+        sizes="(max-width: 768px) 100vw, 75vw"
+        className="rounded-2xl border-4 border-border"
       />
-
-      {/* <div className="radial-blur absolute left-1/2 top-1/2 -translate-1/2 w-[290px] h-[290px] rounded-full  -z-10"> */}
-      {/* Radial blur */}
-      {/* </div> */}
     </div>
   );
 }

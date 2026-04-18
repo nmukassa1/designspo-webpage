@@ -50,6 +50,8 @@ function DeleteAccountButton() {
         variant="outline"
         className="mt-2 self-center border-destructive text-destructive hover:bg-destructive/10"
         onClick={handleOpen}
+        aria-expanded={open}
+        aria-haspopup="dialog"
       >
         Delete Account
       </Button>

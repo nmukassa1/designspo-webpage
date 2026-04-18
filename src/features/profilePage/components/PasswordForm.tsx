@@ -39,10 +39,10 @@ const PasswordForm = () => {
   };
 
   return (
-    <div className="mx-6 p-6 bg-white shadow rounded-xl flex flex-col lg:flex-row gap-6 lg:gap-20">
+    <div className="mx-6 flex flex-col gap-6 rounded-xl border border-border bg-card p-6 shadow-sm lg:flex-row lg:gap-20">
       <div className="shrink-0">
         <h2 className="text-xl font-semibold mb-1">New Password</h2>
-        <p className="text-gray-500 mb-6">Create a new password</p>
+        <p className="mb-6 text-sm text-muted-foreground">Create a new password</p>
       </div>
 
       <div className="w-full">
@@ -51,7 +51,7 @@ const PasswordForm = () => {
             <div className="grow-1 w-full">
               <label
                 htmlFor="newPassword"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="mb-1 block text-sm font-medium text-foreground"
               >
                 New Password
               </label>
@@ -59,13 +59,13 @@ const PasswordForm = () => {
                 id="newPassword"
                 type="password"
                 name="newPassword"
-                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               />
             </div>
             <div className="grow-1 w-full">
               <label
                 htmlFor="confirmNewPassword"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="mb-1 block text-sm font-medium text-foreground"
               >
                 Confirm New Password
               </label>
@@ -73,7 +73,7 @@ const PasswordForm = () => {
                 type="password"
                 id="confirmNewPassword"
                 name="confirmNewPassword"
-                className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               />
             </div>
           </div>
@@ -83,13 +83,13 @@ const PasswordForm = () => {
               <button
                 type="button"
                 onClick={() => handleCancel(document.querySelector("form"))}
-                className="text-gray-600 hover:underline"
+                className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="text-blue-500 font-semibold hover:underline"
+                className="rounded-sm font-semibold text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Save
               </button>
