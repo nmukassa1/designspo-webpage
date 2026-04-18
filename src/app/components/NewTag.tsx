@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { addTag } from "../mutations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../context/AuthContext";
-import { gsap } from "gsap";
+import { loadGsap } from "@/lib/gsap-loader";
 
 function NewTag() {
   const [tagName, setTagName] = useState<string>("");
@@ -66,10 +66,11 @@ function NewTag() {
     };
   }, [showInput]);
 
-  function toggleInput() {
+  async function toggleInput() {
     const el = formContainer.current;
     if (!el) return;
 
+    const gsap = await loadGsap();
     const tl = gsap.timeline();
     const duration = { duration: 0.4, ease: "power2.inOut" };
 
@@ -81,7 +82,6 @@ function NewTag() {
         boxShadow: "1px 2px 0px 2px",
         ...duration,
       });
-      // .to(el, { width: "200px", ...duration });
       setShowInput(true);
       inputRef.current?.focus();
     } else {

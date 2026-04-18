@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { api } from "./api";
+import { api } from "@/lib/api/client";
 import { createClient } from "./supabase/superbaseServer";
 import { headers } from "next/headers";
 import { UpdateDescriptionResponse } from "./types/api";

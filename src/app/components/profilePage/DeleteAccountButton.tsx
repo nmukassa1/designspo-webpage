@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { deleteAccount } from "@/app/mutations"; // ← implement this in your mutations file
 import { useMutation } from "@tanstack/react-query";
 import { useAuthContext } from "@/app/context/AuthContext";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from "@mui/material";
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/app/components/shadcn/dialog";
+import { Button } from "@/app/components/shadcn/button";
 import { deleteAccount } from "@/app/mutations";
 
 function DeleteAccountButton() {
@@ -31,13 +31,11 @@ function DeleteAccountButton() {
     onSuccess: () => {
       console.log("Account deleted successfully");
       alert("Your account has been deleted successfully.");
-      // Optionally clear local auth / cookies here
-      router.replace("/"); // or your landing page
+      router.replace("/");
     },
     onError: (error) => {
       console.error("Error deleting account:", error);
       alert("Failed to delete account. Please try again later.");
-      // Optionally show an error message to the user
     },
   });
 
@@ -48,38 +46,33 @@ function DeleteAccountButton() {
   return (
     <>
       <Button
-        variant="outlined"
-        color="error"
+        type="button"
+        variant="outline"
+        className="mt-2 self-center border-destructive text-destructive hover:bg-destructive/10"
         onClick={handleOpen}
-        // disabled={isLoading}
-        className="mt-2 self-center"
       >
         Delete Account
       </Button>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Delete Account</DialogTitle>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
-          <DialogContentText>
-            This action is <strong>permanent</strong>. Deleting your account
-            cannot be undone and all of your design inspirations will be lost.
-            Are you sure you want to continue?
-          </DialogContentText>
+          <DialogHeader>
+            <DialogTitle>Delete Account</DialogTitle>
+            <DialogDescription>
+              This action is <strong>permanent</strong>. Deleting your account
+              cannot be undone and all of your design inspirations will be
+              lost. Are you sure you want to continue?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button type="button" variant="destructive" onClick={handleConfirm}>
+              Confirm
+            </Button>
+          </DialogFooter>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleConfirm}
-            color="error"
-            variant="contained"
-            // disabled={isLoading}
-          >
-            {/* {isLoading ? "Deleting…" : "Confirm"} */}
-            Confirm
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

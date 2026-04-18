@@ -2,7 +2,7 @@ import { useDrawerMutations } from "./useDrawerMutations";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../shadcn/button";
 import { useEditDrawerContext } from "./EditDrawerContext";
-import gsap from "gsap";
+import { loadGsap } from "@/lib/gsap-loader";
 import Spinner from "../Spinner";
 
 export default function DescriptionForm() {
@@ -22,13 +22,19 @@ export default function DescriptionForm() {
   }, [itemSelected?.description]);
 
   useEffect(() => {
-    if (successStatus || errorStatus) {
+    if (!successStatus && !errorStatus) return;
+    let cancelled = false;
+    loadGsap().then((gsap) => {
+      if (cancelled || !notificationRef.current) return;
       gsap.fromTo(
         notificationRef.current,
         { opacity: 0, y: -20 },
         { opacity: 1, y: 60, duration: 0.3, ease: "power2.out" }
       );
-    }
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [successStatus, errorStatus]);
 
   return (
@@ -52,16 +58,23 @@ export default function DescriptionForm() {
               setIsLoading(false);
               //   handleIsOpen(null);
               setTimeout(() => {
-                gsap.to(notificationRef.current, {
-                  opacity: 0,
-                  y: -20,
-                  duration: 0.3,
-                  ease: "power2.out",
-                  onComplete: () => {
+                loadGsap().then((gsap) => {
+                  if (!notificationRef.current) {
                     setSuccessStatus(false);
-                  },
+                    setErrorStatus(false);
+                    return;
+                  }
+                  gsap.to(notificationRef.current, {
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.3,
+                    ease: "power2.out",
+                    onComplete: () => {
+                      setSuccessStatus(false);
+                    },
+                  });
+                  setErrorStatus(false);
                 });
-                setErrorStatus(false);
               }, 2000);
             }
           }
