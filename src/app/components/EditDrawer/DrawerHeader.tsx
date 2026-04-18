@@ -8,7 +8,9 @@ export default function DrawerHeader() {
 
   return (
     <div className="flex items-center justify-between">
-      <h1>{siteName.charAt(0).toUpperCase() + siteName.slice(1)}</h1>
+      <p className="text-xl font-semibold">
+        {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
+      </p>
       <button onClick={() => handleIsOpen(null)}>
         <X />
       </button>

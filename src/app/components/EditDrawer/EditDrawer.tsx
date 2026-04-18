@@ -3,6 +3,7 @@
 import {
   Sheet,
   SheetContent,
+  SheetTitle,
 } from "@/app/components/shadcn/sheet";
 import { useEditDrawerContext } from "./EditDrawerContext";
 import DrawerHeader from "./DrawerHeader";
@@ -13,7 +14,10 @@ import DescriptionForm from "./DescriptionForm";
 import DeleteButton from "./DeleteButton";
 
 function EditDrawer() {
-  const { isOpen, setIsOpen } = useEditDrawerContext();
+  const { isOpen, setIsOpen, itemSelected } = useEditDrawerContext();
+  const a11yTitle = itemSelected?.siteName
+    ? `Edit ${itemSelected.siteName}`
+    : "Edit screenshot";
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -22,6 +26,7 @@ function EditDrawer() {
         showClose={false}
         className="flex flex-col overflow-y-auto"
       >
+        <SheetTitle className="sr-only">{a11yTitle}</SheetTitle>
         <div className="space-y-4">
           <DrawerHeader />
           <ScreenshotImage />

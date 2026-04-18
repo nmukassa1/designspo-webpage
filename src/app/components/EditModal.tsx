@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
 } from "@/app/components/shadcn/dialog";
 import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
@@ -58,9 +59,9 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
         className="flex max-h-[85dvh] w-full flex-col overflow-hidden lg:w-[45%]"
       >
         <div className="flex justify-between">
-          <h1 className="text-2xl font-bold">
+          <DialogTitle className="text-2xl font-bold">
             {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
-          </h1>
+          </DialogTitle>
           <button type="button" onClick={handleModal} aria-label="Close">
             <X />
           </button>
