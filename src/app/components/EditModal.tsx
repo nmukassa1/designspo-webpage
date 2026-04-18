@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-} from "@/app/components/shadcn/dialog";
+} from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
 import ExistingTags from "./collectionModal/ExistingTags";

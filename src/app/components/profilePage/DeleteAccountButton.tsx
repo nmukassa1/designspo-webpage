@@ -11,8 +11,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/app/components/shadcn/dialog";
-import { Button } from "@/app/components/shadcn/button";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { deleteAccount } from "@/app/mutations";
 
 function DeleteAccountButton() {

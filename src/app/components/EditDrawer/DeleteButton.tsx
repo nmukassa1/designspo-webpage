@@ -1,5 +1,5 @@
 import { useDrawerMutations } from "./useDrawerMutations";
-import { Button } from "../shadcn/button";
+import { Button } from "@/components/ui/button";
 import { useEditDrawerContext } from "./EditDrawerContext";
 
 export default function DeleteButton() {

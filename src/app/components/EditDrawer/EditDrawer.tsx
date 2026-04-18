@@ -4,7 +4,7 @@ import {
   Sheet,
   SheetContent,
   SheetTitle,
-} from "@/app/components/shadcn/sheet";
+} from "@/components/ui/sheet";
 import { useEditDrawerContext } from "./EditDrawerContext";
 import DrawerHeader from "./DrawerHeader";
 import ScreenshotImage from "./ScreenshotImage";

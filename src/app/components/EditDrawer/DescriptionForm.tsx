@@ -1,6 +1,6 @@
 import { useDrawerMutations } from "./useDrawerMutations";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../shadcn/button";
+import { Button } from "@/components/ui/button";
 import { useEditDrawerContext } from "./EditDrawerContext";
 import { loadGsap } from "@/lib/gsap-loader";
 import Spinner from "../Spinner";
