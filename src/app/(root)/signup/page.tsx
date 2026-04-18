@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { signup } from "./actions";
-import BrandName from "@/app/components/BrandName";
+import BrandName from "@/components/BrandName";
 import Link from "next/link";
-import Spinner from "@/app/components/Spinner";
+import Spinner from "@/components/Spinner";
 
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);

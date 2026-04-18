@@ -1,13 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { TagProvider } from "@/app/context/TagContext";
-import Collections from "@/app/components/Collections";
-import TagNavigationPanel from "@/app/components/tag-navbar/TagNavigationPanel";
-import DeleteTag from "@/app/components/tag-navbar/DeleteTag";
-import { EditDrawerProvider } from "@/app/components/EditDrawer/EditDrawerContext";
-import EditDrawer from "@/app/components/EditDrawer/EditDrawer";
+import Collections from "@/features/dashboard/Collections";
+import TagNavigationPanel from "@/features/dashboard/tag-navbar/TagNavigationPanel";
+import DeleteTag from "@/features/dashboard/tag-navbar/DeleteTag";
+import { EditDrawerProvider } from "@/features/dashboard/EditDrawer/EditDrawerContext";
+
+const EditDrawer = dynamic(
+  () => import("@/features/dashboard/EditDrawer/EditDrawer"),
+  { ssr: false }
+);
 
 export default function DashboardPageClient({
   initialUserId,
@@ -38,7 +43,7 @@ export default function DashboardPageClient({
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">
               <div className="h-full px-4">
-                <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                <h1 className="mb-4 text-balance text-4xl font-bold tracking-tight md:text-6xl">
                   Your design library.
                 </h1>
                 <TagNavigationPanel />

@@ -7,8 +7,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
   InputOTPSeparator,
-} from "@/app/components/shadcn/input-otp";
-import { Button } from "@/app/components/shadcn/button";
+} from "@/components/ui/input-otp";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Cookies from "js-cookie"; // ✅ client-side
 

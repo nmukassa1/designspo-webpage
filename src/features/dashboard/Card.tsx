@@ -1,0 +1,44 @@
+"use client";
+import { Screenshot } from "@/app/types/types";
+import CardImage from "./CardImage";
+import CardTitle from "./CardTitle";
+import { Pencil } from "lucide-react";
+import Link from "next/link";
+import { useEditDrawerContext } from "./EditDrawer/EditDrawerContext";
+
+interface CardProps {
+  item: Screenshot;
+}
+
+function Card({ item }: CardProps) {
+  const { handleIsOpen } = useEditDrawerContext();
+  const { img, siteName, siteUrl } = item;
+
+  return (
+    <>
+      <li className="overflow-hidden relative flex flex-col">
+        <div className="rounded-lg border-2 border-[#f1f1f1]">
+          <Link
+            href={siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-left"
+          >
+            <CardImage img={img} />
+            <div className="p-4">
+              <CardTitle title={siteName} />
+            </div>
+          </Link>
+        </div>
+        <button
+          className="ml-auto mt-2 mr-2"
+          onClick={() => handleIsOpen(item)}
+        >
+          <Pencil size={14} />
+        </button>
+      </li>
+    </>
+  );
+}
+
+export default Card;

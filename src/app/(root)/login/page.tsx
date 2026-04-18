@@ -1,4 +1,4 @@
-import BrandName from "@/app/components/BrandName";
+import BrandName from "@/components/BrandName";
 import LoginForm from "./LoginForm";
 
 function LoginPage() {

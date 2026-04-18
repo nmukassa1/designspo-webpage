@@ -1,7 +1,7 @@
 function page() {
   return (
     <>
-      <div className="font-sans mx-auto my-8 max-w-3xl leading-relaxed text-gray-800">
+      <div className="mx-auto my-8 max-w-3xl px-4 font-sans leading-relaxed text-foreground md:px-0">
         <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
 
         <p>
