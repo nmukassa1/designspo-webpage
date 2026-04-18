@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
 import { Tag } from "../types/types";
 import { useAuthContext } from "./AuthContext";
 import { useQuery } from "@tanstack/react-query";
-import { getTags } from "../queries";
+import { getTags } from "@/lib/api/collections";
 
 const TagContext = createContext<{
   tags: Tag[];

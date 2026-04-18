@@ -1,10 +1,8 @@
 "use client";
-import { useState } from "react";
 import { Screenshot } from "../types/types";
 import CardImage from "./CardImage";
 import CardTitle from "./CardTitle";
 import { Pencil } from "lucide-react";
-import EditModal from "./EditModal";
 import Link from "next/link";
 import { useEditDrawerContext } from "./EditDrawer/EditDrawerContext";
 
@@ -16,11 +14,6 @@ function Card({ item }: CardProps) {
   const { handleIsOpen } = useEditDrawerContext();
   const { img, siteName, siteUrl } = item;
 
-  const [toggleModal, setToggleModal] = useState<boolean>(false);
-
-  const handleModal = () => {
-    setToggleModal(!toggleModal);
-  };
   return (
     <>
       <li className="overflow-hidden relative flex flex-col">

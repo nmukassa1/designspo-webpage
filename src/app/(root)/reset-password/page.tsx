@@ -12,7 +12,7 @@ function ResetPasswordPage() {
   useEffect(() => {
     // Redirect if no session
     async function checkSession() {
-      const supabase = await createClient();
+      const supabase = createClient();
       const {
         data: { session },
         error,
@@ -38,7 +38,7 @@ function ResetPasswordPage() {
 
   const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const supabase = await createClient();
+    const supabase = createClient();
 
     // Restore session from URL
     const {

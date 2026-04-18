@@ -1,6 +1,8 @@
+"use client";
+
 import { X } from "lucide-react";
 import Link from "next/link";
-import { signOut } from "../authActions/actions";
+import { signOutAndRedirectToLogin } from "@/lib/auth/sign-out-client";
 
 function MobileNavMenu({
   isOpen,
@@ -9,6 +11,11 @@ function MobileNavMenu({
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }) {
+  const handleLogout = async () => {
+    setIsOpen(false);
+    await signOutAndRedirectToLogin();
+  };
+
   return (
     <div
       className={`mobile-nav-menu h-screen w-screen bg-white fixed top-0 ${
@@ -30,16 +37,13 @@ function MobileNavMenu({
           Profile
         </Link>
 
-        <form
-          action={() => {
-            signOut();
-            setIsOpen(!isOpen);
-          }}
+        <button
+          type="button"
+          className="cursor-pointer"
+          onClick={() => void handleLogout()}
         >
-          <button type="submit" className="cursor-pointer">
-            Logout
-          </button>
-        </form>
+          Logout
+        </button>
       </div>
     </div>
   );

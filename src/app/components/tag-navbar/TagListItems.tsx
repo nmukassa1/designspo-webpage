@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDashboardContext } from "@/app/context/DashboardContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "@/app/context/AuthContext";
-import { getCollections, getTags } from "@/app/queries";
+import { getCollections } from "@/lib/api/collections";
+import { loadGsap } from "@/lib/gsap-loader";
 
 function TagListItems() {
   const queryClient = useQueryClient();
@@ -36,22 +37,26 @@ function TagListItems() {
 
   const toggleMenu = () => {
     if (window.innerWidth > 640) return;
-    const timeline = gsap.timeline();
-    timeline
-      .to(".tag-links-container", {
-        duration: 0.2,
-        ease: "power2.inOut",
-        height: "0",
-      })
-      .to(
-        ".mobile-nav-button",
-        {
-          duration: 0.5,
+    const run = async () => {
+      const gsap = await loadGsap();
+      const timeline = gsap.timeline();
+      timeline
+        .to(".tag-links-container", {
+          duration: 0.2,
           ease: "power2.inOut",
-          width: "68px",
-        },
-        "+=.3",
-      );
+          height: "0",
+        })
+        .to(
+          ".mobile-nav-button",
+          {
+            duration: 0.5,
+            ease: "power2.inOut",
+            width: "68px",
+          },
+          "+=.3"
+        );
+    };
+    void run();
   };
 
   const navRef = useRef<HTMLUListElement>(null);

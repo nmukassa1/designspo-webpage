@@ -23,7 +23,7 @@ export default function RequestForgottenPasswordForm() {
     }
 
     try {
-      const supabase = await createClient();
+      const supabase = createClient();
       const { data, error } = await supabase.auth.resetPasswordForEmail(
         email as string,
         {

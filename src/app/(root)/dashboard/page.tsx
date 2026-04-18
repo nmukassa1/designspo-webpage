@@ -1,5 +1,6 @@
 import DashboardPageClient from "./DashboardPageClient";
-import { cookies } from "next/headers";
+import { createClient } from "@/app/supabase/supabaseServer";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage({
   searchParams,
@@ -11,9 +12,24 @@ export default async function DashboardPage({
   const tag = rawTag ?? "";
   const page = rawPage ? Math.max(1, Number(rawPage)) : 1;
 
-  const cookieStore = await cookies();
-  const userId = cookieStore.get("user_id")?.value ?? null;
-  const accessToken = cookieStore.get("access_token")?.value ?? null;
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (userError || !user) {
+    redirect("/login");
+  }
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const accessToken = session?.access_token ?? null;
+  if (!accessToken) {
+    redirect("/login");
+  }
+
+  const userId = user.id;
 
   return (
     <DashboardPageClient

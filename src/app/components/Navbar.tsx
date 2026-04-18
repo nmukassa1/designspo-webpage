@@ -1,16 +1,24 @@
+"use client";
+
 import Link from "next/link";
-import { signOut } from "../authActions/actions";
+import { signOutAndRedirectToLogin } from "@/lib/auth/sign-out-client";
 
 function Navbar() {
+  const handleLogout = async () => {
+    await signOutAndRedirectToLogin();
+  };
+
   return (
     <nav className=" items-center gap-8 flex ml-auto lg:mr-0">
       <Link href="/dashboard/profile">Profile</Link>
 
-      <form action={signOut}>
-        <button type="submit" className="cursor-pointer">
-          Logout
-        </button>
-      </form>
+      <button
+        type="button"
+        className="cursor-pointer"
+        onClick={() => void handleLogout()}
+      >
+        Logout
+      </button>
     </nav>
   );
 }

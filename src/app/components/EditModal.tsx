@@ -1,7 +1,13 @@
-import { Modal } from "@mui/material";
+"use client";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/app/components/shadcn/dialog";
 import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
-import ExistingTags from "./collectionModal/ExisitngTags";
+import ExistingTags from "./collectionModal/ExistingTags";
 import { deleteScreenshot } from "../mutations";
 import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "../context/AuthContext";
@@ -33,7 +39,7 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
     },
     onSuccess: () => {
       setDeleteIsLoading(false);
-      queryClient.invalidateQueries({ queryKey: ["collections", userId] }); // Refresh tags after adding
+      queryClient.invalidateQueries({ queryKey: ["collections", userId] });
     },
     onError: (error) => {
       console.error("Error deleting screenshot:", error);
@@ -42,32 +48,35 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
   });
 
   return (
-    <Modal
+    <Dialog
       open={toggleModal}
-      onClose={() => {
-        toggleModal;
+      onOpenChange={(open) => {
+        if (!open) handleModal();
       }}
-      sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <div className="w-full lg:w-[45%] h-[75dvh] bg-white  m-4 p-6 rounded-lg font-bold">
+      <DialogContent
+        showClose={false}
+        className="flex max-h-[85dvh] w-full flex-col overflow-hidden lg:w-[45%]"
+      >
         <div className="flex justify-between">
-          <h1 className="text-2xl">
+          <DialogTitle className="text-2xl font-bold">
             {siteName.charAt(0).toUpperCase() + siteName.slice(1)}
-          </h1>
-          <button onClick={handleModal}>
+          </DialogTitle>
+          <button type="button" onClick={handleModal} aria-label="Close">
             <X />
           </button>
         </div>
 
-        <ul className="flex flex-col gap-2 h-[400px] overflow-scroll mt-2">
+        <ul className="mt-2 flex h-[400px] flex-col gap-2 overflow-y-auto">
           <ExistingTags tags={tags} screenShotId={id} />
           <AddNewTag screenShotId={id} existingTags={tags} />
         </ul>
 
-        <div className="flex justify-center mt-[10px]">
+        <div className="mt-[10px] flex justify-center">
           <button
-            className={`px-4 py-2 rounded-md transition-all duration-300 bg-black text-white hover:bg-transparent hover:text-black border-2 border-black ${
-              deleteIsLoading && "animate-pulse cursor-not-allowed"
+            type="button"
+            className={`rounded-md border-2 border-black bg-black px-4 py-2 text-white transition-all duration-300 hover:bg-transparent hover:text-black ${
+              deleteIsLoading ? "animate-pulse cursor-not-allowed" : ""
             }`}
             onClick={(e) => {
               e.preventDefault();
@@ -81,8 +90,8 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
             Delete Screenshot
           </button>
         </div>
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 }
 

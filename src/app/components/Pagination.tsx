@@ -6,7 +6,7 @@ import { useDashboardContext } from "../context/DashboardContext";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { getCollections } from "../queries";
+import { getCollections } from "@/lib/api/collections";
 import { useAuthContext } from "../context/AuthContext";
 
 function Pagination() {

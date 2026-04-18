@@ -1,5 +1,5 @@
 "use server";
-import { createClient } from "@/app/supabase/superbaseServer";
+import { createClient } from "@/app/supabase/supabaseServer";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 

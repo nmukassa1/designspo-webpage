@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { api } from "./api";
-import { createClient } from "./supabase/superbaseServer";
+import { api } from "@/lib/api/client";
+import { createClient } from "./supabase/supabaseServer";
 import { headers } from "next/headers";
 import { UpdateDescriptionResponse } from "./types/api";
 // import { supabase } from "./supabase/supabaseClient";

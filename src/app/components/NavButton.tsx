@@ -1,34 +1,35 @@
 "use client";
-import { gsap } from "gsap";
+import { loadGsap } from "@/lib/gsap-loader";
 import { useEffect } from "react";
 
 function NavButton() {
   useEffect(() => {
-    const timeline = gsap.timeline();
     const button = document.querySelector(".mobile-nav-button");
     if (!button) return;
 
     const handleClick = () => {
-      timeline
-        .to(".mobile-nav-button", {
-          duration: 0.5,
-          ease: "power2.inOut",
-          width: "90%",
-        })
-        .to(
-          ".tag-links-container",
-          {
-            duration: 0.2,
+      loadGsap().then((gsap) => {
+        const timeline = gsap.timeline();
+        timeline
+          .to(".mobile-nav-button", {
+            duration: 0.5,
             ease: "power2.inOut",
-            height: "90dvh",
-          },
-          "-=0.3"
-        );
+            width: "90%",
+          })
+          .to(
+            ".tag-links-container",
+            {
+              duration: 0.2,
+              ease: "power2.inOut",
+              height: "90dvh",
+            },
+            "-=0.3"
+          );
+      });
     };
 
     button.addEventListener("click", handleClick);
 
-    // ✅ Cleanup
     return () => {
       button.removeEventListener("click", handleClick);
     };
