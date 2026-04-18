@@ -3,7 +3,7 @@ import { Screenshot } from "../types/types";
 import Card from "./Card";
 import Pagination from "./Pagination";
 import SkeletonCard from "./Card/SkeletonCard";
-import ExmptyCollectionPlaceholder from "./EmptyCollectionPlaceholder";
+import EmptyCollectionPlaceholder from "./EmptyCollectionPlaceholder";
 
 function Collections() {
   const { collections, isFetching, isLoading } = useDashboardContext();
@@ -37,9 +37,7 @@ function Collections() {
           <Pagination />
         </>
       ) : (
-        <>
-          <h1>No Collections</h1>
-        </>
+        <EmptyCollectionPlaceholder />
       )}
     </>
   );

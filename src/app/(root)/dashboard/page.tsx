@@ -1,5 +1,5 @@
 import DashboardPageClient from "./DashboardPageClient";
-import { createClient } from "@/app/supabase/superbaseServer";
+import { createClient } from "@/app/supabase/supabaseServer";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage({

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createClient } from "@/app/supabase/superbaseServer";
+import { createClient } from "@/app/supabase/supabaseServer";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();

@@ -6,7 +6,7 @@ import {
 } from "@/app/components/shadcn/dialog";
 import { X } from "lucide-react";
 import { Screenshot } from "../types/types";
-import ExistingTags from "./collectionModal/ExisitngTags";
+import ExistingTags from "./collectionModal/ExistingTags";
 import { deleteScreenshot } from "../mutations";
 import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "../context/AuthContext";

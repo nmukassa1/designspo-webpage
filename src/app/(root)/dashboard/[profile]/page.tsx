@@ -1,4 +1,4 @@
-import { createClient } from "@/app/supabase/superbaseServer";
+import { createClient } from "@/app/supabase/supabaseServer";
 import { redirect } from "next/navigation";
 import ProfilePageClient from "./ProfilePageClient";
 
