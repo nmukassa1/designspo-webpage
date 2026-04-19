@@ -20,6 +20,12 @@ export const AuthProvider = ({
     initialAccessToken,
   );
 
+  // Keep client state aligned with SSR props when navigating between routes.
+  useEffect(() => {
+    setUserId(initialUserId ?? null);
+    setAccessToken(initialAccessToken ?? null);
+  }, [initialUserId, initialAccessToken]);
+
   useEffect(() => {
     const supabase = createClient();
     const {

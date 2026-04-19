@@ -1,5 +1,6 @@
 import { api } from "./client";
 import type { Tag } from "@/app/types/types";
+import axios from "axios";
 
 export async function getTags(
   userId: string | null,
@@ -13,7 +14,15 @@ export async function getTags(
     });
     return response.data;
   } catch (err) {
-    console.log(err);
+    if (axios.isAxiosError(err)) {
+      console.error(
+        "getTags failed",
+        err.response?.status,
+        err.response?.data ?? err.message
+      );
+    } else {
+      console.error("getTags failed", err);
+    }
     return [];
   }
 }
