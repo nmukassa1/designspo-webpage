@@ -6,6 +6,7 @@ import { getCollections } from "@/lib/api/screenshots";
 import { CollectionsType } from "../types/types";
 import { useSearchParams } from "next/navigation";
 import { keepPreviousData } from "@tanstack/react-query";
+import { useAuthContext } from "./AuthContext";
 
 const DashboardContext = createContext<{
   collections: CollectionsType | undefined;
@@ -41,11 +42,13 @@ export const DashboardProvider = ({
     ? Math.max(1, Number(searchParams.get("page")))
     : initialPage;
 
-  const userId = initialUserId;
-  const accessToken = initialAccessToken;
+  const { userId: authUserId, accessToken: authAccessToken } = useAuthContext();
+  // Prefer live client session (token refresh); fall back to SSR for first paint.
+  const userId = authUserId ?? initialUserId;
+  const accessToken = authAccessToken ?? initialAccessToken;
 
   const { data, isFetching, isLoading } = useQuery<CollectionsType>({
-    queryKey: ["collections", userId, tagQuery, pageNumber],
+    queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken!),
     enabled: !!userId && !!accessToken,
 

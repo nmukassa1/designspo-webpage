@@ -25,12 +25,11 @@ export const TagProvider = ({
 }) => {
   const { userId: authUserId, accessToken: authAccessToken } = useAuthContext();
 
-  // Prefer server values to avoid timing mismatch on first render
-  const userId = initialUserId ?? authUserId;
-  const accessToken = initialAccessToken ?? authAccessToken;
+  const userId = authUserId ?? initialUserId;
+  const accessToken = authAccessToken ?? initialAccessToken;
 
   const { data, isFetching } = useQuery<Tag[]>({
-    queryKey: ["tags", userId],
+    queryKey: ["tags", userId, accessToken],
     queryFn: () => getTags(userId, accessToken!),
     enabled: !!userId && !!accessToken,
   });

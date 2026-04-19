@@ -2,6 +2,7 @@ import { api } from "./client";
 import type { CollectionsType } from "@/app/types/types";
 import type { UpdateDescriptionResponse } from "@/app/types/api";
 import { formatTagsQuery } from "./format-tags-query";
+import axios from "axios";
 
 /** Client-side API fetch for TanStack Query (no server-action round trip). */
 export async function getCollections(
@@ -20,7 +21,15 @@ export async function getCollections(
     });
     return response.data;
   } catch (err) {
-    console.log("Error getting screenshots", err);
+    if (axios.isAxiosError(err)) {
+      console.error(
+        "getCollections failed",
+        err.response?.status,
+        err.response?.data ?? err.message
+      );
+    } else {
+      console.error("getCollections failed", err);
+    }
     return { screenshots: [], totalPages: 0 };
   }
 }
