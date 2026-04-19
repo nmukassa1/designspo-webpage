@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useEditDrawerContext } from "./EditDrawerContext";
 import DrawerHeader from "./DrawerHeader";
 import ScreenshotImage from "./ScreenshotImage";
@@ -24,7 +20,7 @@ function EditDrawer() {
       <SheetContent
         side="right"
         showClose={false}
-        className="flex flex-col overflow-y-auto"
+        className="flex flex-col overflow-y-auto h-dvh overflow-y-scroll"
       >
         <SheetTitle className="sr-only">{a11yTitle}</SheetTitle>
         <div className="space-y-4">
