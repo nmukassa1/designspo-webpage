@@ -124,20 +124,22 @@ function TagListItems() {
   return (
     <ul
       ref={navRef}
-      className="text-lg h-full text-muted-foreground overflow-scroll flex gap-2 items-center"
+      className="flex h-full items-center gap-2 overflow-scroll text-sm text-muted-foreground md:text-base"
     >
       {/* ALL */}
       <li
-        className={`${
-          activeLinkName === "" ? "bg-black text-white" : ""
-        } hover:bg-black hover:text-white text-black border-1 border-black rounded-full`}
+        className={`rounded-full border border-border transition-all ${
+          activeLinkName === ""
+            ? "bg-primary text-primary-foreground shadow-md"
+            : "bg-card text-foreground hover:bg-secondary"
+        }`}
       >
         <Link
           href="/dashboard"
           prefetch
           onMouseEnter={prefetchAll}
           onFocus={prefetchAll}
-          className="block py-2 px-3"
+          className="block px-4 py-2"
           onClick={toggleMenu}
         >
           All
@@ -147,8 +149,10 @@ function TagListItems() {
       {tags.map((tag) => (
         <li
           key={tag.id}
-          className={`flex shrink-0 justify-between items-center hover:bg-black hover:text-white rounded-full text-black border-1 border-black ${
-            activeLinkName === tag.name ? "bg-black text-white" : ""
+          className={`flex shrink-0 items-center justify-between rounded-full border border-border transition-all ${
+            activeLinkName === tag.name
+              ? "bg-primary text-primary-foreground shadow-md"
+              : "bg-card text-foreground hover:bg-secondary"
           }`}
         >
           <Link
@@ -156,7 +160,7 @@ function TagListItems() {
             prefetch
             onMouseEnter={() => prefetchTag(tag.name)}
             onFocus={() => prefetchTag(tag.name)}
-            className="block py-2 px-3 transition linear duration-300 w-full"
+            className="block w-full px-4 py-2 transition-all duration-200"
             onClick={toggleMenu}
           >
             {tag.name}

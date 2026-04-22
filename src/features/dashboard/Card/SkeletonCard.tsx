@@ -1,13 +1,13 @@
 // components/SkeletonCard.tsx
 export default function SkeletonCard() {
   return (
-    <li className="overflow-hidden relative flex flex-col animate-pulse">
-      <div className="rounded-lg border-2 border-[#f1f1f1] bg-gray-200 h-48" />
+    <li className="relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-2 animate-pulse">
+      <div className="h-48 rounded-xl bg-muted" />
       <div className="p-4">
-        <div className="h-4 bg-gray-300 rounded w-3/4 mb-2" />
-        <div className="h-4 bg-gray-300 rounded w-1/2" />
+        <div className="mb-2 h-4 w-3/4 rounded bg-muted" />
+        <div className="h-4 w-1/2 rounded bg-muted" />
       </div>
-      <div className="ml-auto mt-2 mr-2 h-4 w-4 bg-gray-300 rounded" />
+      <div className="ml-auto mr-2 mt-2 h-8 w-8 rounded-full bg-muted" />
     </li>
   );
 }

@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="flex w-full shrink-0 flex-col items-center gap-2 border-t border-border px-4 py-6 md:px-6 sm:flex-row">
+    <footer className="mx-auto mt-12 flex w-full max-w-7xl shrink-0 flex-col items-center gap-2 border-t border-border px-4 py-6 md:px-6 sm:flex-row">
       <p className="text-xs text-muted-foreground">
-        &copy; {new Date().getFullYear()} Curatemap. All rights reserved.
+        &copy; {new Date().getFullYear()} Designspo. All rights reserved.
       </p>
       <nav className="flex gap-4 sm:ml-auto sm:gap-6">
         {/* <Link

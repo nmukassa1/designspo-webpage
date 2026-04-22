@@ -9,7 +9,7 @@ function DesktopPreview() {
         height={675}
         alt="Designspo dashboard on desktop"
         sizes="(max-width: 768px) 100vw, 75vw"
-        className="rounded-2xl border-4 border-border"
+        className="rounded-2xl border border-border bg-card p-2 shadow-sm"
       />
     </div>
   );

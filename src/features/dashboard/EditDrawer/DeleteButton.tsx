@@ -9,7 +9,7 @@ export default function DeleteButton() {
   return (
     <div className="mt-4">
       <Button
-        className="bg-red-500"
+        variant="destructive"
         onClick={() => {
           if (itemSelected?.id) deleteScreenshot(itemSelected.id);
           setIsOpen(false);

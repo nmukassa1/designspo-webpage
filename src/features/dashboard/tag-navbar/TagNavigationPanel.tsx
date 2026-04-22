@@ -6,7 +6,7 @@ import TagListPanel from "./TagListPanel";
 export default function TagNavigationPanel() {
   const { isFetching } = useTagContext();
   return (
-    <div className="tag-navbar-container relative">
+    <div className="tag-navbar-container relative rounded-2xl border border-border bg-card p-4">
       {isFetching && !isFetching && (
         <div className="absolute inset-0 bg-white/50 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg">
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
@@ -17,7 +17,7 @@ export default function TagNavigationPanel() {
       ) : (
         <>
           <h3 className="text-sm font-medium text-muted-foreground">Tags</h3>
-          <div className="flex items-center z-50 pb-2 mt-2">
+          <div className="z-50 mt-2 flex items-center pb-2">
             <TagListPanel />
             <NewTag />
           </div>

@@ -90,33 +90,41 @@ function ResetPasswordPage() {
   };
 
   return (
-    <div className="p-7">
-      <div className="md:w-3/4 mx-auto">
-        <h1 className="text-2xl font-bold mb-4 text-center">Update Password</h1>
+    <div className="px-4 py-8 md:px-6">
+      <div className="mx-auto w-full max-w-xl">
+        <h1 className="mb-4 text-center text-3xl font-bold text-balance">
+          Update Password
+        </h1>
         <form
-          className="flex flex-col mt-10 gap-4 max-w-md mx-auto"
+          className="mx-auto mt-8 flex max-w-xl flex-col gap-4 rounded-2xl border border-border bg-card p-6 md:p-8"
           onSubmit={handlePasswordReset}
         >
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-foreground">
+          <div>
+            <label
+              htmlFor="password"
+              className="mb-2 block text-sm font-medium text-foreground"
+            >
               New Password
             </label>
             <input
               type="password"
               name="password"
               id="password"
-              className="mt-1 block w-full bg-gray-300 px-3 py-4 text-[1.4rem] rounded-lg outline-white"
+              className="mt-1 block w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-foreground">
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="mb-2 block text-sm font-medium text-foreground"
+            >
               Confirm New Password
             </label>
             <input
               type="password"
               id="confirmPassword"
               name="confirmPassword"
-              className="mt-1 block w-full bg-gray-300 px-3 py-4 text-[1.4rem] rounded-lg outline-white"
+              className="mt-1 block w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
           {error && (
@@ -127,7 +135,7 @@ function ResetPasswordPage() {
           )}
           <button
             type="submit"
-            className="bg-black text-white px-4 py-4 rounded-2xl my-6"
+            className="my-3 rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg"
           >
             Update Password
           </button>

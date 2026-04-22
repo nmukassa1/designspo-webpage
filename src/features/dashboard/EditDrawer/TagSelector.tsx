@@ -24,16 +24,16 @@ export default function TagSelector() {
 
   return (
     <div>
-      <h2 className="mt-4">Tags:</h2>
+      <h2 className="mt-4 text-sm font-semibold text-foreground">Tags</h2>
       <div className="flex flex-wrap gap-2 mt-2 max-h-[170px] overflow-y-scroll">
         {tags.map((tag) => (
           <button
             key={tag.id}
             className={`${
               tagsAssociated.includes(tag.id)
-                ? "bg-black text-white"
-                : "border-1 border-black text-black"
-            } px-3 py-1 rounded-full text-sm grow-0 shrink-1`}
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "border border-border bg-card text-foreground hover:bg-secondary"
+            } rounded-full px-4 py-2 text-sm transition-all duration-200`}
             onClick={() => {
               const inList = tagsAssociated.includes(tag.id);
               inList

@@ -1,22 +1,22 @@
 export default function StepSection() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 py-12 md:py-24 lg:py-32 container mx-auto px-4 md:px-6 text-center lg:text-left">
+    <div className="grid grid-cols-1 gap-8 py-8 lg:grid-cols-2">
       {/* STEP 1 */}
-      <div className="flex flex-col space-y-4">
+      <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
         <div className="space-y-2">
           <span className="text-sm font-semibold text-muted-foreground">
-            STEP 1
+            Step 1
           </span>
-          <h3 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+          <h3 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl">
             Your Dashboard: A Curated Gallery
           </h3>
-          <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          <p className="text-muted-foreground md:text-lg">
             Access all your saved inspirations in one beautiful, organized
             dashboard. Categorize, tag, and search through your collection with
             ease, making it simple to find that perfect design when you need it.
           </p>
         </div>
-        <div className="relative w-full  rounded-3xl overflow-hidden shadow-xl border border-white/50 backdrop-blur-lg bg-white/20 flex items-center justify-center p-6 mt-8">
+        <div className="relative mt-8 flex w-full items-center justify-center overflow-hidden rounded-2xl border border-border bg-background p-4">
           <img
             src="/desktop-preview.png"
             alt="Designspo Dashboard Preview"
@@ -26,22 +26,22 @@ export default function StepSection() {
       </div>
 
       {/* STEP 2 */}
-      <div className="flex flex-col space-y-4 lg:mt-0 mt-12">
+      <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
         <div className="space-y-2">
           <span className="text-sm font-semibold text-muted-foreground">
-            STEP 2
+            Step 2
           </span>
-          <h3 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+          <h3 className="text-balance text-3xl font-bold tracking-tight sm:text-4xl">
             Capture Instantly with Our Chrome Extension
           </h3>
-          <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          <p className="text-muted-foreground md:text-lg">
             See something inspiring? Our intuitive Chrome extension lets you
             capture a screenshot and the URL of any webpage with a single click,
             directly adding it to your Designspo collection. No more manual
             saving or copy-pasting.
           </p>
         </div>
-        <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-white/50 backdrop-blur-lg bg-white/20 flex items-center justify-center p-6 mt-8">
+        <div className="relative mt-8 flex w-full items-center justify-center overflow-hidden rounded-2xl border border-border bg-background p-4">
           <img
             src="/chrome-extension.png"
             alt="Designspo Chrome Extension Preview"

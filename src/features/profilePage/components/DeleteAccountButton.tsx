@@ -48,7 +48,7 @@ function DeleteAccountButton() {
       <Button
         type="button"
         variant="outline"
-        className="mt-2 self-center border-destructive text-destructive hover:bg-destructive/10"
+        className="mt-2 self-center rounded-xl border-destructive text-destructive hover:bg-destructive/10"
         onClick={handleOpen}
         aria-expanded={open}
         aria-haspopup="dialog"

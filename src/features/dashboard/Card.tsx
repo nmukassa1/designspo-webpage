@@ -16,8 +16,8 @@ function Card({ item }: CardProps) {
 
   return (
     <>
-      <li className="overflow-hidden relative flex flex-col">
-        <div className="rounded-lg border-2 border-[#f1f1f1]">
+      <li className="relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+        <div className="overflow-hidden rounded-xl">
           <Link
             href={siteUrl}
             target="_blank"
@@ -25,13 +25,13 @@ function Card({ item }: CardProps) {
             className="text-left"
           >
             <CardImage img={img} />
-            <div className="p-4">
+            <div className="p-4 pb-3">
               <CardTitle title={siteName} />
             </div>
           </Link>
         </div>
         <button
-          className="ml-auto mt-2 mr-2"
+          className="ml-auto mr-2 mt-1 rounded-full border border-border bg-secondary p-2 transition-all hover:scale-105 hover:shadow-sm"
           onClick={() => handleIsOpen(item)}
         >
           <Pencil size={14} />
