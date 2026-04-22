@@ -39,7 +39,7 @@ export default function DescriptionForm() {
 
   return (
     <div className="mt-4">
-      <h2>Description:</h2>
+      <h2 className="text-sm font-semibold text-foreground">Description</h2>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -83,7 +83,7 @@ export default function DescriptionForm() {
         <textarea
           rows={5}
           placeholder="Add a description..."
-          className="border-2 border-black w-full rounded-md p-2 resize-none mt-2"
+          className="mt-2 w-full resize-none rounded-xl border border-border bg-card p-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
@@ -96,7 +96,7 @@ export default function DescriptionForm() {
       {successStatus && (
         <div
           ref={notificationRef}
-          className="px-4 py-2 z-[9999] bg-green-600 text-white fixed top-0 left-1/2 -translate-x-1/2 rounded-md "
+          className="fixed top-0 left-1/2 z-[9999] -translate-x-1/2 rounded-xl bg-accent px-4 py-2 text-foreground shadow-md"
         >
           Saved
         </div>

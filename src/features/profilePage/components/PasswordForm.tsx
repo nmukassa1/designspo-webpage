@@ -39,7 +39,7 @@ const PasswordForm = () => {
   };
 
   return (
-    <div className="mx-6 flex flex-col gap-6 rounded-xl border border-border bg-card p-6 shadow-sm lg:flex-row lg:gap-20">
+    <div className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm lg:flex-row lg:gap-20">
       <div className="shrink-0">
         <h2 className="text-xl font-semibold mb-1">New Password</h2>
         <p className="mb-6 text-sm text-muted-foreground">Create a new password</p>
@@ -59,7 +59,7 @@ const PasswordForm = () => {
                 id="newPassword"
                 type="password"
                 name="newPassword"
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               />
             </div>
             <div className="grow-1 w-full">
@@ -73,7 +73,7 @@ const PasswordForm = () => {
                 type="password"
                 id="confirmNewPassword"
                 name="confirmNewPassword"
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 shadow-xs focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
               />
             </div>
           </div>
@@ -83,13 +83,13 @@ const PasswordForm = () => {
               <button
                 type="button"
                 onClick={() => handleCancel(document.querySelector("form"))}
-                className="rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-full border border-border bg-secondary px-4 py-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="rounded-sm font-semibold text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-xl bg-primary px-4 py-2 font-semibold text-primary-foreground transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Save
               </button>

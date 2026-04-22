@@ -39,28 +39,31 @@ export default function RequestForgottenPasswordForm() {
   };
 
   return (
-    <div className="p-7">
-      <div className="md:w-3/4 mx-auto">
-        <h1 className="text-2xl text-center font-bold mb-4">
+    <div className="px-4 py-8 md:px-6">
+      <div className="mx-auto w-full max-w-xl">
+        <h1 className="text-balance text-center text-3xl font-bold mb-4">
           Request to reset password
         </h1>
-        <form onSubmit={handleSubmit} className="mt-10 mx-auto w-3/4">
-          <div className="mb-6">
-            <label className="mb-2">Email</label>
+        <form
+          onSubmit={handleSubmit}
+          className="mx-auto mt-8 rounded-2xl border border-border bg-card p-6 md:p-8"
+        >
+          <div>
+            <label className="mb-2 block text-sm font-medium">Email</label>
             <input
               name="email"
               type="email"
               placeholder="example@email.com"
-              className="bg-gray-300 px-3 py-4 text-[1.4rem] rounded-lg w-full outline-white"
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
-          {error && <p className="text-red-500">{error}</p>}
-          {success && <p className="text-green-500">{success}</p>}
+          {error && <p className="mt-3 text-sm text-red-500">{error}</p>}
+          {success && <p className="mt-3 text-sm text-green-600">{success}</p>}
 
           <button
             type="submit"
-            className="bg-black text-white px-4 py-4 rounded-2xl my-6 w-full"
+            className="my-6 w-full rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg"
           >
             Submit
           </button>

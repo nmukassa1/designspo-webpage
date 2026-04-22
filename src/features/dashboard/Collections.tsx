@@ -11,7 +11,7 @@ function Collections() {
   const renderCards = (items: Screenshot[]) => (
     <div className="relative">
       <ul
-        className={`mt-6 grid lg:grid-cols-4 md:grid-cols-2 gap-6 ${isFetching && !isLoading ? "opacity-60" : ""}`}
+        className={`mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${isFetching && !isLoading ? "opacity-60" : ""}`}
       >
         {items.map((item: Screenshot) => (
           <Card key={item.id} item={item} />
@@ -22,7 +22,7 @@ function Collections() {
 
   if (isLoading) {
     return (
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <SkeletonCard key={i} />
         ))}

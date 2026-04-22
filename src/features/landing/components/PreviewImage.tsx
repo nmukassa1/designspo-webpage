@@ -9,7 +9,7 @@ export default function PreviewImage() {
 
   return (
     <section
-      className="relative mx-auto w-[min(90vw,72rem)] overflow-hidden rounded-2xl border-8 border-foreground"
+      className="relative mx-auto w-[min(95vw,72rem)] overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-sm"
       aria-label="Product preview"
     >
       {!isPlaying ? (
@@ -27,7 +27,7 @@ export default function PreviewImage() {
             type="button"
             onClick={() => setIsPlaying(true)}
             aria-label="Play product demo video"
-            className="absolute top-1/2 left-1/2 z-40 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white transition-colors hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-28 sm:w-28"
+            className="absolute top-1/2 left-1/2 z-40 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary/85 text-primary-foreground transition-all duration-200 hover:scale-105 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-24 sm:w-24"
           >
             <span className="hidden sm:block" aria-hidden>
               <PlayIcon size={72} />
@@ -37,7 +37,7 @@ export default function PreviewImage() {
             </span>
           </button>
           <div
-            className="pointer-events-none absolute inset-0 z-10 bg-black/10"
+            className="pointer-events-none absolute inset-0 z-10 bg-foreground/10"
             aria-hidden
           />
         </>

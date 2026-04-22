@@ -42,10 +42,13 @@ export default function DashboardPageClient({
         >
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">
-              <div className="h-full px-4">
-                <h1 className="mb-4 text-balance text-4xl font-bold tracking-tight md:text-6xl">
+              <div className="mx-auto h-full max-w-7xl px-4 py-6 md:px-6">
+                <h1 className="mb-3 text-balance text-4xl font-bold tracking-tight md:text-6xl">
                   Your design library.
                 </h1>
+                <p className="mb-6 text-muted-foreground">
+                  Browse, filter, and manage all your saved inspiration.
+                </p>
                 <TagNavigationPanel />
                 <Collections />
                 <EditDrawer />

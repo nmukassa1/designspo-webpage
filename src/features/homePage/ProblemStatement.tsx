@@ -3,12 +3,12 @@ import Image from "next/image";
 
 function ProblemStatement() {
   return (
-    <div className="md:flex justify-evenly ">
+    <div className="rounded-2xl border border-border bg-muted p-6 md:flex md:justify-evenly md:p-10">
       <div className="md:mt-12">
-        <h2 className="text-3xl font-bold">
+        <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">
           Inspiration everywhere, but never in one place.
         </h2>
-        <p className="mt-4 text-2xl">
+        <p className="mt-4 text-lg text-muted-foreground md:text-xl">
           Bookmarks get messy. <br /> Screenshots get buried. <br /> Our tool
           gives web designers a clean, central space to save and revisit design
           ideas.

@@ -4,10 +4,10 @@ import SignUpButton from "./SignUpButton";
 function Hero() {
   return (
     <div className="text-center">
-      <h1 className="font-bold text-4xl">
+      <h1 className="text-balance text-4xl font-bold tracking-tight md:text-6xl">
         Your Web Inspiration, All in One Place
       </h1>
-      <p className="mt-4">
+      <p className="mt-4 text-muted-foreground md:text-lg">
         Capture, organize, and revisit web design ideas with ease.
       </p>
 

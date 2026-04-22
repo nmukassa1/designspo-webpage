@@ -6,7 +6,7 @@ function ChromeExtensionButton() {
       href="https://chromewebstore.google.com/detail/designspo-extension/cgfifloilikfidnhgdldmnmoooclefgi"
       target="_blank"
       rel="noopener noreferrer"
-      className="border-2 rounded-md p-2"
+      className="rounded-xl border border-border bg-card px-6 py-3 font-medium transition-all duration-200 hover:bg-secondary hover:shadow-lg"
     >
       Get the Chrome Extension
     </Link>

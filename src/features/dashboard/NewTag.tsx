@@ -103,7 +103,7 @@ function NewTag() {
       <button
         id="new-tag-btn"
         type="button"
-        className="flex size-[30px] items-center justify-center rounded-full bg-foreground text-center text-lg font-medium leading-none text-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="flex size-[34px] items-center justify-center rounded-full bg-primary text-center text-lg font-medium leading-none text-primary-foreground shadow-sm transition-all duration-200 hover:scale-105 hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         onClick={toggleInput}
         aria-expanded={showInput}
         aria-label="Add new tag"
@@ -114,7 +114,7 @@ function NewTag() {
       {/* Form */}
       <div
         ref={formContainer}
-        className={`absolute top-[34px] h-0 w-[5px] right-0 flex gap-2 bg-white `}
+        className="absolute right-0 top-[38px] flex h-0 w-[5px] gap-2 overflow-hidden rounded-xl bg-card"
       >
         <form
           onSubmit={submitTag}
@@ -123,7 +123,7 @@ function NewTag() {
           <input
             id="new-tag-input"
             type="text"
-            className={`${error} outline-none h-full w-full`}
+            className={`${error} h-full w-full bg-transparent text-sm outline-none`}
             value={tagName}
             placeholder="Tag name"
             onChange={(e) => setTagName(e.target.value)}

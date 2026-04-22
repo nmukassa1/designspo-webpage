@@ -2,19 +2,19 @@ import Link from "next/link";
 
 function CallToActionLinks() {
   return (
-    <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-4">
       <Link
         href="/signup"
-        className="border-2 border-black rounded-md py-4 px-3 sm:px-6"
+        className="rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg"
       >
-        Sign Up
+        Sign Up Free
       </Link>
       <Link
         href="https://chromewebstore.google.com/detail/curatemap-extension/cgfifloilikfidnhgdldmnmoooclefgi"
         target="_blank"
-        className="border-2 border-black rounded-md py-4 px-3 sm:px-6"
+        className="rounded-xl border border-border bg-card px-6 py-3 font-medium text-foreground transition-all duration-200 hover:bg-secondary hover:shadow-lg"
       >
-        Download Chrome Extension
+        Download Extension
       </Link>
     </div>
   );

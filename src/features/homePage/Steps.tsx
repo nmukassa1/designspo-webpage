@@ -4,12 +4,12 @@ import SignUpButton from "./SignUpButton";
 
 function Steps() {
   return (
-    <div className="mt-12 md:mt-40 grid grid-cols-1 gap-12 md:grid-cols-2 md:w-3/4 md:mx-auto">
-      <div className="steps">
-        <div className="step-number w-[50px] h-[50px] rounded-full bg-gray-500 grid place-content-center">
+    <div className="mt-12 grid grid-cols-1 gap-8 md:mt-24 md:grid-cols-2 md:mx-auto">
+      <div className="steps rounded-2xl border border-border bg-card p-6">
+        <div className="step-number grid h-[50px] w-[50px] place-content-center rounded-full">
           1
         </div>
-        <p className="step-paragraph text-2xl mt-2">
+        <p className="step-paragraph mt-2 text-xl text-foreground">
           Create an account & download the chrome extension
         </p>
         <div className="mt-8 flex items-center gap-4">
@@ -18,11 +18,11 @@ function Steps() {
         </div>
       </div>
 
-      <div className="steps relative md:row-start-2 md:col-start-2">
-        <div className="step-number w-[50px] h-[50px] rounded-full bg-gray-500 grid place-content-center">
+      <div className="steps relative rounded-2xl border border-border bg-card p-6 md:row-start-2 md:col-start-2">
+        <div className="step-number grid h-[50px] w-[50px] place-content-center rounded-full">
           2
         </div>
-        <p className="step-paragraph text-2xl mt-2">
+        <p className="step-paragraph mt-2 text-xl text-foreground">
           Take a screenshot of the site you find inspiring using the chrome
           extension
         </p>
@@ -32,16 +32,16 @@ function Steps() {
             alt="Chrome extension screenshot"
             width={300}
             height={500}
-            className="border-4 border-gray-500 rounded-2xl"
+            className="rounded-2xl border border-border"
           />
         </div>
       </div>
 
-      <div className="steps md:row-start-3 md:col-start-1">
-        <div className="step-number w-[50px] h-[50px] rounded-full bg-gray-500 grid place-content-center">
+      <div className="steps rounded-2xl border border-border bg-card p-6 md:row-start-3 md:col-start-1">
+        <div className="step-number grid h-[50px] w-[50px] place-content-center rounded-full">
           3
         </div>
-        <p className="step-paragraph text-2xl mt-2">
+        <p className="step-paragraph mt-2 text-xl text-foreground">
           Revisit designs via the dashboard
         </p>
         <div className="mt-8">
@@ -50,7 +50,7 @@ function Steps() {
             alt="Desktop preview"
             width={500}
             height={300}
-            className="border-4 border-gray-500 rounded-2xl"
+            className="rounded-2xl border border-border"
           />
         </div>
       </div>

@@ -1,8 +1,8 @@
 function page() {
   return (
     <>
-      <div className="mx-auto my-8 max-w-3xl px-4 font-sans leading-relaxed text-foreground md:px-0">
-        <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
+      <div className="mx-auto my-8 max-w-4xl rounded-2xl border border-border bg-card px-6 py-8 font-sans leading-relaxed text-foreground md:px-10">
+        <h1 className="mb-4 text-3xl font-bold text-balance">Privacy Policy</h1>
 
         <p>
           At <strong>Curatemap</strong>, we respect your privacy and are
@@ -11,7 +11,7 @@ function page() {
           handled.
         </p>
 
-        <h2 className="mt-8 text-xl font-semibold">🔐 What We Collect</h2>
+        <h2 className="mt-8 text-xl font-semibold">What We Collect</h2>
         <ul className="list-disc list-inside">
           <li>
             We collect <strong>email addresses</strong> solely for the purpose
@@ -20,7 +20,7 @@ function page() {
           </li>
         </ul>
 
-        <h2 className="mt-8 text-xl font-semibold">✅ How We Use Your Data</h2>
+        <h2 className="mt-8 text-xl font-semibold">How We Use Your Data</h2>
         <ul className="list-disc list-inside">
           <li>
             Email addresses are used to log users in and associate their saved
@@ -33,7 +33,7 @@ function page() {
           <li>No other personal data is collected or stored.</li>
         </ul>
 
-        <h2 className="mt-8 text-xl font-semibold">🚫 What We Don’t Do</h2>
+        <h2 className="mt-8 text-xl font-semibold">What We Do Not Do</h2>
         <ul className="list-disc list-inside">
           <li>
             We do <strong>not</strong> sell, share, or rent user data to any
@@ -48,9 +48,7 @@ function page() {
           </li>
         </ul>
 
-        <h2 className="mt-8 text-xl font-semibold">
-          🛠 Permissions We Use (Chrome Extension)
-        </h2>
+        <h2 className="mt-8 text-xl font-semibold">Permissions We Use (Chrome Extension)</h2>
         <ul className="list-disc list-inside">
           <li>
             <code>activeTab</code>: To take screenshots of the current tab when
@@ -75,9 +73,7 @@ function page() {
           </li>
         </ul>
 
-        <h2 className="mt-8 text-xl font-semibold">
-          🔒 Data Storage & Security
-        </h2>
+        <h2 className="mt-8 text-xl font-semibold">Data Storage and Security</h2>
         <ul className="list-disc list-inside">
           <li>
             All user content (screenshots, dashboard data) is stored{" "}
