@@ -18,24 +18,27 @@ function MobileNavMenu({
 
   return (
     <div
-      className={`mobile-nav-menu fixed top-0 h-screen w-screen bg-background ${
-        isOpen ? "right-0" : "-right-[100%]"
-      } transition-all duration-500 ease-in-out`}
+      className={`fixed right-4 top-[76px] z-[1200] w-56 rounded-2xl border border-border bg-card p-3 shadow-xl transition-all duration-200 sm:hidden ${
+        isOpen
+          ? "pointer-events-auto translate-y-0 opacity-100"
+          : "pointer-events-none -translate-y-2 opacity-0"
+      }`}
     >
-      <div className="button-wrapper">
+      <div className="mb-2 flex justify-end">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-xl border border-border bg-card p-2"
+          className="rounded-lg border border-border bg-background p-1.5"
+          aria-label="Close menu"
         >
-          <X />
+          <X size={16} />
         </button>
       </div>
 
-      <div className="mobile-nav-menu-link-wrapper text-foreground">
+      <div className="flex flex-col gap-1 text-foreground">
         <Link
           href="/dashboard"
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-full px-5 py-2 transition-all hover:bg-secondary"
+          className="rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-secondary"
         >
           Dashboard
         </Link>
@@ -43,14 +46,14 @@ function MobileNavMenu({
         <Link
           href="/dashboard/profile"
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded-full px-5 py-2 transition-all hover:bg-secondary"
+          className="rounded-lg px-3 py-2 text-sm font-medium transition-all hover:bg-secondary"
         >
           Profile
         </Link>
 
         <button
           type="button"
-          className="cursor-pointer rounded-full bg-primary px-5 py-2 text-primary-foreground"
+          className="mt-1 cursor-pointer rounded-lg bg-primary px-3 py-2 text-left text-sm font-medium text-primary-foreground"
           onClick={() => void handleLogout()}
         >
           Logout
