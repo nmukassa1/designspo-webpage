@@ -3,7 +3,7 @@ import CallToActionLinks from "./CallToActionLinks";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex w-full flex-col items-center justify-center overflow-hidden py-12 text-center md:py-20">
+    <section className="relative flex w-full flex-col items-center justify-center overflow-hidden mt-10 text-center">
       <div className="z-10 max-w-4xl space-y-8 px-4 md:px-6">
         <p className="mx-auto w-fit rounded-full border border-border bg-card px-4 py-1 text-sm font-medium text-muted-foreground">
           Free Chrome Extension Available
