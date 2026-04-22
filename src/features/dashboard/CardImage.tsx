@@ -11,7 +11,7 @@ function CardImage({img} : CardImagaeProp) {
           alt="img"
           width={500}
           height={500}
-          className="aspect-[4/3] w-full rounded-xl object-cover"
+          className="h-auto w-full rounded-xl object-contain"
         />
      );
 }

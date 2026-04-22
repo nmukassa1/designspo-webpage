@@ -25,17 +25,17 @@ function Card({ item }: CardProps) {
             className="text-left"
           >
             <CardImage img={img} />
-            <div className="p-4 pb-3">
-              <CardTitle title={siteName} />
-            </div>
           </Link>
+          <div className="p-4 pb-3 flex items-center justify-between">
+            <CardTitle title={siteName} />
+            <button
+              className="ml-auto mr-2 mt-1 rounded-full border border-border bg-secondary p-2 transition-all hover:scale-105 hover:shadow-sm"
+              onClick={() => handleIsOpen(item)}
+            >
+              <Pencil size={14} />
+            </button>
+          </div>
         </div>
-        <button
-          className="ml-auto mr-2 mt-1 rounded-full border border-border bg-secondary p-2 transition-all hover:scale-105 hover:shadow-sm"
-          onClick={() => handleIsOpen(item)}
-        >
-          <Pencil size={14} />
-        </button>
       </li>
     </>
   );
