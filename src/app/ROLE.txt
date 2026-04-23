@@ -1,0 +1,10 @@
+Purpose: Next.js app-layer code.
+
+Contains:
+- Route segments, layouts, and pages.
+- App-level context/providers.
+- Supabase app integration utilities.
+
+Does not own:
+- Domain API/query logic (see `src/domains`).
+

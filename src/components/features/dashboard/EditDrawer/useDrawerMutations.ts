@@ -3,7 +3,7 @@ import {
   useDeleteScreenshotMutation,
   useRemoveTagFromCollectionMutation,
   useUpdateDescriptionMutation,
-} from "@/lib/query/screenshots";
+} from "@/domains/screenshots/query";
 
 export const useDrawerMutations = () => {
   const { mutate: addTag } = useAddTagToCollectionMutation();

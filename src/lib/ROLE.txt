@@ -1,0 +1,9 @@
+Purpose: Utility and compatibility layer.
+
+Current role:
+- Generic utilities and helpers.
+- Transitional re-export wrappers pointing to `src/domains`.
+
+Preferred direction:
+- New business logic should be added to `src/domains` first.
+

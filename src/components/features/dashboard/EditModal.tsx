@@ -13,7 +13,7 @@ import ExistingTags from "./collectionModal/ExistingTags";
 import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useState } from "react";
-import { useDeleteScreenshotMutation } from "@/lib/query/screenshots";
+import { useDeleteScreenshotMutation } from "@/domains/screenshots/query";
 
 interface EditModalProps {
   screenshot: Screenshot;

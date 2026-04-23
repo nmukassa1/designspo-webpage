@@ -1,5 +1,5 @@
 "use client";
-import { updatePassword } from "@/lib/server-actions/account";
+import { updatePassword } from "@/domains/account/server-actions";
 import React, { useState } from "react";
 
 const PasswordForm = () => {

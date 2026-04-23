@@ -13,7 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { deleteAccount } from "@/lib/server-actions/account";
+import { deleteAccount } from "@/domains/account/server-actions";
 
 function DeleteAccountButton() {
   const { userId, accessToken } = useAuthContext();

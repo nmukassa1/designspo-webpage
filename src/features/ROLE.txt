@@ -1,0 +1,6 @@
+Purpose: Legacy placeholder directory.
+
+Status:
+- Feature components were moved to `src/components/features`.
+- Keep this folder empty (or remove later) to avoid import confusion.
+

@@ -2,12 +2,12 @@
 
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getCollections } from "@/lib/api/screenshots";
+import { getCollections } from "@/domains/screenshots/api";
 import { CollectionsType } from "../types/types";
 import { useSearchParams } from "next/navigation";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useAuthContext } from "./AuthContext";
-import { queryKeys } from "@/lib/query/keys";
+import { queryKeys } from "@/domains/query-keys";
 
 const DashboardContext = createContext<{
   collections: CollectionsType | undefined;

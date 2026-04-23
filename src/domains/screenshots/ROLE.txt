@@ -1,0 +1,10 @@
+Purpose: Screenshots domain ownership.
+
+Contains:
+- `api.ts`: screenshot endpoint calls.
+- `query.ts`: screenshot mutation hooks.
+- `format-tags-query.ts`: query-string helper for collection filters.
+
+Consumers:
+- Dashboard collections, edit modal, drawer interactions.
+

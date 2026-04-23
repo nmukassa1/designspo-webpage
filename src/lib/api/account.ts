@@ -1,10 +1,2 @@
-import { api } from "./client";
-
-export async function deleteAccountRequest(
-  userId: string,
-  accessToken: string
-) {
-  return api.delete(`/auth/delete-account/${userId}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-}
+// Backwards-compatible export while modules migrate to `src/domains`.
+export * from "@/domains/account/api";

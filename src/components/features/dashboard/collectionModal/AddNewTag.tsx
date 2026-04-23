@@ -2,7 +2,7 @@ import { useTagContext } from "@/app/context/TagContext";
 import { ScreenshotTag } from "@/app/types/types";
 import { Check } from "lucide-react";
 import { useState } from "react";
-import { useAddTagToCollectionMutation } from "@/lib/query/screenshots";
+import { useAddTagToCollectionMutation } from "@/domains/screenshots/query";
 
 function AddNewTag({
   screenShotId,

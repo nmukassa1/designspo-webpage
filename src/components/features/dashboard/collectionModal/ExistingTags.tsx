@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/app/context/AuthContext";
 import { ScreenshotTag } from "@/app/types/types";
 import { useState } from "react";
-import { useRemoveTagFromCollectionMutation } from "@/lib/query/screenshots";
+import { useRemoveTagFromCollectionMutation } from "@/domains/screenshots/query";
 
 function ExistingTags({
   tags,

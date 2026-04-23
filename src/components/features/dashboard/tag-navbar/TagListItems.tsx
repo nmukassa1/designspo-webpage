@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { useDashboardContext } from "@/app/context/DashboardContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "@/app/context/AuthContext";
-import { getCollections } from "@/lib/api/screenshots";
+import { getCollections } from "@/domains/screenshots/api";
 import { loadGsap } from "@/lib/gsap-loader";
-import { queryKeys } from "@/lib/query/keys";
+import { queryKeys } from "@/domains/query-keys";
 
 function TagListItems() {
   const queryClient = useQueryClient();

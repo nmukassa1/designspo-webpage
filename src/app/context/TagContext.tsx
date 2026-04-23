@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 import { Tag } from "../types/types";
-import { useTagsQuery } from "@/lib/query/tags";
+import { useTagsQuery } from "@/domains/tags/query";
 
 const TagContext = createContext<{
   tags: Tag[];

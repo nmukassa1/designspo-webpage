@@ -1,0 +1,13 @@
+Purpose: Business-domain source of truth.
+
+Each domain owns:
+- API functions for backend interaction.
+- React Query hooks for client state/mutations.
+- Server actions when required by Next.js server context.
+
+Current domains:
+- `tags`
+- `screenshots`
+- `account`
+- `shared` (cross-domain infra)
+

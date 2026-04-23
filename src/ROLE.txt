@@ -1,0 +1,9 @@
+Purpose: Source root for application code.
+
+How to navigate:
+- `app/`: Next.js routing, layouts, providers, and context.
+- `features/`: Product feature UI and feature-specific logic.
+- `domains/`: Business-domain source of truth (API/query/server actions).
+- `components/`: Shared reusable UI components.
+- `lib/`: Compatibility wrappers and generic utilities.
+

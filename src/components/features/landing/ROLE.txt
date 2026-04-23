@@ -1,0 +1,6 @@
+Purpose: Marketing/landing section components.
+
+Contains:
+- Hero, problem, steps, previews, and CTA sections.
+- Landing footer and supporting presentational modules.
+

@@ -2,7 +2,7 @@
 import BrandName from "@/components/BrandName";
 // import { Menu } from "lucide-react";
 import { useState } from "react";
-import AuthState from "@/features/homePage/AuthState";
+import AuthState from "@/components/features/homePage/AuthState";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);

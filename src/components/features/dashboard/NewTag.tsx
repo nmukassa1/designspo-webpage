@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useCreateTagMutation } from "@/lib/query/tags";
+import { useCreateTagMutation } from "@/domains/tags/query";
 import { loadGsap } from "@/lib/gsap-loader";
 
 function NewTag() {

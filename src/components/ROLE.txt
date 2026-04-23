@@ -1,0 +1,9 @@
+Purpose: Shared UI primitives and layout components.
+
+Use this folder for:
+- Reusable visual components used across multiple features.
+- Design-system-style components (`ui/*`).
+
+Avoid:
+- Feature-specific business logic.
+

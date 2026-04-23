@@ -1,0 +1,9 @@
+Purpose: Tags domain ownership.
+
+Contains:
+- `api.ts`: tag endpoint calls.
+- `query.ts`: tag query/mutation hooks.
+
+Consumers:
+- Dashboard tag context and tag UI interactions.
+

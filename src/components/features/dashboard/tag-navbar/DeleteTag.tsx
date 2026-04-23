@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useDeleteTagByNameMutation } from "@/lib/query/tags";
+import { useDeleteTagByNameMutation } from "@/domains/tags/query";
 import { useRouter } from "next/navigation";
 import {
   Dialog,
