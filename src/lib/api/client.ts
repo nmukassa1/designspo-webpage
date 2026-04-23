@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const baseURL = (process.env.NEXT_PUBLIC_API_BASENAME ?? "").trim();
+// Use same-origin proxy route to avoid browser CORS preflight issues.
+// next.config.ts rewrites /api/backend/* -> NEXT_PUBLIC_API_BASENAME/*
+const baseURL = "/api/backend";
 
 export const api = axios.create({
-  baseURL: baseURL || undefined,
+  baseURL,
 });
