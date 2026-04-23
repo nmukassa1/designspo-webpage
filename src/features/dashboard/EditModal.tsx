@@ -10,12 +10,10 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { Screenshot } from "@/app/types/types";
 import ExistingTags from "./collectionModal/ExistingTags";
-import { deleteScreenshot } from "@/app/mutations";
 import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "@/app/context/AuthContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { queryKeys } from "@/lib/query/keys";
+import { useDeleteScreenshotMutation } from "@/lib/query/screenshots";
 
 interface EditModalProps {
   screenshot: Screenshot;
@@ -23,34 +21,11 @@ interface EditModalProps {
   toggleModal: boolean;
 }
 function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
   const { id, siteName, tags } = screenshot;
 
-  const queryClient = useQueryClient();
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
-
-  const { mutate } = useMutation({
-    mutationFn: (id: number) => {
-      if (!userId) {
-        throw new Error("User ID is required to add a tag.");
-      }
-      setDeleteIsLoading(true);
-      if (!accessToken) {
-        throw new Error("Access token is required to delete a screenshot.");
-      }
-      return deleteScreenshot(id, userId, accessToken);
-    },
-    onSuccess: () => {
-      setDeleteIsLoading(false);
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.collections.byUser(userId),
-      });
-    },
-    onError: (error) => {
-      console.error("Error deleting screenshot:", error);
-      setDeleteIsLoading(false);
-    },
-  });
+  const { mutate } = useDeleteScreenshotMutation();
 
   return (
     <Dialog
@@ -99,7 +74,13 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
             onClick={(e) => {
               e.preventDefault();
               if (userId) {
-                mutate(id);
+                setDeleteIsLoading(true);
+                mutate(id, {
+                  onError: (error) => {
+                    console.error("Error deleting screenshot:", error);
+                  },
+                  onSettled: () => setDeleteIsLoading(false),
+                });
               } else {
                 console.error("User ID is null. Cannot delete screenshot.");
               }

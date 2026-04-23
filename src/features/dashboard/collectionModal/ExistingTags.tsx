@@ -1,9 +1,7 @@
 import { useAuthContext } from "@/app/context/AuthContext";
-import { deleteTagFromCollection } from "@/app/mutations";
 import { ScreenshotTag } from "@/app/types/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { queryKeys } from "@/lib/query/keys";
+import { useRemoveTagFromCollectionMutation } from "@/lib/query/screenshots";
 
 function ExistingTags({
   tags,
@@ -12,34 +10,23 @@ function ExistingTags({
   tags: ScreenshotTag[];
   screenShotId: number;
 }) {
-  const { userId, accessToken } = useAuthContext();
-  const queryClient = useQueryClient();
+  const { userId } = useAuthContext();
+  const { mutate } = useRemoveTagFromCollectionMutation();
 
   const [activeTagId, setActiveTagId] = useState<number | null>(null);
 
-  const { mutate } = useMutation({
-    mutationFn: async (id: number) => {
-      if (!userId) throw new Error("User ID is required to delete a tag.");
-
-      setActiveTagId(id);
-      return await deleteTagFromCollection(
-        id,
-        screenShotId,
-        userId,
-        accessToken || ""
-      );
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.collections.byUser(userId),
-      });
-      setActiveTagId(null);
-    },
-    onError: () => {
-      console.error("Error removing tag from collection.");
-      setActiveTagId(null);
-    },
-  });
+  const handleRemoveTag = (id: number) => {
+    setActiveTagId(id);
+    mutate(
+      { tagId: id, screenshotId: screenShotId },
+      {
+        onError: () => {
+          console.error("Error removing tag from collection.");
+        },
+        onSettled: () => setActiveTagId(null),
+      },
+    );
+  };
 
   return (
     <>
@@ -49,7 +36,7 @@ function ExistingTags({
           <TagActionAnimation activeTagId={activeTagId} tagId={tag.tag.id} />
           <button
             type="button"
-            onClick={() => userId && mutate(tag.tag.id)}
+            onClick={() => userId && handleRemoveTag(tag.tag.id)}
             className="relative z-20 flex w-full items-center rounded-md bg-muted px-4 py-4 text-foreground transition-colors duration-200 hover:bg-accent hover:text-accent-foreground disabled:opacity-60"
             disabled={activeTagId !== null}
           >

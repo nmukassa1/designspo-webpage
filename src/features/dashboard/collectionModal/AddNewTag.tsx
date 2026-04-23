@@ -1,11 +1,8 @@
-import { useAuthContext } from "@/app/context/AuthContext";
 import { useTagContext } from "@/app/context/TagContext";
-import { addTagToCollection } from "@/app/mutations";
 import { ScreenshotTag } from "@/app/types/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check } from "lucide-react";
 import { useState } from "react";
-import { queryKeys } from "@/lib/query/keys";
+import { useAddTagToCollectionMutation } from "@/lib/query/screenshots";
 
 function AddNewTag({
   screenShotId,
@@ -14,9 +11,7 @@ function AddNewTag({
   screenShotId: number;
   existingTags: ScreenshotTag[];
 }) {
-  const { userId, accessToken } = useAuthContext();
   const { tags } = useTagContext();
-  const queryClient = useQueryClient();
 
   const [activeTagId, setActiveTagId] = useState<number | null>(null);
 
@@ -24,27 +19,17 @@ function AddNewTag({
     (tag) => !existingTags.map((t) => t.tagId).includes(tag.id)
   );
 
-  const { mutate } = useMutation({
-    mutationFn: async (tagId: number) => {
-      if (!userId) throw new Error("User ID is required to add a tag.");
-      setActiveTagId(tagId); // show loading for this tag
-      return await addTagToCollection(
-        tagId,
-        screenShotId,
-        userId,
-        accessToken || ""
-      );
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.collections.byUser(userId),
-      });
-      setActiveTagId(null); // reset after success
-    },
-    onError: () => {
-      setActiveTagId(null); // reset on error too
-    },
-  });
+  const { mutate } = useAddTagToCollectionMutation();
+
+  const handleAddTag = (tagId: number) => {
+    setActiveTagId(tagId);
+    mutate(
+      { tagId, screenshotId: screenShotId },
+      {
+        onSettled: () => setActiveTagId(null),
+      },
+    );
+  };
 
   return (
     <>
@@ -56,7 +41,7 @@ function AddNewTag({
           <TagActionAnimation tagId={tag.id} activeTagId={activeTagId} />
           <button
             type="button"
-            onClick={() => mutate(tag.id)}
+            onClick={() => handleAddTag(tag.id)}
             className="relative z-20 flex w-full items-center rounded-md px-4 py-4 text-foreground transition-colors duration-200 hover:bg-muted disabled:opacity-60"
             disabled={activeTagId !== null} // optional: disable all during loading
           >

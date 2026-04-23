@@ -2,71 +2,6 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/supabaseServer";
 import { deleteAccountRequest } from "@/lib/api/account";
-import {
-  deleteScreenshotRequest,
-  patchAddTagToCollection,
-  patchRemoveTagFromCollection,
-  patchScreenshotDescription,
-} from "@/lib/api/screenshots";
-
-export async function addTagToCollection(
-  tagId: number,
-  screenshotId: number,
-  userId: string,
-  accessToken: string
-) {
-  try {
-    const result = await patchAddTagToCollection(
-      tagId,
-      screenshotId,
-      userId,
-      accessToken
-    );
-
-    revalidatePath("/");
-    return result.status;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function deleteTagFromCollection(
-  tagId: number,
-  screenshotId: number | undefined,
-  userId: string,
-  accessToken: string
-) {
-  try {
-    const result = await patchRemoveTagFromCollection(
-      tagId,
-      screenshotId,
-      userId,
-      accessToken
-    );
-    revalidatePath("/");
-    return result.status;
-  } catch (error) {
-    console.error("Error removing tag: ", error);
-  }
-}
-
-export async function deleteScreenshot(
-  screenshotId: number | undefined,
-  userId: string,
-  accessToken: string
-) {
-  try {
-    const result = await deleteScreenshotRequest(
-      screenshotId,
-      userId,
-      accessToken
-    );
-    revalidatePath("/");
-    return result.status;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 export const updatePassword = async (
   password: string
@@ -98,25 +33,6 @@ export const deleteAccount = async (
     return "Account deleted successfully";
   } catch (error) {
     console.error(error);
-    throw error;
-  }
-};
-
-export const updateDescription = async (
-  screenShotId: number,
-  description: string,
-  userId: string,
-  accessToken: string
-) => {
-  try {
-    return await patchScreenshotDescription(
-      screenShotId,
-      description,
-      userId,
-      accessToken
-    );
-  } catch (error) {
-    console.error("Error updating description:", error);
     throw error;
   }
 };
