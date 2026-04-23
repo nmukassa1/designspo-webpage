@@ -17,7 +17,7 @@ import { Footer } from "@/components/footer";
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <section className="relative overflow-hidden px-4 pt-32 pb-16 md:pt-40 md:pb-24">
+      <section className="relative overflow-hidden px-4 pt-32 pb-16 md:pt-20 md:pb-24">
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute top-40 right-10 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
         <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-chart-4/10 blur-3xl" />
