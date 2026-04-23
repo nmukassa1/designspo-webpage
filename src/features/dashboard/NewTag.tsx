@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { addTag } from "@/app/mutations";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuthContext } from "@/app/context/AuthContext";
+import { useCreateTagMutation } from "@/lib/query/tags";
 import { loadGsap } from "@/lib/gsap-loader";
 
 function NewTag() {
@@ -14,20 +12,7 @@ function NewTag() {
   const inputRef = useRef<HTMLInputElement>(null);
   const formContainer = useRef<HTMLDivElement>(null);
 
-  const { userId, accessToken } = useAuthContext();
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation({
-    mutationFn: (tag: string) => {
-      if (!userId) {
-        throw new Error("User ID is required to add a tag.");
-      }
-      return addTag(tag, userId, accessToken || ""); // Ensure accessToken is provided
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tags", userId] }); // Refresh tags after adding
-    },
-  });
+  const { mutate } = useCreateTagMutation();
 
   const submitTag = async (e: React.FormEvent) => {
     e.preventDefault();

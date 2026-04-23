@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getCollections } from "@/lib/api/screenshots";
 import { useAuthContext } from "@/app/context/AuthContext";
+import { queryKeys } from "@/lib/query/keys";
 
 function Pagination() {
   const queryClient = useQueryClient();
@@ -25,7 +26,7 @@ function Pagination() {
 
   const prefetchPage = (page: number) => {
     queryClient.prefetchQuery({
-      queryKey: ["collections", userId, tagQuery, page],
+      queryKey: queryKeys.collections.list(userId, tagQuery, page),
       queryFn: () => getCollections(userId, tagQuery, page, accessToken!),
       staleTime: 1000 * 60 * 5,
     });

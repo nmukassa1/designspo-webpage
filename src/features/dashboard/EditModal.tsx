@@ -15,6 +15,7 @@ import AddNewTag from "./collectionModal/AddNewTag";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { queryKeys } from "@/lib/query/keys";
 
 interface EditModalProps {
   screenshot: Screenshot;
@@ -41,7 +42,9 @@ function EditModal({ screenshot, handleModal, toggleModal }: EditModalProps) {
     },
     onSuccess: () => {
       setDeleteIsLoading(false);
-      queryClient.invalidateQueries({ queryKey: ["collections", userId] });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.collections.byUser(userId),
+      });
     },
     onError: (error) => {
       console.error("Error deleting screenshot:", error);

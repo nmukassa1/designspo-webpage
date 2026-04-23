@@ -3,6 +3,7 @@ import { deleteTagFromCollection } from "@/app/mutations";
 import { ScreenshotTag } from "@/app/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { queryKeys } from "@/lib/query/keys";
 
 function ExistingTags({
   tags,
@@ -29,7 +30,9 @@ function ExistingTags({
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["collections", userId] });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.collections.byUser(userId),
+      });
       setActiveTagId(null);
     },
     onError: () => {

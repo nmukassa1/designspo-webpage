@@ -4,7 +4,7 @@ import axios from "axios";
 
 export async function getTags(
   userId: string | null,
-  accessToken: string | null
+  accessToken: string | null,
 ): Promise<Tag[]> {
   try {
     const response = await api.get("/tags/" + userId, {
@@ -18,7 +18,7 @@ export async function getTags(
       console.error(
         "getTags failed",
         err.response?.status,
-        err.response?.data ?? err.message
+        err.response?.data ?? err.message,
       );
     } else {
       console.error("getTags failed", err);
@@ -30,7 +30,7 @@ export async function getTags(
 export async function deleteTagByNameRequest(
   tagName: string,
   userId: string,
-  accessToken: string
+  accessToken: string,
 ) {
   return api.delete(`/tags/delete/`, {
     data: { tagName, userId },
@@ -41,7 +41,7 @@ export async function deleteTagByNameRequest(
 export async function postTag(
   name: string,
   userId: string,
-  accessToken: string
+  accessToken: string,
 ) {
   return api.post(
     `/tags/`,
@@ -50,6 +50,6 @@ export async function postTag(
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
 }

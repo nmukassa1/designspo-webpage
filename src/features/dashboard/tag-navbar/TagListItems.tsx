@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { getCollections } from "@/lib/api/screenshots";
 import { loadGsap } from "@/lib/gsap-loader";
+import { queryKeys } from "@/lib/query/keys";
 
 function TagListItems() {
   const queryClient = useQueryClient();
@@ -21,7 +22,7 @@ function TagListItems() {
 
   const prefetchTag = (tagName: string) => {
     queryClient.prefetchQuery({
-      queryKey: ["collections", userId, tagName, 1],
+      queryKey: queryKeys.collections.list(userId, tagName, 1),
       queryFn: () => getCollections(userId, tagName, 1, accessToken),
       staleTime: 1000 * 60 * 5,
     });
@@ -29,7 +30,7 @@ function TagListItems() {
 
   const prefetchAll = () => {
     queryClient.prefetchQuery({
-      queryKey: ["collections", userId, "", 1],
+      queryKey: queryKeys.collections.list(userId, "", 1),
       queryFn: () => getCollections(userId, "", 1, accessToken!),
       staleTime: 1000 * 60 * 5,
     });

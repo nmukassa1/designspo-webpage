@@ -6,13 +6,16 @@ import {
   updateDescription,
   deleteScreenshot,
 } from "@/app/mutations";
+import { queryKeys } from "@/lib/query/keys";
 
 export const useDrawerMutations = () => {
   const { userId, accessToken } = useAuthContext();
   const queryClient = useQueryClient();
 
   const invalidate = () => {
-    queryClient.invalidateQueries({ queryKey: ["collections", userId] });
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.collections.byUser(userId),
+    });
   };
 
   const { mutate: addTag } = useMutation({

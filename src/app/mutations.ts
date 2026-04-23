@@ -8,38 +8,6 @@ import {
   patchRemoveTagFromCollection,
   patchScreenshotDescription,
 } from "@/lib/api/screenshots";
-import {
-  deleteTagByNameRequest,
-  postTag,
-} from "@/lib/api/tags";
-
-export async function deleteTagByName(
-  tagName: string,
-  userId: string,
-  accessToken: string
-) {
-  try {
-    const result = await deleteTagByNameRequest(tagName, userId, accessToken);
-    revalidatePath("/");
-    return result.status;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function addTag(
-  name: string,
-  userId: string,
-  accessToken: string
-) {
-  try {
-    const result = await postTag(name, userId, accessToken);
-    revalidatePath("/");
-    return result.status;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 export async function addTagToCollection(
   tagId: number,

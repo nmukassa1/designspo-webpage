@@ -7,6 +7,7 @@ import { CollectionsType } from "../types/types";
 import { useSearchParams } from "next/navigation";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useAuthContext } from "./AuthContext";
+import { queryKeys } from "@/lib/query/keys";
 
 const DashboardContext = createContext<{
   collections: CollectionsType | undefined;
@@ -48,7 +49,12 @@ export const DashboardProvider = ({
   const accessToken = authAccessToken ?? initialAccessToken;
 
   const { data, isFetching, isLoading } = useQuery<CollectionsType>({
-    queryKey: ["collections", userId, tagQuery, pageNumber, accessToken],
+    queryKey: queryKeys.collections.list(
+      userId,
+      tagQuery,
+      pageNumber,
+      accessToken,
+    ),
     queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken!),
     enabled: !!userId && !!accessToken,
 

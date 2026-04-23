@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAuthContext } from "@/app/context/AuthContext";
-import { deleteTagByName } from "@/app/mutations";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useDeleteTagByNameMutation } from "@/lib/query/tags";
 import { useRouter } from "next/navigation";
 import {
   Dialog,
@@ -17,9 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useDashboardContext } from "@/app/context/DashboardContext";
 
 function DeleteTag() {
-  const queryClient = useQueryClient();
   const router = useRouter();
-  const { userId, accessToken } = useAuthContext();
   const { tagQuery } = useDashboardContext();
 
   const [open, setOpen] = useState(false);
@@ -27,15 +23,8 @@ function DeleteTag() {
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
 
-  const { mutate } = useMutation({
-    mutationFn: (tagQuery: string) => {
-      if (!userId) throw new Error("User ID is required to delete a tag.");
-      return deleteTagByName(tagQuery, userId, accessToken || "");
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tags", userId] });
-      router.push("/dashboard");
-    },
+  const { mutate } = useDeleteTagByNameMutation(() => {
+    router.push("/dashboard");
   });
 
   const handleConfirmDelete = () => {

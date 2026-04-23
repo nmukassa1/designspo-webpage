@@ -5,6 +5,7 @@ import { ScreenshotTag } from "@/app/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check } from "lucide-react";
 import { useState } from "react";
+import { queryKeys } from "@/lib/query/keys";
 
 function AddNewTag({
   screenShotId,
@@ -35,7 +36,9 @@ function AddNewTag({
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["collections", userId] });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.collections.byUser(userId),
+      });
       setActiveTagId(null); // reset after success
     },
     onError: () => {
