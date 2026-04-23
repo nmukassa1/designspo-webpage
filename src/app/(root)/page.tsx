@@ -116,16 +116,47 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="relative mx-auto max-w-5xl"
           >
-            <div className="rounded-2xl border border-border  shadow-lg">
-              <Image
-                src="/dashboard-page.png"
-                alt="Dashboard Example"
-                className="rounded-xl w-full h-auto object-cover"
-                width={1200}
-                height={800}
-              />
-            </div>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+              className="relative z-10"
+            >
+              <div className="rounded-2xl border border-border bg-card p-2 shadow-lg">
+                <Image
+                  src="/dashboard-page.png"
+                  alt="Dashboard Example"
+                  className="h-auto w-full rounded-xl object-cover"
+                  width={1200}
+                  height={800}
+                />
+              </div>
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{
+                  duration: 5.5,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                  delay: 0.6,
+                }}
+                className="absolute -bottom-4 right-3 z-20 w-[30%] sm:-bottom-5 sm:right-4 sm:w-[24%] md:-bottom-18 md:right-14 md:w-[22%]"
+              >
+                <div className="rounded-2xl border border-border bg-card p-1.5 shadow-xl sm:p-2">
+                  <Image
+                    src="/extension.png"
+                    alt="Extension UI Example"
+                    className="h-auto w-full rounded-xl object-cover"
+                    width={750}
+                    height={900}
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -184,102 +215,6 @@ export default function Home() {
             </p>
           </motion.div>
           <FeatureCards />
-        </div>
-      </section>
-
-      <section className="px-4 py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="grid items-center gap-8 md:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="order-2 md:order-1"
-            >
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
-                Step 1
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-foreground md:text-2xl">
-                Your Dashboard: A Curated Gallery
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">
-                Access all your saved inspirations in one beautiful, organized
-                dashboard. Categorize, tag, and search through your collection
-                with ease, making it simple to find that perfect design when you
-                need it.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="order-1 md:order-2"
-            >
-              <div className="rounded-2xl border border-border bg-card p-4 shadow-lg">
-                <div className="grid grid-cols-3 gap-2">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div
-                      key={i}
-                      className="aspect-square rounded-lg"
-                      style={{
-                        background: `linear-gradient(135deg, 
-                          hsl(${15 + i * 20}, 65%, ${75 + (i % 2) * 8}%) 0%, 
-                          hsl(${35 + i * 20}, 55%, ${65 + (i % 2) * 8}%) 100%)`,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="mt-16 grid items-center gap-8 md:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="rounded-2xl border border-border bg-card p-4 shadow-lg">
-                <div className="mb-3 flex items-center gap-1.5">
-                  <div className="h-2 w-2 rounded-full bg-red-400" />
-                  <div className="h-2 w-2 rounded-full bg-yellow-400" />
-                  <div className="h-2 w-2 rounded-full bg-green-400" />
-                  <div className="mx-2 flex-1 rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                    example.com
-                  </div>
-                  <div className="flex h-6 w-6 items-center justify-center rounded bg-primary">
-                    <Sparkles className="h-3 w-3 text-primary-foreground" />
-                  </div>
-                </div>
-                <div
-                  className="aspect-video rounded-lg"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, hsl(200, 60%, 70%) 0%, hsl(220, 50%, 60%) 100%)",
-                  }}
-                />
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-accent/20 px-3 py-1 text-sm font-medium text-accent-foreground">
-                Step 2
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-foreground md:text-2xl">
-                Capture Instantly with Our Chrome Extension
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">
-                See something inspiring? Our intuitive Chrome extension lets you
-                capture a screenshot and the URL of any webpage with a single
-                click, directly adding it to your Designspo collection. No more
-                manual saving or copy-pasting.
-              </p>
-            </motion.div>
-          </div>
         </div>
       </section>
 
