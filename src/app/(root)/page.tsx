@@ -13,6 +13,7 @@ import { AnimatedDemo } from "@/components/animated-demo";
 import { FeatureCards } from "@/components/feature-cards";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -109,6 +110,26 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="rounded-2xl border border-border  shadow-lg">
+              <Image
+                src="/dashboard-page.png"
+                alt="Dashboard Example"
+                className="rounded-xl w-full h-auto object-cover"
+                width={1200}
+                height={800}
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <section className="px-4 py-16">
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
@@ -188,6 +209,7 @@ export default function Home() {
                 need it.
               </p>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
