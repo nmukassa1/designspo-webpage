@@ -1,0 +1,8 @@
+Purpose: Cross-domain infrastructure.
+
+Contains:
+- HTTP client setup shared by domain APIs.
+
+Rule:
+- Keep this minimal and dependency-light.
+

@@ -1,2 +1,3 @@
 // Backwards-compatible export while modules migrate to `src/domains`.
-export * from "@/domains/account/api";
+export * from "@/domains/tags/query";
+

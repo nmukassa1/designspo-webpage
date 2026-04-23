@@ -1,0 +1,7 @@
+Purpose: Profile/account page components.
+
+Contains:
+- Password update form.
+- Delete account flow.
+- Personal information modules.
+

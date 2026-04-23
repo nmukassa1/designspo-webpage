@@ -16,11 +16,11 @@ const features = [
     description: "Categorize inspiration with tags and custom groupings.",
     icon: Tags,
   },
-  {
-    title: "Quick Search",
-    description: "Find the exact inspiration you need in seconds.",
-    icon: Search,
-  },
+  // {
+  //   title: "Quick Search",
+  //   description: "Find the exact inspiration you need in seconds.",
+  //   icon: Search,
+  // },
 ];
 
 export function FeatureCards() {
@@ -29,16 +29,25 @@ export function FeatureCards() {
       {features.map((feature) => (
         <article
           key={feature.title}
-          className="rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+          className={`rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+            // If this is the last feature, and its index is odd (i.e., (features.length - 1) is odd and i === features.length - 1):
+            features.length % 2 !== 0 &&
+            features[features.length - 1].title === feature.title
+              ? "md:col-span-2"
+              : ""
+          }`}
         >
           <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary">
             <feature.icon className="h-5 w-5 text-foreground" />
           </div>
-          <h3 className="text-lg font-semibold text-foreground">{feature.title}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{feature.description}</p>
+          <h3 className="text-lg font-semibold text-foreground">
+            {feature.title}
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {feature.description}
+          </p>
         </article>
       ))}
     </div>
   );
 }
-

@@ -1,0 +1,6 @@
+Purpose: Homepage interaction components.
+
+Contains:
+- Hero support modules.
+- Auth-state UI and primary homepage action components.
+

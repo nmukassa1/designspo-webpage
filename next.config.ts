@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 
+const apiBaseName = (process.env.NEXT_PUBLIC_API_BASENAME ?? "")
+  .trim()
+  .replace(/\/$/, "");
+
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
@@ -12,6 +16,15 @@ const nextConfig: NextConfig = {
         search: '',
       },
     ],
+  },
+  async rewrites() {
+    if (!apiBaseName) return [];
+    return [
+      {
+        source: "/api/backend/:path*",
+        destination: `${apiBaseName}/:path*`,
+      },
+    ];
   },
 };
 

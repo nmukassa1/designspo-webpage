@@ -1,0 +1,8 @@
+Purpose: Dashboard feature components.
+
+Contains:
+- Collections listing and cards.
+- Tag navigation and filtering UI.
+- Edit modal and edit drawer interaction components.
+- Pagination and placeholder states.
+

@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 import { DashboardProvider } from "@/app/context/DashboardContext";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { TagProvider } from "@/app/context/TagContext";
-import Collections from "@/features/dashboard/Collections";
-import TagNavigationPanel from "@/features/dashboard/tag-navbar/TagNavigationPanel";
-import DeleteTag from "@/features/dashboard/tag-navbar/DeleteTag";
-import { EditDrawerProvider } from "@/features/dashboard/EditDrawer/EditDrawerContext";
+import Collections from "@/components/features/dashboard/Collections";
+import TagNavigationPanel from "@/components/features/dashboard/tag-navbar/TagNavigationPanel";
+import DeleteTag from "@/components/features/dashboard/tag-navbar/DeleteTag";
+import { EditDrawerProvider } from "@/components/features/dashboard/EditDrawer/EditDrawerContext";
 
 const EditDrawer = dynamic(
-  () => import("@/features/dashboard/EditDrawer/EditDrawer"),
+  () => import("@/components/features/dashboard/EditDrawer/EditDrawer"),
   { ssr: false }
 );
 

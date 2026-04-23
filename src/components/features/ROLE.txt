@@ -1,0 +1,8 @@
+Purpose: Feature-level UI modules used by app routes.
+
+Structure:
+- `dashboard/`: dashboard browsing and editing interfaces.
+- `landing/`: landing page sections and CTA modules.
+- `homePage/`: homepage-specific interaction modules.
+- `profilePage/`: profile/account management components.
+

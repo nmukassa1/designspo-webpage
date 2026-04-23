@@ -1,7 +1,2 @@
-import axios from "axios";
-
-const baseURL = (process.env.NEXT_PUBLIC_API_BASENAME ?? "").trim();
-
-export const api = axios.create({
-  baseURL: baseURL || undefined,
-});
+// Backwards-compatible export while modules migrate to `src/domains`.
+export { api } from "@/domains/shared/http-client";

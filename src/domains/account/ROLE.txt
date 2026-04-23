@@ -1,0 +1,9 @@
+Purpose: Account domain ownership.
+
+Contains:
+- `api.ts`: account-related backend requests.
+- `server-actions.ts`: server-only account actions (password/account deletion).
+
+Consumers:
+- Profile account management UI.
+
