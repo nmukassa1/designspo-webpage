@@ -12,7 +12,7 @@ import { queryKeys } from "@/domains/query-keys";
 
 function TagListItems() {
   const queryClient = useQueryClient();
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
 
   const [, setHoveredTag] = useState<number | null>(null);
   const { tags } = useTagContext();
@@ -23,7 +23,7 @@ function TagListItems() {
   const prefetchTag = (tagName: string) => {
     queryClient.prefetchQuery({
       queryKey: queryKeys.collections.list(userId, tagName, 1),
-      queryFn: () => getCollections(userId, tagName, 1, accessToken),
+      queryFn: () => getCollections(userId, tagName, 1),
       staleTime: 1000 * 60 * 5,
     });
   };
@@ -31,7 +31,7 @@ function TagListItems() {
   const prefetchAll = () => {
     queryClient.prefetchQuery({
       queryKey: queryKeys.collections.list(userId, "", 1),
-      queryFn: () => getCollections(userId, "", 1, accessToken!),
+      queryFn: () => getCollections(userId, "", 1),
       staleTime: 1000 * 60 * 5,
     });
   };

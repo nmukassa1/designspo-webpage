@@ -22,8 +22,6 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "gsap": "^3.13.0",
-    "input-otp": "^1.4.2",
-    "js-cookie": "^3.0.5",
     "lucide": "^0.482.0",
     "lucide-react": "^0.482.0",
     "next": "^16.1.6",
@@ -34,7 +32,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

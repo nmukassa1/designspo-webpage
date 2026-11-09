@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/app/supabase/supabaseServer";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -21,5 +22,5 @@ export async function login(formData: FormData) {
 
   // Session is persisted via @supabase/ssr cookie handlers on createServerClient
   revalidatePath("/", "layout");
-  redirect("/dashboard");
+  redirect(safeRedirectPath(formData.get("next") as string | null));
 }

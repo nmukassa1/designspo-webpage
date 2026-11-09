@@ -17,12 +17,12 @@ type TagMutationInput = {
 
 export function useAddTagToCollectionMutation() {
   const queryClient = useQueryClient();
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
 
   return useMutation({
     mutationFn: async ({ tagId, screenshotId }: TagMutationInput) => {
       if (!userId) throw new Error("User ID is required to add a tag.");
-      return patchAddTagToCollection(tagId, screenshotId, userId, accessToken || "");
+      return patchAddTagToCollection(tagId, screenshotId, userId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -34,17 +34,12 @@ export function useAddTagToCollectionMutation() {
 
 export function useRemoveTagFromCollectionMutation() {
   const queryClient = useQueryClient();
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
 
   return useMutation({
     mutationFn: async ({ tagId, screenshotId }: TagMutationInput) => {
       if (!userId) throw new Error("User ID is required to remove a tag.");
-      return patchRemoveTagFromCollection(
-        tagId,
-        screenshotId,
-        userId,
-        accessToken || "",
-      );
+      return patchRemoveTagFromCollection(tagId, screenshotId, userId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -56,12 +51,12 @@ export function useRemoveTagFromCollectionMutation() {
 
 export function useDeleteScreenshotMutation() {
   const queryClient = useQueryClient();
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
 
   return useMutation({
     mutationFn: async (screenshotId: number) => {
       if (!userId) throw new Error("User ID is required to delete a screenshot.");
-      return deleteScreenshotRequest(screenshotId, userId, accessToken || "");
+      return deleteScreenshotRequest(screenshotId, userId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -73,12 +68,12 @@ export function useDeleteScreenshotMutation() {
 
 export function useUpdateDescriptionMutation() {
   const queryClient = useQueryClient();
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
 
   return useMutation({
     mutationFn: async ({ id, description }: { id: number; description: string }) => {
       if (!userId) throw new Error("User ID is required to update description.");
-      return patchScreenshotDescription(id, description, userId, accessToken || "");
+      return patchScreenshotDescription(id, description, userId);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

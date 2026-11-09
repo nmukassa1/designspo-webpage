@@ -18,15 +18,24 @@ export const updatePassword = async (password: string): Promise<string | any> =>
   }
 };
 
-export const deleteAccount = async (
-  userId: string,
-  accessToken: string,
-): Promise<string | any> => {
+/** Deletes the signed-in user's account. Identity comes from the session cookie, never the caller. */
+export const deleteAccount = async (): Promise<string> => {
   try {
     const supabase = await createClient();
 
-    await deleteAccountRequest(userId, accessToken);
-    await supabase.auth.signOut();
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+    if (userError || !user) throw new Error("Not signed in");
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (!session) throw new Error("Not signed in");
+
+    await deleteAccountRequest(user.id, session.access_token);
+    await supabase.auth.signOut({ scope: "local" });
 
     revalidatePath("/");
     return "Account deleted successfully";
