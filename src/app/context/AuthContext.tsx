@@ -1,30 +1,24 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "../supabase/supabaseClient";
 
+/** Access tokens are attached by the shared HTTP client, so only the user ID lives here. */
 const AuthContext = createContext({
   userId: "" as string | null,
-  accessToken: "" as string | null,
 });
 
 export const AuthProvider = ({
   children,
   initialUserId = null,
-  initialAccessToken = null,
 }: {
   children: React.ReactNode;
   initialUserId?: string | null;
-  initialAccessToken?: string | null;
 }) => {
   const [userId, setUserId] = useState<string | null>(initialUserId);
-  const [accessToken, setAccessToken] = useState<string | null>(
-    initialAccessToken,
-  );
 
   // Keep client state aligned with SSR props when navigating between routes.
   useEffect(() => {
     setUserId(initialUserId ?? null);
-    setAccessToken(initialAccessToken ?? null);
-  }, [initialUserId, initialAccessToken]);
+  }, [initialUserId]);
 
   useEffect(() => {
     const supabase = createClient();
@@ -32,20 +26,12 @@ export const AuthProvider = ({
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUserId(session?.user?.id ?? null);
-      setAccessToken(session?.access_token ?? null);
     });
     return () => subscription.unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        userId,
-        accessToken,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ userId }}>{children}</AuthContext.Provider>
   );
 };
 export const useAuthContext = () => {

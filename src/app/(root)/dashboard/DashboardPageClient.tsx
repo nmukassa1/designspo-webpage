@@ -16,30 +16,21 @@ const EditDrawer = dynamic(
 
 export default function DashboardPageClient({
   initialUserId,
-  initialAccessToken,
   initialTag,
   initialPage,
 }: {
   initialUserId: string | null;
-  initialAccessToken: string | null;
   initialTag: string;
   initialPage: number;
 }) {
   return (
-    <AuthProvider
-      initialUserId={initialUserId}
-      initialAccessToken={initialAccessToken}
-    >
+    <AuthProvider initialUserId={initialUserId}>
       <DashboardProvider
         initialUserId={initialUserId}
-        initialAccessToken={initialAccessToken}
         initialTag={initialTag}
         initialPage={initialPage}
       >
-        <TagProvider
-          initialUserId={initialUserId}
-          initialAccessToken={initialAccessToken}
-        >
+        <TagProvider initialUserId={initialUserId}>
           <EditDrawerProvider>
             <div id="dashboard" className="pb-8">
               <div className="mx-auto h-full max-w-7xl px-4 py-6 md:px-6">

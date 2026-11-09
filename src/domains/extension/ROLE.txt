@@ -1,0 +1,8 @@
+Purpose: Chrome extension sign-in (single sign-on from the web app).
+
+Contains:
+- `api.ts`: requests a one-time token hash from the backend for the signed-in user.
+- `bridge.ts`: sends messages to the extension (`NEXT_PUBLIC_EXTENSION_ID`) via `chrome.runtime.sendMessage`.
+
+Consumers:
+- `/extension/connect` page.

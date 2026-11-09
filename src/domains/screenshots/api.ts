@@ -9,16 +9,11 @@ export async function getCollections(
   userId: string | null,
   tags: string[] | string | null,
   page: number | undefined,
-  accessToken: string | null,
 ): Promise<CollectionsType> {
   try {
     const tagQuery = formatTagsQuery(tags);
     const query = `page=${page}&${tagQuery}`;
-    const response = await api.get(`/screenshots/${userId}?${query}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await api.get(`/screenshots/${userId}?${query}`);
     return response.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -38,44 +33,26 @@ export async function patchAddTagToCollection(
   tagId: number,
   screenshotId: number,
   userId: string,
-  accessToken: string,
 ) {
-  return api.patch(
-    `/screenshots/addTag`,
-    { tagId, screenshotId, userId },
-    { headers: { Authorization: `Bearer ${accessToken}` } },
-  );
+  return api.patch(`/screenshots/addTag`, { tagId, screenshotId, userId });
 }
 
 export async function patchRemoveTagFromCollection(
   tagId: number,
   screenshotId: number | undefined,
   userId: string,
-  accessToken: string,
 ) {
-  return api.patch(
-    `/screenshots/removeTag`,
-    { tagId, screenshotId, userId },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
-  );
+  return api.patch(`/screenshots/removeTag`, { tagId, screenshotId, userId });
 }
 
 export async function deleteScreenshotRequest(
   screenshotId: number | undefined,
   userId: string,
-  accessToken: string,
 ) {
   return api.delete(`/screenshots/`, {
     data: {
       screenshotId,
       userId,
-    },
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
     },
   });
 }
@@ -84,21 +61,11 @@ export async function patchScreenshotDescription(
   screenShotId: number,
   description: string,
   userId: string,
-  accessToken: string,
 ): Promise<UpdateDescriptionResponse> {
-  const res = await api.patch(
-    "/screenshots/update-description",
-    {
-      id: screenShotId,
-      description: description.trim(),
-      userId,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
-  );
+  const res = await api.patch("/screenshots/update-description", {
+    id: screenShotId,
+    description: description.trim(),
+    userId,
+  });
   return res.data;
 }
-

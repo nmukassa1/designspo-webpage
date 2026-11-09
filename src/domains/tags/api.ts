@@ -2,16 +2,9 @@ import axios from "axios";
 import type { Tag } from "@/app/types/types";
 import { api } from "@/domains/shared/http-client";
 
-export async function getTags(
-  userId: string | null,
-  accessToken: string | null,
-): Promise<Tag[]> {
+export async function getTags(userId: string | null): Promise<Tag[]> {
   try {
-    const response = await api.get("/tags/" + userId, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await api.get("/tags/" + userId);
     return response.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -27,26 +20,12 @@ export async function getTags(
   }
 }
 
-export async function deleteTagByNameRequest(
-  tagName: string,
-  userId: string,
-  accessToken: string,
-) {
+export async function deleteTagByNameRequest(tagName: string, userId: string) {
   return api.delete(`/tags/delete/`, {
     data: { tagName, userId },
-    headers: { Authorization: `Bearer ${accessToken}` },
   });
 }
 
-export async function postTag(name: string, userId: string, accessToken: string) {
-  return api.post(
-    `/tags/`,
-    { name, userId },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    },
-  );
+export async function postTag(name: string, userId: string) {
+  return api.post(`/tags/`, { name, userId });
 }
-

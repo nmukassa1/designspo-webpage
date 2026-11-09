@@ -15,13 +15,11 @@ const TagContext = createContext<{
 export const TagProvider = ({
   children,
   initialUserId,
-  initialAccessToken,
 }: {
   children: React.ReactNode;
   initialUserId: string | null;
-  initialAccessToken: string | null;
 }) => {
-  const { data, isFetching } = useTagsQuery(initialUserId, initialAccessToken);
+  const { data, isFetching } = useTagsQuery(initialUserId);
 
   return (
     <TagContext.Provider

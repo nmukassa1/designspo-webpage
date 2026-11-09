@@ -21,20 +21,9 @@ export default async function DashboardPage({
     redirect("/login");
   }
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const accessToken = session?.access_token ?? null;
-  if (!accessToken) {
-    redirect("/login");
-  }
-
-  const userId = user.id;
-
   return (
     <DashboardPageClient
-      initialUserId={userId}
-      initialAccessToken={accessToken}
+      initialUserId={user.id}
       initialTag={tag}
       initialPage={page}
     />

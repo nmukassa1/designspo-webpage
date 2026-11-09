@@ -6,8 +6,14 @@ import { useState } from "react";
 import Spinner from "@/components/Spinner";
 import { Eye } from "lucide-react";
 
-function LoginForm() {
-  const [error, setError] = useState<string | null>(null);
+function LoginForm({
+  next,
+  initialError = null,
+}: {
+  next?: string;
+  initialError?: string | null;
+}) {
+  const [error, setError] = useState<string | null>(initialError);
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -29,6 +35,7 @@ function LoginForm() {
       className="mx-auto mt-10 flex w-full max-w-xl flex-col gap-5 rounded-2xl border border-border bg-card p-6 md:p-8"
     >
       <h2 className="text-center text-3xl font-semibold text-balance">Login</h2>
+      {next && <input type="hidden" name="next" value={next} />}
 
       <div>
         <label className="mb-2 block text-sm font-medium text-foreground">

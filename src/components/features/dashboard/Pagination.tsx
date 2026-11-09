@@ -12,7 +12,7 @@ import { queryKeys } from "@/domains/query-keys";
 
 function Pagination() {
   const queryClient = useQueryClient();
-  const { userId, accessToken } = useAuthContext();
+  const { userId } = useAuthContext();
 
   const { pageNumber = 1, collections } = useDashboardContext();
   const totalPages = collections?.totalPages || 1;
@@ -27,7 +27,7 @@ function Pagination() {
   const prefetchPage = (page: number) => {
     queryClient.prefetchQuery({
       queryKey: queryKeys.collections.list(userId, tagQuery, page),
-      queryFn: () => getCollections(userId, tagQuery, page, accessToken!),
+      queryFn: () => getCollections(userId, tagQuery, page),
       staleTime: 1000 * 60 * 5,
     });
   };

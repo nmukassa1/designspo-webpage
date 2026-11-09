@@ -9,5 +9,6 @@ Current domains:
 - `tags`
 - `screenshots`
 - `account`
+- `extension`
 - `shared` (cross-domain infra)
 

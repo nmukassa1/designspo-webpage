@@ -26,13 +26,11 @@ const DashboardContext = createContext<{
 export const DashboardProvider = ({
   children,
   initialUserId,
-  initialAccessToken,
   initialTag = "",
   initialPage = 1,
 }: {
   children: React.ReactNode;
   initialUserId: string | null;
-  initialAccessToken: string | null;
   initialTag?: string;
   initialPage?: number;
 }) => {
@@ -43,20 +41,14 @@ export const DashboardProvider = ({
     ? Math.max(1, Number(searchParams.get("page")))
     : initialPage;
 
-  const { userId: authUserId, accessToken: authAccessToken } = useAuthContext();
-  // Prefer live client session (token refresh); fall back to SSR for first paint.
+  const { userId: authUserId } = useAuthContext();
+  // Prefer live client session; fall back to SSR for first paint.
   const userId = authUserId ?? initialUserId;
-  const accessToken = authAccessToken ?? initialAccessToken;
 
   const { data, isFetching, isLoading } = useQuery<CollectionsType>({
-    queryKey: queryKeys.collections.list(
-      userId,
-      tagQuery,
-      pageNumber,
-      accessToken,
-    ),
-    queryFn: () => getCollections(userId, tagQuery, pageNumber, accessToken!),
-    enabled: !!userId && !!accessToken,
+    queryKey: queryKeys.collections.list(userId, tagQuery, pageNumber),
+    queryFn: () => getCollections(userId, tagQuery, pageNumber),
+    enabled: !!userId,
 
     // 🔥 Makes pagination & tag switching instant
     placeholderData: keepPreviousData,

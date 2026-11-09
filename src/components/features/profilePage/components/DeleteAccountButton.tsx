@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { useAuthContext } from "@/app/context/AuthContext";
 import {
   Dialog,
   DialogContent,
@@ -16,18 +15,11 @@ import { Button } from "@/components/ui/button";
 import { deleteAccount } from "@/domains/account/server-actions";
 
 function DeleteAccountButton() {
-  const { userId, accessToken } = useAuthContext();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const { mutate } = useMutation({
-    mutationFn: () => {
-      if (!userId) {
-        console.error("User ID is required to delete account.");
-        throw new Error("User ID is required to delete account.");
-      }
-      return deleteAccount(userId, accessToken || "");
-    },
+    mutationFn: () => deleteAccount(),
     onSuccess: () => {
       console.log("Account deleted successfully");
       alert("Your account has been deleted successfully.");
