@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   title: "Organize & Save Design Ideas | Designspo",
   description:
     "Save and organize web design inspiration effortlessly with Designspo’s Chrome extension and visual dashboard. Perfect for UI/UX designers.",
+  icons: {
+    icon: "/brand-logo.png",
+    apple: "/brand-logo.png",
+  },
 };
 
 export default function RootLayout({
